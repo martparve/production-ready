@@ -20,7 +20,7 @@ After that came startups. I worked as a product manager and CPO at several compa
 
 I have always been the kind of business person who spends more time with engineers and users than with other business people. I like their logical, occasionally blunt, get-things-done worldview. I enjoy helping them unlock their potential by helping them clarify and articulate their vision and plans, and making certain that their work results in real value.
 
-In early 2025, I watched a CEO I advise rebuild his SaaS product using Claude Code. He is a deeply technical person but not a software engineer. He learned disciplined specification-driven development in a couple of weeks, then built a new version of his product that already had several features the old one was missing - features that gave the product a serious competitive advantage in its market.
+In early 2026, I watched a CEO I advise rebuild his SaaS product using Claude Code. He is a deeply technical person but not a software engineer. He learned disciplined specification-driven development in a couple of weeks, then built a new version of his product that already had several features the old one was missing - features that gave the product a serious competitive advantage in its market.
 
 Two takeaways. First: the velocity. Not just faster coding, but a compression of the entire path from intent to deployed product. Second: experience and domain knowledge trumped technical skills. There is almost no correlation between technical skill level and AI agent adoption success. Everyone I have seen achieve great results with agents fast is a conceptual thinker - someone who can decompose a problem, specify what they want, and evaluate the output critically. Metacognition, not syntax.
 
