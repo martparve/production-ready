@@ -17,6 +17,8 @@
 
 ---
 
+**[Download EPUB](production-ready.epub)** for Kindle and other e-readers.
+
 ## Reading
 
 Start with the [Introduction](chapters/00-introduction.md), then follow the chapter order.
