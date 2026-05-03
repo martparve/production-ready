@@ -8,9 +8,10 @@
 chapters/              Markdown source (00-introduction through 22-bibliography)
 cover.png              Book cover (1600x2560 PNG)
 production-ready.epub  Built EPUB for Kindle/e-readers (committed artifact)
-metadata.yaml          Pandoc metadata (title, author, license)
-epub.css               Kindle/e-ink optimized stylesheet
-build_epub.py          EPUB build + citation post-processing script
+tools/
+  build_epub.py        EPUB build + citation post-processing script
+  metadata.yaml        Pandoc metadata (title, author, license)
+  epub.css             Kindle/e-ink optimized stylesheet
 ```
 
 ## Writing Style
@@ -51,7 +52,7 @@ All sources live in `chapters/22-bibliography.md`. Chapters reference them with 
 Requires `pandoc` and Python 3.
 
 ```bash
-python3 build_epub.py
+python3 tools/build_epub.py
 ```
 
 Run from the project root. After any content change, rebuild the EPUB before committing.

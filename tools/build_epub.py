@@ -11,7 +11,8 @@ import subprocess
 import sys
 from pathlib import Path
 
-ROOT = Path("/Users/martparve/Library/Mobile Documents/com~apple~CloudDocs/SDD/production-ready")
+TOOLS = Path(__file__).resolve().parent
+ROOT = TOOLS.parent
 EPUB_PATH = ROOT / "production-ready.epub"
 TMP_EPUB = ROOT / "production-ready.tmp.epub"
 
@@ -31,9 +32,9 @@ def build_raw_epub():
     chapters = sorted(ROOT.glob("chapters/[0-2][0-9]-*.md"))
     cmd = [
         "pandoc",
-        "--metadata-file=metadata.yaml",
+        f"--metadata-file={TOOLS / 'metadata.yaml'}",
         "--epub-cover-image=cover.png",
-        "--css=epub.css",
+        f"--css={TOOLS / 'epub.css'}",
         "--toc",
         "--toc-depth=2",
         "--split-level=1",
