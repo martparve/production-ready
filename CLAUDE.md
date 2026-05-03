@@ -44,7 +44,7 @@ All sources live in `chapters/22-bibliography.md`. Chapters reference them with 
 
 1. Add the entry to `chapters/22-bibliography.md` under the appropriate section (podcast or other)
 2. Use a key that matches the existing patterns
-3. If the key doesn't match the regex in `build_epub.py`, add it to the `CITE_KEY` pattern
+3. If the key doesn't match the regex in the build script, add it to the `CITE_KEY` pattern
 
 ## Building the EPUB
 
@@ -54,22 +54,42 @@ Requires `pandoc` and Python 3.
 python3 build_epub.py
 ```
 
-The build script:
-1. Runs pandoc with metadata, cover, CSS, and all chapters in order
-2. Post-processes the EPUB: citation keys become superscript hyperlinks to anchored bibliography entries
-3. Bibliography entries get `id` anchors but are NOT superscripted
+Run from the project root. After any content change, rebuild the EPUB before committing.
+
+### What the Build Does
+
+1. Runs pandoc with `metadata.yaml`, `cover.png`, `epub.css`, and all `chapters/*.md` files in order
+2. Post-processes the EPUB:
+   - **Chapter citations:** `[ANDev-052]` becomes `<sup><a href="bibliography.xhtml#ANDev-052">[ANDev-052]</a></sup>` - superscript, clickable, linked to bibliography
+   - **Bibliography entries:** `**[ANDev-052]**` gets an `id` anchor for linking, stays bold (not superscript)
+3. Outputs `production-ready.epub`
 
 ### EPUB Styling Conventions
 
-- Serif body font (Georgia), 1.5 line-height, justified text
-- Monospace code at 0.8em with word-wrap, 1px border, no background colors (e-ink)
-- Citations render as `<sup>` at 0.7em, linked to bibliography, no underline
-- Blockquotes have left border, `page-break-inside: avoid`
-- No background colors anywhere (e-ink optimization)
+Maintain these when modifying `epub.css`:
+
+- Serif body font (Georgia), 1.5 line-height, justified text, no indent
+- Monospace code at 0.8em with `pre-wrap` word breaking, 1px border, no background colors
+- Citations render as `<sup>` at 0.7em, links inherit text color, no underline
+- Blockquotes: left border (3px #666), 0.95em, left-aligned, `page-break-inside: avoid`
+- Tables: collapsed borders, 0.85em, `page-break-inside: avoid`
+- H1: `page-break-before: always`, 1.6em
+- **No background colors anywhere** (e-ink optimization)
+
+### Citation Key Regex
+
+The build script recognizes these patterns in `CITE_KEY`:
+
+- `ANDev-\d{3}` - podcast episodes
+- `[A-Z][A-Za-z]+-[A-Za-z0-9-]+` - multi-word keys (e.g. `Stripe-Minions-1`)
+- `[A-Z][a-z]+[-]\d+` - author-year (e.g. `Corso-2025`)
+- Single-word names: `BMAD`, `Goose`, `Kiro`, `Devin`, `Cursor`, `Aider`, `Factory`, `Graphite`, `CodeRabbit`, `Qodo`, `Nix`, `Flox`, `Dash0`, `Tessl`, `SpecKit`, `BacklogMD`, `TerminalBench`, `Guardrails`, `WebMCP`, `AAIF`, `ACP`, `TBD`
+
+When adding a source with a key that doesn't match, update the regex.
 
 ## Contributing
 
 - Edit markdown files in `chapters/`. Do not hand-edit the EPUB.
-- After changes, rebuild the EPUB with `python3 build_epub.py` and commit both the markdown changes and the rebuilt EPUB.
+- After changes, rebuild the EPUB and commit both the markdown changes and the rebuilt EPUB.
 - Chapter files are numbered `NN-slug.md`. The bibliography is always the last chapter (`22-bibliography.md`).
 - Follow the citation and writing conventions above. New content should match the existing tone and structure.
