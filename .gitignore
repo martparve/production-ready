@@ -1,0 +1,6 @@
+*.epub
+*.css
+*.yaml
+*.py
+cover.png
+.DS_Store
