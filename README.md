@@ -1,10 +1,21 @@
-# Production Ready
+<p align="center">
+  <img src="cover.png" alt="Production Ready - Building and Operating an AI Code Factory" width="400" />
+</p>
 
-**Building and Operating an AI Code Factory**
+<h1 align="center">Production Ready</h1>
 
-By Mart Parve
+<p align="center">
+  <strong>Building and Operating an AI Code Factory</strong><br>
+  By Mart Parve
+</p>
 
-A systems engineering guide for technical leaders adopting AI-native software development. Covers the full pipeline from business intent to deployed code: specification, agent orchestration, validation, code review, deployment, and the organizational rollout to get there.
+<p align="center">
+  A systems engineering guide for technical leaders adopting AI-native software development.<br>
+  Covers the full pipeline from business intent to deployed code: specification, agent orchestration,<br>
+  validation, code review, deployment, and the organizational rollout to get there.
+</p>
+
+---
 
 ## Reading
 
