@@ -57,6 +57,4 @@ Start with the [Introduction](chapters/00-introduction.md), then follow the chap
 
 ## License
 
-This work is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
-
-You are free to share, adapt, and build upon this material for non-commercial purposes, as long as you give credit and distribute your contributions under the same license. See [LICENSE](LICENSE) for details.
+[MIT](LICENSE)
