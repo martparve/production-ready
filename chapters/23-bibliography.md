@@ -60,7 +60,11 @@ AI Native Dev Podcast by Tessl, hosted by Guy Podjarny and Simon Maple. [https:/
 
 **[ANDev-038]** University of Zurich context degradation study, discussed in "How Too Much Information Destroys Agent Performance," AI Native Dev Podcast, Ep 038. [https://tessl.io/podcast/](https://tessl.io/podcast/)
 
+**[ANDev-040]** Guy Podjarny and Simon Maple, "The End of Fragmented Agent Context," AI Native Dev Podcast, Ep 040. Skills standard convergence, registry-based distribution, quantified skill impact measurement. [https://tessl.io/podcast/](https://tessl.io/podcast/)
+
 **[ANDev-041]** Mirko Novakovic, "From IBM Acquisition to AI-Native Observability," AI Native Dev Podcast, Ep 041. [https://tessl.io/podcast/](https://tessl.io/podcast/)
+
+**[ANDev-042]** Guy Podjarny and Simon Maple, "Why Context Beats Every Prompt You'll Ever Write," AI Native Dev Podcast, Ep 042. Context development lifecycle, evaluation-first approach, LLM re-implementation bias. [https://tessl.io/podcast/](https://tessl.io/podcast/)
 
 **[ANDev-044]** Richmond Alake, "Why Your Agent Needs Memory Not Just Context," AI Native Dev Podcast, Ep 044. [https://tessl.io/podcast/](https://tessl.io/podcast/)
 
@@ -107,6 +111,8 @@ AI Native Dev Podcast by Tessl, hosted by Guy Podjarny and Simon Maple. [https:/
 **[Anthropic-context]** Anthropic, "Effective Context Engineering for AI Agents," Sept 2025. [https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
 
 **[Anthropic-skills]** Anthropic Research, "How AI Assistance Impacts Formation of Coding Skills," 2025. [https://www.anthropic.com/research/AI-assistance-coding-skills](https://www.anthropic.com/research/AI-assistance-coding-skills)
+
+**[Augment-AgentsMD]** Augment Code, "A Good AGENTS.md Is a Model Upgrade. A Bad One Is Worse Than No Docs at All," 2026. LLM-generated context hurts in 5/8 settings; 80K token overload dropped completeness 25%. [https://www.augmentcode.com/blog/how-to-write-good-agents-dot-md-files](https://www.augmentcode.com/blog/how-to-write-good-agents-dot-md-files)
 
 **[Augment-EU]** Augment Code, "EU AI Act and AI-Generated Code: What Changes for Dev Teams," 2026. [https://www.augmentcode.com/guides/eu-ai-act-2026](https://www.augmentcode.com/guides/eu-ai-act-2026)
 
@@ -223,6 +229,8 @@ AI Native Dev Podcast by Tessl, hosted by Guy Podjarny and Simon Maple. [https:/
 
 **[Jia-mutation]** Jia and Harman, "An Analysis and Survey of the Development of Mutation Testing," IEEE Transactions on Software Engineering, 2011. [https://ieeexplore.ieee.org/document/5487526/](https://ieeexplore.ieee.org/document/5487526/)
 
+**[Jiang-2512]** Jiang et al., "Beyond the Prompt: An Empirical Study of Cursor Rules," arXiv:2512.18925, 2025. Analysis of 401 repositories: 28.7% duplicate content, 5.68 commits average lifetime. [https://arxiv.org/abs/2512.18925](https://arxiv.org/abs/2512.18925)
+
 **[Jimenez-2310]** Jimenez et al., "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?," ICLR 2024. [https://arxiv.org/abs/2310.06770](https://arxiv.org/abs/2310.06770)
 
 **[Jones-defects]** Capers Jones, "Software Defect Removal Efficiency," Capers Jones & Associates, 2021. Analysis of 12,000+ software projects. [https://www.ppi-int.com/wp-content/uploads/2021/01/Software-Defect-Removal-Efficiency.pdf](https://www.ppi-int.com/wp-content/uploads/2021/01/Software-Defect-Removal-Efficiency.pdf)
@@ -323,6 +331,8 @@ AI Native Dev Podcast by Tessl, hosted by Guy Podjarny and Simon Maple. [https:/
 **[Simon]** Simon Maple is co-host of the AI Native Dev Podcast by Tessl. [https://tessl.io/podcast/](https://tessl.io/podcast/)
 
 **[Snyk-2024]** Snyk, "AI Code Security Report: Secure Adoption in the GenAI Era," 2024. [https://snyk.io/reports/secure-adoption-in-the-genai-era/](https://snyk.io/reports/secure-adoption-in-the-genai-era/)
+
+**[Stanford-GenAgents]** Park et al., "Generative Agents: Interactive Simulacra of Human Behavior," Stanford/Google, 2023. Weighted memory decay mechanisms for agent systems. [https://arxiv.org/abs/2304.03442](https://arxiv.org/abs/2304.03442)
 
 **[SpecKit]** GitHub SpecKit - specification generation tooling. [https://github.com/github/spec-kit](https://github.com/github/spec-kit)
 
