@@ -84,7 +84,7 @@ The build script recognizes these patterns in `CITE_KEY`:
 - `ANDev-\d{3}` - podcast episodes
 - `[A-Z][A-Za-z]+-[A-Za-z0-9-]+` - multi-word keys (e.g. `Stripe-Minions-1`)
 - `[A-Z][a-z]+[-]\d+` - author-year (e.g. `Corso-2025`)
-- Single-word names: `BMAD`, `Goose`, `Kiro`, `Devin`, `Cursor`, `Aider`, `Factory`, `Graphite`, `CodeRabbit`, `Qodo`, `Nix`, `Flox`, `Dash0`, `Tessl`, `SpecKit`, `BacklogMD`, `TerminalBench`, `Guardrails`, `WebMCP`, `AAIF`, `ACP`, `TBD`
+- Single-word names: `BMAD`, `Goose`, `Kiro`, `Devin`, `Cursor`, `Aider`, `Factory`, `Graphite`, `CodeRabbit`, `Qodo`, `Nix`, `Flox`, `Dash0`, `Tessl`, `SpecKit`, `BacklogMD`, `TerminalBench`, `Guardrails`, `WebMCP`, `AAIF`, `ACP`, `TBD`, `promptfoo`
 
 When adding a source with a key that doesn't match, update the regex.
 
@@ -92,5 +92,5 @@ When adding a source with a key that doesn't match, update the regex.
 
 - Edit markdown files in `chapters/`. Do not hand-edit the EPUB.
 - After changes, rebuild the EPUB and commit both the markdown changes and the rebuilt EPUB.
-- Chapter files are numbered `NN-slug.md`. The bibliography is always the last chapter (`22-bibliography.md`).
+- Chapter files are numbered `NN-slug.md`. The bibliography is always the last chapter (`23-bibliography.md`).
 - Follow the citation and writing conventions above. New content should match the existing tone and structure.

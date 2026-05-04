@@ -1,4 +1,4 @@
-# Chapter 20: The Rollout Roadmap: From First Agent to Full Factory
+# Chapter 21: The Rollout Roadmap: From First Agent to Full Factory
 
 You have the blueprint. Eighteen chapters of architecture, validation, context engineering, security, governance, and cost management. You know what the factory looks like when it runs.
 
@@ -195,7 +195,7 @@ With the spec pipeline producing consistent output, you can now invest in catchi
 
 **AI-assisted code review.** An AI reviewer that checks for spec compliance, identifies potential issues, and flags patterns that deviate from conventions. This is not a replacement for human review - it is triage. The AI reviewer handles the mechanical checks (naming conventions, error handling patterns, test coverage gaps) so the human reviewer can focus on design decisions and architectural judgment.
 
-**Org-wide quality governance.** The governance model from Chapter 18: org-level gates that no team can override, team-level gates that extend the org floor, and a clear inheritance hierarchy. This is when governance transitions from "each team does its own thing" to "the organization has consistent quality floors."
+**Org-wide quality governance.** The governance model from Chapter 19: org-level gates that no team can override, team-level gates that extend the org floor, and a clear inheritance hierarchy. This is when governance transitions from "each team does its own thing" to "the organization has consistent quality floors."
 
 **MCP integrations.** Connect the factory to your external systems - issue trackers, documentation, monitoring, deployment pipelines. Each MCP server extends the agent's ability to gather context and take action without human intervention. Start with read-only integrations (pull context from Jira, read monitoring data) before adding write capabilities (create PRs, deploy to staging).
 

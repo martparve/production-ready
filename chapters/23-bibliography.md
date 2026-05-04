@@ -90,6 +90,8 @@ AI Native Dev Podcast by Tessl, hosted by Guy Podjarny and Simon Maple. [https:/
 
 **[Agache-FC]** Agache et al., "Firecracker: Lightweight Virtualization for Serverless Applications," USENIX NSDI, 2020. [https://www.usenix.org/conference/nsdi20/presentation/agache](https://www.usenix.org/conference/nsdi20/presentation/agache)
 
+**[Arize-Phoenix]** Arize Phoenix, open source LLM evaluation and observability platform built on OpenTelemetry. [https://phoenix.arize.com](https://phoenix.arize.com)
+
 **[Agentix-95pct]** The 95% failure rate for agentic projects was cited via the Agentix Foundation's analysis on the AI Native Dev Podcast, Ep 035, referencing MIT research.
 
 **[Aider]** Aider - terminal-based, git-native AI coding assistant. [https://aider.chat](https://aider.chat)
@@ -99,6 +101,8 @@ AI Native Dev Podcast by Tessl, hosted by Guy Podjarny and Simon Maple. [https:/
 **[Anthropic-MCP]** Anthropic, "Donating the Model Context Protocol and Establishing of the Agentic AI Foundation," 2025. [https://www.anthropic.com/news/donating-the-model-context-protocol-and-establishing-of-the-agentic-ai-foundation](https://www.anthropic.com/news/donating-the-model-context-protocol-and-establishing-of-the-agentic-ai-foundation)
 
 **[Anthropic-agents]** Anthropic, "Building Effective Agents," Dec 2024. [https://www.anthropic.com/research/building-effective-agents](https://www.anthropic.com/research/building-effective-agents)
+
+**[Anthropic-evals]** Anthropic, "Demystifying Evals for AI Agents," anthropic.com/engineering, 2025. Multi-turn compound errors, alternative solution paths in agent evaluation.
 
 **[Anthropic-context]** Anthropic, "Effective Context Engineering for AI Agents," Sept 2025. [https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
 
@@ -166,6 +170,8 @@ AI Native Dev Podcast by Tessl, hosted by Guy Podjarny and Simon Maple. [https:/
 
 **[Epoch-prices]** Epoch AI, "LLM Inference Price Trends," 2025. [https://epoch.ai/data-insights/llm-inference-price-trends](https://epoch.ai/data-insights/llm-inference-price-trends)
 
+**[Eval-statistics]** "Multi-Objective Statistical Framework for Evaluating LLM Code Modernization," MDPI Computers 15(3):148, 2026. Paired t-tests and Cohen's d as minimum statistical rigor for eval comparisons.
+
 **[Factory]** Factory - autonomous AI software engineering platform. [https://www.factory.ai](https://www.factory.ai)
 
 **[Flox]** Flox - reproducible environment management built on Nix. [https://flox.dev](https://flox.dev)
@@ -173,6 +179,10 @@ AI Native Dev Podcast by Tessl, hosted by Guy Podjarny and Simon Maple. [https:/
 **[Forsgren]** Forsgren, Humble, and Kim, *Accelerate*, 2018. The four key metrics are deployment frequency, lead time for changes, mean time to recovery, and change failure rate.
 
 **[Forsgren-Accelerate]** Nicole Forsgren, Jez Humble, and Gene Kim, *Accelerate: The Science of Lean Software and DevOps*, IT Revolution Press, 2018. [https://itrevolution.com/product/accelerate/](https://itrevolution.com/product/accelerate/)
+**[Fowler-harness]** Martin Fowler and Birgitta Böckeler, "Harness Engineering for Coding Agent Users," martinfowler.com, Apr 2026. Feedforward guides vs feedback sensors, harness coverage. [https://martinfowler.com/articles/harness-engineering.html](https://martinfowler.com/articles/harness-engineering.html)
+
+**[Fowler-quality]** Martin Fowler, "Assessing Internal Quality While Coding with an Agent," martinfowler.com, 2025. Modularity, testability, and readability under AI-assisted development. [https://martinfowler.com/articles/ai-internal-quality.html](https://martinfowler.com/articles/ai-internal-quality.html)
+
 **[Fowler-toggles]** Martin Fowler, "Feature Toggles (aka Feature Flags)," martinfowler.com, 2017. [https://martinfowler.com/articles/feature-toggles.html](https://martinfowler.com/articles/feature-toggles.html)
 
 **[GH-Copilot-enterprise]** GitHub/Accenture, "Research: Quantifying GitHub Copilot's Impact in the Enterprise with Accenture," GitHub Blog. [https://github.blog/news-insights/research/research-quantifying-github-copilots-impact-in-the-enterprise-with-accenture/](https://github.blog/news-insights/research/research-quantifying-github-copilots-impact-in-the-enterprise-with-accenture/)
@@ -201,7 +211,13 @@ AI Native Dev Podcast by Tessl, hosted by Guy Podjarny and Simon Maple. [https:/
 
 **[HN-47110495]** Hacker News discussion on Stripe Minions. [https://news.ycombinator.com/item?id=47110495](https://news.ycombinator.com/item?id=47110495)
 
+**[Honeycomb-agents]** Honeycomb, "Built for the Agent Era," honeycomb.io, 2025. SLO-based monitoring for agent reliability, production anomaly detection. [https://www.honeycomb.io/solutions/ai-agents](https://www.honeycomb.io/solutions/ai-agents)
+
 **[Hsieh-2502]** Hsieh et al., "NoLiMa: Long-Context Evaluation Beyond Literal Matching," arXiv, 2025. [https://arxiv.org/abs/2502.05167](https://arxiv.org/abs/2502.05167)
+
+**[Husain-evals]** Hamel Husain, "Your AI Product Needs Evals," hamel.dev, 2024. Three-level eval framework and LLM-as-judge methodology. [https://hamel.dev/blog/posts/evals/](https://hamel.dev/blog/posts/evals/)
+
+**[Husain-evals-skills]** Hamel Husain, "Evals Skills for Coding Agents," hamel.dev, 2025. Binary Pass/Fail judges, error taxonomy, eval-audit skill. [https://github.com/hamelsmu/evals-skills](https://github.com/hamelsmu/evals-skills)
 
 **[Humble-CD]** Jez Humble and David Farley, *Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation*, Addison-Wesley, 2010. [https://dl.acm.org/doi/book/10.5555/1869904](https://dl.acm.org/doi/book/10.5555/1869904)
 
@@ -216,6 +232,10 @@ AI Native Dev Podcast by Tessl, hosted by Guy Podjarny and Simon Maple. [https:/
 **[LF-AAIF]** Linux Foundation Agentic AI Initiative (AAIF). [https://www.linuxfoundation.org/press/linux-foundation-launches-agentic-ai-initiative](https://www.linuxfoundation.org/press/linux-foundation-launches-agentic-ai-initiative)
 
 **[Lilting-Stripe]** Stripe Minions architecture analysis. [https://lilting.ch/en/articles/stripe-minions-agent-architecture](https://lilting.ch/en/articles/stripe-minions-agent-architecture)
+
+**[LLM-nondeterminism]** "Non-Determinism of 'Deterministic' LLM Settings," arXiv 2408.04667, 2025. GPU floating-point nondeterminism means temperature=0 does not guarantee identical outputs. [https://arxiv.org/abs/2408.04667](https://arxiv.org/abs/2408.04667)
+
+**[LLM-security-quality]** "Security and Quality in LLM-Generated Code: Multi-Language Analysis," arXiv 2502.01853, Feb 2025. Functional benchmarks miss security and maintainability defects. [https://arxiv.org/abs/2502.01853](https://arxiv.org/abs/2502.01853)
 
 **[Liu-2307]** Liu et al., "Lost in the Middle: How Language Models Use Long Contexts," Transactions of the ACL, 2024. [https://arxiv.org/abs/2307.03172](https://arxiv.org/abs/2307.03172)
 
@@ -263,6 +283,8 @@ AI Native Dev Podcast by Tessl, hosted by Guy Podjarny and Simon Maple. [https:/
 
 **[OpenAI-harness]** Ryan LaPopolo, Member of Technical Staff at OpenAI. See also OpenAI, "Harness Engineering." [https://openai.com/index/harness-engineering/](https://openai.com/index/harness-engineering/)
 
+**[OpenAI-evals-repo]** OpenAI, "Evals," open source evaluation framework. Separates Evaluation logic from Solver logic, supports deterministic assertions and model-graded evaluation. [https://github.com/openai/evals](https://github.com/openai/evals)
+
 **[OpenRewrite]** OpenRewrite - deterministic code transformation engine, Jonathan Schneider, "What If Fixing Code Wasn't Your Job Anymore," AI Native Dev Podcast, Ep 012. [https://docs.openrewrite.org](https://docs.openrewrite.org)
 
 **[Orosz-MCP]** Gergely Orosz, "MCP Protocol," The Pragmatic Engineer, 2025. [https://newsletter.pragmaticengineer.com/p/mcp](https://newsletter.pragmaticengineer.com/p/mcp)
@@ -274,6 +296,8 @@ AI Native Dev Podcast by Tessl, hosted by Guy Podjarny and Simon Maple. [https:/
 **[Perry-2211]** Perry et al., "Do Users Write More Insecure Code with AI Assistants?," ACM CCS, 2023. [https://arxiv.org/abs/2211.03622](https://arxiv.org/abs/2211.03622)
 
 **[Phan]** Phan et al., "CodeRAG: Retrieval-Augmented Generation for Repository-Level Code," EMNLP 2025. [https://aclanthology.org/2025.emnlp-main.1187.pdf](https://aclanthology.org/2025.emnlp-main.1187.pdf)
+
+**[promptfoo]** promptfoo, CLI-first open source eval framework for LLM applications and coding agents. MIT licensed. Acquired by OpenAI in 2026, remains open source. [https://promptfoo.dev](https://promptfoo.dev)
 
 **[Qodo]** Qodo (formerly PR-Agent) - AI code review and quality tooling. [https://www.qodo.ai](https://www.qodo.ai)
 
@@ -287,6 +311,8 @@ AI Native Dev Podcast by Tessl, hosted by Guy Podjarny and Simon Maple. [https:/
 **[SWE-agent]** Princeton mini SWE agent. [https://github.com/princeton-nlp/SWE-agent](https://github.com/princeton-nlp/SWE-agent)
 
 **[Sadowski-2018]** Caitlin Sadowski et al., "Modern Code Review: A Case Study at Google," ICSE-SEIP 2018. [https://dl.acm.org/doi/10.1145/3183519.3183525](https://dl.acm.org/doi/10.1145/3183519.3183525)
+
+**[Shankar-validators]** Shreya Shankar et al., "Who Validates the Validators? Aligning LLM-Assisted Evaluation of LLM Outputs with Human Preferences," UIST 2024 / NAACL 2025. LLM judge sensitivity to minor wording changes, EvalGen alignment tool. [https://arxiv.org/abs/2404.12272](https://arxiv.org/abs/2404.12272)
 
 **[Sands-LatentSpace]** Emily Glassberg Sands, "Stripe," Latent Space Podcast. [https://www.latent.space/p/stripe](https://www.latent.space/p/stripe)
 
@@ -320,6 +346,10 @@ AI Native Dev Podcast by Tessl, hosted by Guy Podjarny and Simon Maple. [https:/
 **[Walker-Stripe]** Steve Kaliski on X, cited in Ry Walker Research, 2026. [https://rywalker.com/research/stripe-minions](https://rywalker.com/research/stripe-minions)
 
 **[WebMCP]** "WebMCP," Web Machine Learning. [https://webmachinelearning.github.io/webmcp/](https://webmachinelearning.github.io/webmcp/)
+
+**[Willison-evals]** Simon Willison, evals tag archive, simonwillison.net, 2024-2026. "Writing good automated evals is the most needed skill" for LLM applications. [https://simonwillison.net/tags/evals/](https://simonwillison.net/tags/evals/)
+
+**[Yan-judge]** Eugene Yan, "An LLM-as-Judge Won't Save The Product," eugeneyan.com, Apr 2025. Evals as ongoing scientific practice, not one-time artifact. [https://eugeneyan.com/writing/llm-judge/](https://eugeneyan.com/writing/llm-judge/)
 
 **[Willison-context]** Simon Willison, "Context Engineering," June 2025. [https://simonwillison.net/2025/jun/27/context-engineering/](https://simonwillison.net/2025/jun/27/context-engineering/)
 

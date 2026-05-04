@@ -160,7 +160,7 @@ There is a pattern here worth making explicit. The organizations getting the mos
 >
 > Jones listed what "good" looks like before AI agents add value: test coverage, alignment on coding standards, well-sized batches of work with detailed stories, and running in containers for safety. Without these foundations, you are "throwing petrol on a dumpster fire."
 >
-> The uncomfortable truth: if your engineering organization is not already reasonably mature, AI agents will make it worse before they make it better. Chapter 19 includes a maturity assessment to help you figure out where you stand.
+> The uncomfortable truth: if your engineering organization is not already reasonably mature, AI agents will make it worse before they make it better. Chapter 20 includes a maturity assessment to help you figure out where you stand.
 
 ## What You Will Need to Unlearn
 

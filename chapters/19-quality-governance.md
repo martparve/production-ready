@@ -1,4 +1,4 @@
-# Chapter 18: Quality Governance: Org-Wide Standards
+# Chapter 19: Quality Governance: Org-Wide Standards
 
 The factory runs across multiple teams. Three write TypeScript. Two write Python. One writes Rust. The rest mix and match depending on when they started and what they inherited. Each team has its own repo, its own CI config, its own instruction files, its own conventions. The agents serving each team have been tuned for that team's stack and workflow.
 

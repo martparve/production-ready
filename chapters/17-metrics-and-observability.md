@@ -76,27 +76,9 @@ One finding from DX's research deserves special attention. When they surveyed en
 
 ## Evals as Factory Confidence
 
-Validation (Chapter 11) checks whether a specific agent run produced correct output. Evals are different. Evals measure whether the factory can handle the types of work you need it to handle. They are proactive capability assessments, not reactive correctness checks.
+Metrics tell you how the factory performed yesterday. Evals tell you how it will perform tomorrow. Where metrics are lagging indicators derived from production data, evals are proactive experiments that measure whether the factory can handle the types of work you need it to handle - before you assign that work.
 
-Maria Gorinova[ANDev-032] from Tessl's AI engineering team makes the statistical case for why evals matter:
-
-> **Case Study: Why Isolated Examples Mislead**
->
-> Maria Gorinova (Tessl, AI Native Dev Ep 032) describes the fundamental problem with anecdotal assessment of agent capability: "It is very dangerous if we look at an isolated example that works or doesn't work and then make judgments on this. Because then we're going to make decisions about a product or a feature or even our day-to-day workflow that are based on this one isolated example. That is just an anecdote. It's not reflective of the average."[ANDev-032]
->
-> Her team built an evaluation framework that tests agent capability against specific library APIs - not functional correctness (does the code work?) but abstraction adherence (does the code use existing libraries correctly?). The results were striking: providing curated context about library APIs improved abstraction adherence by 35% on average, and by 50% for libraries released in the last three years. For features introduced after the model's training cutoff, the improvement reached 90%.
->
-> The practical takeaway is not about any particular tool. It is that you cannot know your factory's capabilities without systematic measurement against your own codebase and dependencies.
-
-Sean Roberts[ANDev-031], VP of Applied AI at Netlify, connects evals to a problem he calls the one-way ratchet (AI Native Dev Ep 031). Context files - steering rules, architecture documentation, dependency descriptions - accumulate over time. Teams add rules but never remove them, because removing a rule might cause a regression and nobody knows which rules are actually load-bearing. Evals solve this. If you have a comprehensive eval suite, you can remove a context rule, run the evals, and observe whether performance degrades. If it does not, the rule was dead weight consuming context window. This is the safe pruning mechanism discussed in Chapter 3's context lifecycle.
-
-Build your eval suite around three categories:
-
-**Capability evals.** Can the factory handle the types of tasks you assign to it? Generate representative specs for your most common task categories - bug fixes in your authentication module, feature additions to your API layer, refactoring of your data pipeline - and run them periodically against the current factory configuration. Track pass rates over time. If capability drops after a model upgrade or context change, you catch it before it affects production work.
-
-**Regression evals.** After any change to the factory's configuration - model version, context documents, validation rules, prompt templates - run a fixed set of historical specs through the system and compare results to the previous configuration. This is the same principle as regression testing for code, applied to the factory itself.
-
-**Boundary evals.** Where does the factory fail? Push it intentionally toward tasks at the edge of its capability - complex multi-service changes, unfamiliar frameworks, ambiguous specifications. These evals do not need to pass. They need to fail predictably and gracefully, escalating to humans rather than producing subtle defects.
+The distinction between validation (Chapter 11), metrics (this chapter), and evals matters. Validation checks individual outputs. Metrics track aggregate trends. Evals are controlled experiments against representative tasks that answer "can this configuration handle this class of work?" Chapter 18 covers eval design in depth: what to measure, how to score, how to build and maintain a test corpus, and how to sustain the practice as the factory evolves.
 
 ## Dashboards and Alerting
 

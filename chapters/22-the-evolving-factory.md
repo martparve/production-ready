@@ -1,4 +1,4 @@
-# Chapter 21: The Evolving Factory
+# Chapter 22: The Evolving Factory
 
 The factory you built in Chapters 1 through 19 is already out of date.
 

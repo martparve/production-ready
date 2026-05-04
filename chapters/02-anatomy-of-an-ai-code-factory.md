@@ -246,7 +246,7 @@ Every stage of the pipeline is designed to run headless. Intent capture is a web
 
 The interactive mode does not disappear in a mature factory. It remains the right tool for novel, complex, or exploratory work - the tasks where a human needs to guide the agent through unfamiliar territory, or where the vibe-code-then-extract-spec pattern from the circular specification problem (below) is the right approach. But routine feature work, bug fixes, dependency updates, and well-patterned changes flow through the headless pipeline. An engineer who opens their IDE to write code for a routine task is doing the equivalent of a factory manager picking up a wrench and walking onto the assembly line. They can, and sometimes should. But it is not how the factory operates at scale.
 
-The rollout roadmap in Chapter 19 traces the path from interactive to headless in detail. For now, as you read the pipeline stages in Part II, keep both modes in mind. Each chapter will note what changes when the stage runs headless versus interactive.
+The rollout roadmap in Chapter 20 traces the path from interactive to headless in detail. For now, as you read the pipeline stages in Part II, keep both modes in mind. Each chapter will note what changes when the stage runs headless versus interactive.
 
 ## The Circular Specification Problem
 
