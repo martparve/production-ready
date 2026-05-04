@@ -48,12 +48,13 @@ Start with the [Introduction](chapters/00-introduction.md), then follow the chap
 15. [Security and Trust](chapters/15-security-and-trust.md)
 16. [Cost, Speed, and Token Economics](chapters/16-cost-speed-token-economics.md)
 17. [Metrics and Observability](chapters/17-metrics-and-observability.md)
-18. [Quality Governance](chapters/18-quality-governance.md)
-19. [Case Study: Stripe's Minions](chapters/19-case-study-stripe-minions.md)
-20. [The Rollout Roadmap](chapters/20-the-rollout-roadmap.md)
-21. [The Evolving Factory](chapters/21-the-evolving-factory.md)
+18. [Evaluations: Testing the Factory Itself](chapters/18-evaluations.md)
+19. [Quality Governance](chapters/19-quality-governance.md)
+20. [Case Study: Stripe's Minions](chapters/20-case-study-stripe-minions.md)
+21. [The Rollout Roadmap](chapters/21-the-rollout-roadmap.md)
+22. [The Evolving Factory](chapters/22-the-evolving-factory.md)
 
-[Bibliography](chapters/22-bibliography.md)
+[Bibliography](chapters/23-bibliography.md)
 
 ## License
 
