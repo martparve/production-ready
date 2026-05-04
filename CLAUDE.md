@@ -88,6 +88,20 @@ The build script recognizes these patterns in `CITE_KEY`:
 
 When adding a source with a key that doesn't match, update the regex.
 
+## Commands
+
+### `/research <topic>` - Chapter Research
+
+Deep-researches a topic for a new chapter. Four phases: source mining from known corpus, citation chasing for external sources, adversarial testing (counter-evidence, failure cases, assumption stress-testing), and synthesis into a sourced outline.
+
+Key constraints:
+- Engineering over philosophy: prioritize practitioner data and failure postmortems over opinion
+- Source diversity: no single origin exceeds 30% of citations
+- Adversarial findings target: at least 20% of sources should challenge the chapter's claims
+- Output: `chapters/OUTLINE-<slug>.md` with source mapping and tension analysis
+
+See `.claude/commands/research.md` for the full skill definition.
+
 ## Contributing
 
 - Edit markdown files in `chapters/`. Do not hand-edit the EPUB.
