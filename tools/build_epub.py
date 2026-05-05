@@ -18,6 +18,7 @@ TMP_EPUB = ROOT / "production-ready.tmp.epub"
 
 CITE_KEY = (
     r'ANDev-\d{3}'
+    r'|PE-\d{2}'
     r'|[A-Z][A-Za-z]+-[A-Za-z0-9-]+'
     r'|[A-Z][a-z]+[-]\d+'
     r'|BMAD|Goose|Kiro|Devin|Cursor|Aider|Factory|Graphite|CodeRabbit|Qodo'

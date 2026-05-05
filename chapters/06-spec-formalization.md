@@ -161,6 +161,8 @@ Spec-as-source is not mainstream practice today, requiring a level of spec compl
 
 The three levels are not a maturity model where everyone should aspire to spec-as-source. They are a trade-off spectrum. Spec-first optimizes for predictability. Spec-anchored optimizes for iteration speed. Spec-as-source optimizes for replaceability. Your choice depends on what you are building, who is building it, and how much you trust your spec to capture the full intent.
 
+One technique that bridges all three levels is treating tests as immutable specification contracts. Kent Beck advocates marking certain tests as inviolable so agents cannot modify them: "I really want an immutable annotation that says, no, this is correct. And if you ever change this, you'll awaken in darkness forever."[PE-05] The idea is that even when you are not running a full spec-as-source workflow, you can designate a core test suite as the authoritative definition of correct behavior - one the agent is forbidden to change regardless of what it would take to pass them. Addy Osmani reinforces this from the practitioner side: "If you are open to tests, it can be a great way of de-risking your use of LLMs in coding... if something did go off the rails, it's clearer to you what that was."[PE-16] Tests as immutable contracts give you spec-as-source benefits where they matter most, without requiring you to treat the entire codebase as a regenerable artifact.
+
 ## Phoenix Architecture and the Disposable Code Thesis
 
 Fowler's Phoenix Architecture deserves special attention because it represents the most complete articulation of where spec formalization leads when taken to its logical conclusion.

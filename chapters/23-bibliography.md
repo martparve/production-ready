@@ -297,6 +297,22 @@ AI Native Dev Podcast by Tessl, hosted by Guy Podjarny and Simon Maple. [https:/
 
 **[Orosz-MCP]** Gergely Orosz, "MCP Protocol," The Pragmatic Engineer, 2025. [https://newsletter.pragmaticengineer.com/p/mcp](https://newsletter.pragmaticengineer.com/p/mcp)
 
+**[PE-05]** Kent Beck, "TDD, AI Agents and Coding," The Pragmatic Engineer Podcast, June 2025. [https://newsletter.pragmaticengineer.com/p/tdd-ai-agents-and-coding-with-kent](https://newsletter.pragmaticengineer.com/p/tdd-ai-agents-and-coding-with-kent)
+
+**[PE-07]** Farhan Thawar, "How AI is Changing Software Engineering at Shopify," The Pragmatic Engineer Podcast, July 2025. [https://newsletter.pragmaticengineer.com/p/how-ai-is-changing-software-engineering](https://newsletter.pragmaticengineer.com/p/how-ai-is-changing-software-engineering)
+
+**[PE-16]** Addy Osmani, "Beyond Vibe Coding," The Pragmatic Engineer Podcast, October 2025. [https://newsletter.pragmaticengineer.com/p/beyond-vibe-coding-with-addy-osmani](https://newsletter.pragmaticengineer.com/p/beyond-vibe-coding-with-addy-osmani)
+
+**[PE-19]** Martin Fowler, "How AI Will Change Software Engineering," The Pragmatic Engineer Podcast, November 2025. [https://newsletter.pragmaticengineer.com/p/martin-fowler](https://newsletter.pragmaticengineer.com/p/martin-fowler)
+
+**[PE-20]** Johannes Dahse, "Code Security for Software Engineers," The Pragmatic Engineer Podcast, November 2025. [https://newsletter.pragmaticengineer.com/p/code-security](https://newsletter.pragmaticengineer.com/p/code-security)
+
+**[PE-24]** Peter Steinberger, "The Creator of Clawd: I Ship Code I Don't Read," The Pragmatic Engineer Podcast, January 2026. [https://newsletter.pragmaticengineer.com/p/the-creator-of-clawd-i-ship-code](https://newsletter.pragmaticengineer.com/p/the-creator-of-clawd-i-ship-code)
+
+**[PE-28]** Boris Cherny, "Building Claude Code," The Pragmatic Engineer Podcast, March 2026. [https://newsletter.pragmaticengineer.com/p/building-claude-code-with-boris-cherny](https://newsletter.pragmaticengineer.com/p/building-claude-code-with-boris-cherny)
+
+**[PE-29]** Steve Yegge, "From IDEs to AI Agents," The Pragmatic Engineer Podcast, March 2026. [https://newsletter.pragmaticengineer.com/p/from-ides-to-ai-agents-with-steve](https://newsletter.pragmaticengineer.com/p/from-ides-to-ai-agents-with-steve)
+
 **[Pearce-2108]** Pearce et al., "Asleep at the Keyboard? Assessing the Security of GitHub Copilot's Code Contributions," IEEE S&P, 2022. [https://arxiv.org/abs/2108.09293](https://arxiv.org/abs/2108.09293)
 
 **[Peng-2302]** Peng et al., "The Impact of AI on Developer Productivity: Evidence from GitHub Copilot," 2023. [https://arxiv.org/abs/2302.06590](https://arxiv.org/abs/2302.06590)

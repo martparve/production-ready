@@ -140,6 +140,12 @@ And his broader insight about where this is heading: "My worldview has always be
 
 Kilpatrick also pointed to the rate of change itself as a challenge. "The way to use AI tools today, three months ago was different. And three months before that was different. You need to have the mental plasticity to continue to evolve. And that's hard."[ANDev-051] This is not a one-time migration. It is a continuous adaptation. The factory you build today will need to evolve every quarter as models improve and tooling shifts. If that sounds exhausting, it is. But it is also the reality, and the organizations that treat AI adoption as a one-time project will find themselves rebuilding from scratch repeatedly.
 
+Steve Yegge proposes a blunt proxy for whether an organization is actually evolving: token burn. "The single most important proxy metric that you can have in a company today is token burn. Because what token burn says is your engineers are trying to do stuff."[PE-29] Yegge maps adoption across an eight-level spectrum, from Level 1 (no AI usage at all) through Level 6 (multiple coordinated agents operating concurrently), and his observation is that most companies cluster near the bottom not because they lack access to models but because they lack the organizational habits to use them.
+
+Token burn gets criticized as a vanity metric because it might measure waste - agents spinning on bad prompts, hallucinated code that gets thrown away, experiments that go nowhere. That criticism misses the point. Experimentation produces waste by definition. An organization that is not burning tokens is not experimenting, and an organization that is not experimenting is not evolving. The waste is the learning cost. 
+
+Yegge also flags an architectural prerequisite that is easy to overlook: monolithic codebases break the model. "If you're a monolith... you're kind of hosed because... That will never fit in the context window."[PE-29] This connects directly to the modularization work discussed in later chapters - the factory requires a certain codebase shape to function. You cannot simply point an agent at a million-line monolith and expect it to reason coherently. The organizations succeeding with AI adoption have, often by accident, already done the decomposition work.
+
 ## The Honest Assessment
 
 The AI code factory is real and transformative. It is also not magic, not 10x for everyone, and not ready to run unsupervised.
@@ -153,8 +159,6 @@ David Cramer[Sentry-MCP], co-founder of Sentry, went deeper. He spent eight week
 And this was not toy code. "This is real world software. I'm not just generating junk. I need it to be maintainable, testable. And if you don't review it, it's even worse."[ANDev-015] The SWE-bench benchmark tells a similar story at the research level: when it launched in 2024, the best agent solved only 1.96% of real GitHub issues; current top agents reach roughly 80% on a curated verified subset, but the gap between isolated code generation and full repo-level engineering remains wide.[Jimenez-2310]
 
 Cramer's conclusion was not that agents are useless. It was that they are powerful when embedded in the right workflow - kicking off an agent, going to a meeting, coming back to a starting point you can refine. "It will slow you down a lot of times doing it this way," he said. "For Sentry's core code base, you do not write code through agents and only agents. You might run an agent to generate a test or an API, and then you can go review, tweak that thing. And that's still a big performance improvement."[ANDev-015]
-
-The value is real. The "vibe coding YOLO" approach to production software is not.
 
 The organizations getting the most out of AI agents are not the ones with the best models or the most expensive subscriptions. They are the ones that have invested in the surrounding system - the context, the validation, the harness, the review process. The agent is the engine. Everything else is the car. An engine sitting on the floor of a garage does not take you anywhere. Kentaro Toyama formalized this as the "Law of Amplification": technology amplifies existing human and institutional forces but cannot substitute for capabilities that are not already present.[Toyama-amplifier]
 

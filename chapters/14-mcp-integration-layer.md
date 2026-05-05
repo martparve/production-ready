@@ -110,6 +110,8 @@ A joint scan by Snyk and Tessl of 3,984 published skills (the broader category t
 >
 > The trust model makes it worse. A malicious MCP server or skill earns trust by working correctly initially, then updates with a side effect: "We put something extra. We put a side effect in. Or we return, instead of just your calendar items, we return an instruction. But you already trust it." This is software supply chain attacks applied to the agent tool layer.
 
+Johannes Dahse describes the core attack pattern: an attacker publishes an MCP server that works correctly to earn trust, then updates it with a malicious side effect - "I'll set up an MCP server that says it does something but secretly it does something else... I get access to this developer's machine."[PE-20] This connects directly to the Snyk findings above: the trust model is the vulnerability, not just the code.
+
 The GitHub MCP server vulnerability that Hunger and Simon Maple[ANDev-010] discuss (Ep 010) illustrates the pattern concretely. A user connects the official GitHub MCP server to their agent, giving it access to both public and private repositories. A malicious actor creates an issue in a public repository containing prompt injection instructions. The agent, attempting to resolve issues, follows those instructions and leaks private repository content into a public pull request. The MCP server itself is not compromised - it correctly executes the authorized API calls. The attack exploits the fundamental LLM problem: the model cannot distinguish between data to process and instructions to follow.
 
 Hunger identifies the core issue: "The data and control plane are merged. That's one of the big challenges that we need to solve in AI systems anyway. Currently data and instructions are not separate."[ANDev-010] Until models can reliably tag and differentiate between instruction tokens and data tokens, every MCP server that returns user-controlled content is a potential injection vector.
@@ -143,6 +145,8 @@ Not every external system needs an MCP server. The decision matrix for your fact
 
 MCP servers shine when the agent needs autonomy in deciding which tool to use and how to invoke it. If the integration is always the same call with the same parameters, triggered at the same pipeline stage, a direct API call in your orchestration script is simpler and more predictable.
 
+At Shopify, MCP is organizational infrastructure: "Any new system comes online, we put an MCP in front of it. And now everybody has access to it."[PE-07] Shopify runs approximately two dozen MCP servers covering internal systems from deployment to analytics. The pattern they converged on - every new system gets an MCP interface as a default - is worth noting because it inverts the typical adoption question. Instead of asking "should this system have an MCP server?", they ask "why doesn't this system have one yet?" The result is that any engineer's agent can interact with any internal system without custom integration work.
+
 For a factory getting started, the essential MCP servers are:
 
 - **Work tracker** (Jira, Linear, GitHub Issues): pulling intent into the pipeline
@@ -156,6 +160,8 @@ Everything else can be added incrementally as you identify bottlenecks where a d
 ## The Integration Tax
 
 MCP does not eliminate integration work - it standardizes it. You still need to choose which servers to run, configure authentication, manage versions, enforce security policies, and handle the inevitable cases where an MCP server returns unexpected data or goes down entirely. What MCP eliminates is the *per-agent* integration tax. Without MCP, every agent needs its own adapter for every system. With MCP, you build the integration once and every agent in your factory can use it. The N-by-M problem of agents times systems reduces to an N-plus-M problem of agents plus servers.
+
+Peter Steinberger, who has built extensive MCP integrations for his Clawd personal assistant project, identifies context bloat as the primary design failure: "The model could ask for a list of available cities and get 500 cities back... So much crap in your context. Whereas if it's a CLI, it could use jq and filter for exactly what it needs."[PE-24] The lesson for factory MCP server design: return the minimum viable response. Filter, paginate, and summarize on the server side. An MCP server that dumps its full response into the context window is consuming the agent's attention budget on data the agent never asked for. For structured data with predictable access patterns, a CLI tool that the agent invokes with precise flags may be a better choice than an MCP server that returns everything and hopes the agent can sort through it.
 
 Hunger draws the parallel to GraphQL's adoption in 2016: "It kind of feels a lot like in the spirit of when GraphQL came out. There's the spec, the working groups, everyone is jumping on it. There's lots of energy and enthusiasm. It's a grassroots movement."[ANDev-010] The comparison is apt. GraphQL succeeded because it solved a real problem (over-fetching and under-fetching in REST APIs) with a simple enough protocol that adoption was practical. MCP succeeds for the same reason: it solves a real problem (connecting agents to systems) with a protocol simple enough that a single developer can build a server in a weekend.
 
