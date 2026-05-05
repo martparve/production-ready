@@ -2,15 +2,13 @@
 
 In February 2026, Stripe published a two-part blog series describing an internal system called Minions - autonomous coding agents that produce over 1,300 merged pull requests per week with zero human-written code.[Stripe-Minions-1] Every PR is human-reviewed. The agents operate from Slack emoji to CI-green pull request with no interaction in between.
 
-This is not a research prototype. It runs on Stripe's production codebase - a 50-million-line Ruby monorepo with 3 million tests, hundreds of internal services, and a relatively uncommon Ruby-with-Sorbet-typing stack that LLMs have limited training data for.[Stripe-STE] The system was built by Stripe's Leverage team, a small internal group whose mission is building productivity infrastructure for Stripe's engineers.[Stripe-Minions-1]
+It runs on Stripe's production codebase - a 50-million-line Ruby monorepo with 3 million tests, hundreds of internal services, and a relatively uncommon Ruby-with-Sorbet-typing stack that LLMs have limited training data for.[Stripe-STE] The system was built by Stripe's Leverage team, a small internal group whose mission is building productivity infrastructure for Stripe's engineers.[Stripe-Minions-1]
 
 Stripe's Minions matter for this book because they are the most publicly documented example of a headless AI code factory operating at scale inside a major technology company. The architecture validates several principles from the preceding chapters - and challenges a few assumptions worth examining honestly. This chapter traces how Minions works, why it works, what it cannot do, and what you can realistically take from it.
 
 ## What Stripe Had Before Minions
 
-The most important thing about Minions is what Stripe built before Minions.
-
-Patrick Collison, Stripe's CEO, described the system at the Retool Summit: "This is not just using LLMs in Cursor. This is a human never logged into the dev box. It's completely automated."[Collison-Retool] But the infrastructure that makes full automation possible was not built for agents. It was built for humans over the preceding decade.
+Patrick Collison, Stripe's CEO, described the system at the Retool Summit: "This is not just using LLMs in Cursor. This is a human never logged into the dev box. It's completely automated."[Collison-Retool] But the infrastructure that makes full automation possible was not built for agents - it was built for humans over the preceding decade. That is what makes Minions instructive: the agents arrived last.
 
 **Standardized developer environments.** Stripe runs isolated, standardized AWS EC2-based sandboxes called Devboxes - the exact same development environment human engineers use daily. Engineers connect via SSH from their IDE. Each devbox comes pre-loaded with the full source tree, warmed Bazel and type-checking caches, running code-generation services, the latest master branch, and configured databases. The target is a 10-second boot time from a pre-warmed pool.[Lilting-Stripe]
 
@@ -22,7 +20,7 @@ Steve Kaliski, Stripe's head of AI platform, emphasized why this matters: "Not o
 
 The lesson is direct. Stripe did not build infrastructure for agents and then discover that it also helped humans. They built infrastructure for humans over ten years and discovered that it was precisely what agents needed. Chapter 21's prerequisites section (automated testing, clean CI, version control discipline, documented conventions) describes the minimum viable version of what Stripe had already achieved at scale.
 
-As one analyst summarized: "The gap between 'AI demo' and 'AI in production' is mostly an infrastructure gap. The model is the easy part."[CodeRabbit]
+As one analyst put it: "The gap between 'AI demo' and 'AI in production' is mostly an infrastructure gap. The model is the easy part."[CodeRabbit]
 
 ## The Blueprint Architecture
 
@@ -232,7 +230,7 @@ Stripe is not the only company that arrived at this architecture. LangChain docu
 
 This convergent evolution was codified in the Open SWE framework in March 2026. The implementations differ in details: Stripe uses a Goose fork with AWS EC2 devboxes, Ramp uses OpenCode with Modal containers, Coinbase built from scratch with agent councils. But the architecture is recognizably the same.[DevOps-OpenSWE]
 
-Convergent evolution in engineering is a strong signal. When three independent teams solving the same problem arrive at the same architecture without coordinating, the architecture is likely driven by the problem's constraints rather than by individual design preferences. The constraints that drive convergence here are:
+When three independent teams solving the same problem arrive at the same architecture without coordinating, the architecture is likely driven by the problem's constraints rather than by individual design preferences. The constraints driving convergence here are:
 
 1. **Isolation is non-negotiable.** Agents running on production codebases must be sandboxed. Every implementation uses isolated environments.
 2. **Context must be curated, not dumped.** Every implementation limits the tools and context available per task.

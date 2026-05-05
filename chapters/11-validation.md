@@ -2,9 +2,9 @@
 
 The agent has produced code. It ran inside an isolated sandbox, had full access to the codebase and its dependencies, and generated a set of changes that it believes satisfy the spec. Before any human sees this work, the machine validates its own output.
 
-This is the fundamental shift from traditional CI. In a conventional pipeline, CI validates code that a human wrote. The human already reviewed the code mentally while writing it. CI exists to catch the errors that slipped through the author's attention. In a headless factory, there is no author with attention. The agent produced code through probabilistic generation, not reasoned construction. Validation is not a safety net beneath a competent author - it is the primary quality mechanism. Without it, you are shipping lottery tickets.
+In a conventional pipeline, CI validates code that a human wrote - the human already reviewed it mentally while writing, and CI catches errors that slipped through. In a headless factory, there is no author with attention. The agent produced code through probabilistic generation, not reasoned construction. Validation is not a safety net beneath a competent author - it is the primary quality mechanism. Without it, you are shipping lottery tickets.
 
-The scale of this trust gap is measurable. Qodo's 2025 State of AI Code Quality Report surveyed over 600 developers and found that only 3.8% report both low hallucination rates and high confidence shipping AI-generated code without review. A quarter of respondents estimate that one in five AI suggestions contain errors.[Qodo-2025] The validation layers in this chapter exist precisely because the gap between developer confidence and actual code quality remains wide.
+The scale of this trust gap is measurable. Qodo's 2025 State of AI Code Quality Report surveyed over 600 developers and found that only 3.8% report both low hallucination rates and high confidence shipping AI-generated code without review. A quarter of respondents estimate that one in five AI suggestions contain errors.[Qodo-2025] The validation layers in this chapter exist because the gap between developer confidence and actual code quality remains wide.
 
 Six validation layers stand between the agent's output and a human reviewer. They are ordered fastest to slowest, cheapest to most expensive. Each layer is a gate: if the code fails at Layer 1, there is no point running Layer 5. This ordering is not arbitrary. It is an economic decision that determines how many compute-seconds you burn per agent task.
 
@@ -24,7 +24,7 @@ One common mistake is making Layer 1 too strict. If your linter has 200 rules en
 
 The agent's own tests pass. The existing test suite does not regress.
 
-This sounds simple, but it contains a trap that many teams fall into: trusting the agent's tests without scrutiny. The agent wrote the code and the tests. If it misunderstood the requirement, it will write code that does the wrong thing and tests that verify the wrong thing passes. The tests are green. The code is broken. Everyone is happy except the user.
+This contains a trap: trusting the agent's tests without scrutiny. The agent wrote the code and the tests. If it misunderstood the requirement, it will write code that does the wrong thing and tests that verify the wrong thing passes - tests are green, code is broken, everyone is happy except the user.
 
 Anton Arhipov[ANDev-005] from JetBrains put this precisely during his conference talk at AI Native DevCon:
 
@@ -46,7 +46,7 @@ Research confirms that passing tests alone say little about overall quality. A 2
 
 ## Layer 3: Does It Match the Spec?
 
-This is the most important layer and the hardest to implement well. The agent was given a spec. The agent produced code. Does the code actually do what the spec describes?
+This is the most important layer and the hardest to implement well. The agent was given a spec and produced code. Does the code actually do what the spec describes?
 
 The obvious approach - generate tests directly from spec acceptance criteria and run them against the code - sounds elegant and has been tried by multiple teams. The results are instructive.
 
@@ -62,7 +62,7 @@ Rene Brandel[ANDev-029], who invented AWS Kiro and now runs security company Cas
 >
 > Brandel's practical conclusion: the multiplication effect means you should invest time in getting specifications right upfront. "If you have one bad line of a user story or a specification, that will lead to a thousand bad lines of a design. And a thousand bad lines of design will lead to a million bad lines of code."
 
-So full bidirectional spec-test synchronization is, as of mid-2026, not practically achievable. What is achievable?
+Full bidirectional spec-test synchronization is, as of mid-2026, not practically achievable. What is achievable?
 
 **One-directional test generation.** Generate tests from the spec's acceptance criteria, but treat them as one-shot artifacts that verify the initial implementation. Do not try to keep them synchronized as the spec evolves. When the spec changes, regenerate the tests from scratch. This is less elegant but dramatically more reliable than incremental synchronization.
 
@@ -133,9 +133,7 @@ Preview deployments bridge the gap between automated validation and human review
 
 ## Confidence Scoring
 
-Six validation layers produce a mountain of data. Pass/fail counts. Coverage percentages. Security scan results. Performance measurements. Screenshot diffs. A human reviewer staring at a forty-line validation report learns nothing useful.
-
-The solution is a confidence score: a single summary that tells the reviewer how much the machine trusts its own output.
+Six validation layers produce a mountain of data: pass/fail counts, coverage percentages, security scan results, performance measurements, screenshot diffs. A human reviewer staring at a forty-line validation report learns nothing useful. The solution is a confidence score - a single summary that tells the reviewer how much the machine trusts its own output.
 
 Olivier Pomel[ANDev-013], CEO of Datadog, frames the problem from the observability side with a lesson that applies directly to validation pipelines:
 
@@ -161,9 +159,7 @@ High-confidence areas get less review time. Low-confidence areas get more. The m
 
 ## Pipeline Design: When Each Gate Runs
 
-Not all six layers run at the same time. Running a twenty-minute visual regression suite every time the agent saves a file is wasteful. Running a thirty-second type check only when the PR is created is too late - the agent could have fixed the type error immediately if it had known about it.
-
-The pipeline has three stages, each triggered by a different event.
+Not all six layers run at the same time. Running a twenty-minute visual regression suite every time the agent saves a file is wasteful; running a thirty-second type check only when the PR is created is too late. The pipeline has three stages, each triggered by a different event.
 
 **Immediately after generation (Layers 1-2).** The agent finishes producing code. Before it even commits, the sandbox runs compilation, type checking, linting, and the test suite. These checks are fast (under two minutes for most projects) and catch the errors the agent can fix autonomously. If the build breaks or tests fail, the error output is fed back to the agent as context for an immediate fix attempt.
 
@@ -179,9 +175,7 @@ Staging validation may also include performance testing, load testing, and chaos
 
 ## When Validation Fails: Retry vs. Escalate
 
-The agent's code fails validation. What happens next?
-
-The answer depends on which layer failed and how many attempts the agent has already made.
+When the agent's code fails validation, what happens next depends on which layer failed and how many attempts the agent has already made.
 
 **Layer 1-2 failures are retryable.** The agent gets the error output as context and tries again. Build errors and test failures come with specific, actionable information: "TypeError: string is not assignable to number on line 47." The agent can usually fix these on the first retry. A retry budget of three attempts for Layer 1-2 failures is standard. If the agent cannot fix a build error or test failure in three attempts, the problem is likely deeper than a simple mistake and should escalate to human review.
 
@@ -227,9 +221,7 @@ Selecting validation tools for a headless factory requires balancing speed, accu
 
 ## The Economics of Validation
 
-Validation is not free. Each layer adds time and compute cost to every agent task. A factory running fifty tasks per day with a full six-layer validation pipeline consuming fifteen minutes per task spends twelve and a half hours of compute daily on validation alone.
-
-This is worth it. The alternative is spending human hours reviewing code that does not compile, does not pass tests, or contains security vulnerabilities. Automated validation converts expensive human review time into cheap compute time. A senior engineer spending twenty minutes reviewing a PR that should have been rejected at Layer 1 costs far more than thirty seconds of CI compute catching the build error.
+Validation is not free. A factory running fifty tasks per day with a full six-layer pipeline consuming fifteen minutes per task spends twelve and a half hours of compute daily on validation alone - and it is worth it. The alternative is spending human hours reviewing code that does not compile, does not pass tests, or contains security vulnerabilities. A senior engineer spending twenty minutes reviewing a PR that should have been rejected at Layer 1 costs far more than thirty seconds of CI compute catching the build error.
 
 The optimization is not to skip validation layers but to fail fast. If Layer 1 catches 20% of problems in thirty seconds, Layer 2 catches another 30% in two minutes, and Layers 3-6 catch the remaining 50% in twelve minutes, the average validation time is much less than the maximum. Most failures are caught early. Only code that passes the fast checks proceeds to the expensive checks.
 

@@ -1,8 +1,6 @@
 # Chapter 3: The Context Development Lifecycle
 
-Most agent failures are not intelligence failures. They are context failures.
-
-The model was smart enough. It just did not know what you needed it to know. It picked the wrong theme because nobody told it which design system to use. It hallucinated API endpoints because its training data predated the library version you are running. It wrote perfectly functional code that violated three of your team's architectural constraints - constraints that lived in a senior engineer's head and nowhere else.
+Most agent failures are not intelligence failures - they are context failures. The model was smart enough; it just did not know what you needed it to know. It picked the wrong theme because nobody told it which design system to use. It hallucinated API endpoints because its training data predated the library version you are running. It wrote perfectly functional code that violated three of your team's architectural constraints - constraints that lived in a senior engineer's head and nowhere else.
 
 This chapter is the foundation everything else in the book rests on. Before the pipeline processes a single feature, before agents write a single line of code, the factory needs its operating system: the context that tells agents how to behave.
 
@@ -63,9 +61,9 @@ The cost model is different for each category. You can have thousands of knowled
 
 There is a fundamental tension at the heart of context engineering, and every architectural decision in this book runs into it eventually.
 
-On one side: context helps. Every rule you add genuinely improves agent behavior for the thing it describes. Tell the agent to use your team's logging library and it stops importing random alternatives. Describe your API conventions and it produces endpoints that match the existing codebase. Add a security policy and it stops writing SQL with string concatenation. Each individual instruction makes the agent more capable, more aligned with your codebase, more likely to produce code a reviewer will accept. The case for more context is real and measurable.
+Context helps. Every rule you add genuinely improves agent behavior for the thing it describes. Tell the agent to use your team's logging library and it stops importing random alternatives. Describe your API conventions and it produces endpoints that match the existing codebase. Add a security policy and it stops writing SQL with string concatenation. Each individual instruction makes the agent more capable, more aligned with your codebase, more likely to produce code a reviewer will accept. The case for more context is real and measurable.
 
-On the other side: attention is finite. Every token of context competes with every other token for the model's limited attention. Add a rule about logging, and the model pays slightly less attention to your rule about error handling. Add enough rules and the model follows none of them reliably. This is not a metaphor. It is a measured effect with hard numbers behind it.
+But attention is finite. Every token of context competes with every other token for the model's limited attention. Add a rule about logging, and the model pays slightly less attention to your rule about error handling. Add enough rules and the model follows none of them reliably. This is a measured effect with hard numbers behind it, not a metaphor.
 
 Gorinova puts it bluntly: "The longer the steering context is, the more you try to ask the agent to behave certain ways, the less it's going to follow any of those suggestions."[ANDev-038]
 
@@ -109,7 +107,7 @@ Not every piece of context serves the same purpose or ages at the same rate. Und
 
 **Architecture context.** System maps, dependency graphs, API contracts, data models. This is knowledge the agent needs to make sound architectural decisions. It changes when your system architecture changes, which should be infrequent but is often poorly tracked. Stale architecture docs are among the most dangerous forms of context - they lead to agents confidently building against systems that no longer exist.
 
-**Skills and templates.** Reusable prompt patterns for how your team does specific types of work. These evolve as your team learns, as models improve, and as your infrastructure changes. They require active maintenance, which is precisely the part most teams skip.
+**Skills and templates.** Reusable prompt patterns for how your team does specific types of work. These evolve as your team learns, as models improve, and as your infrastructure changes. They require active maintenance - the part most teams skip.
 
 **Guardrails.** Constraints, forbidden patterns, security rules. The things that should never happen regardless of what the agent is building. These are the highest-priority rules and should consume the least context possible. "Never expose customer PII in logs" does not need a paragraph of explanation.
 
@@ -140,7 +138,7 @@ Sean Roberts, VP of Applied AI at Netlify, identifies a pattern that should alar
 
 The dynamic is predictable. Agent breaks something. Engineer adds a rule. Agent breaks a different thing. Engineer adds another rule. Nobody removes the first rule because nobody knows if it is still needed. Six months later, the context file is bloated, contradictory, and actively harming performance.
 
-This is not hypothetical. It is the default trajectory for every team that manages context reactively.
+This is the default trajectory for every team that manages context reactively.
 
 Roberts' solution: evals. You need a systematic way to measure the impact of each context artifact. If you can run the same tasks with and without a specific rule and show that the rule improves outcomes, keep it. If you cannot demonstrate improvement, cut it.
 
@@ -162,7 +160,7 @@ Alake[ANDev-044] breaks this into three types that mirror how human cognition wo
 
 The lifecycle of memory is different from static context. Alake emphasizes a capability most teams overlook: the ability to forget. "If you work with context, forgetting or suppressing information doesn't come naturally. But when I speak to developers and I say, if you think about things from the perspective of memory, you immediately start to see that you need to implement a way of forgetting information."[ANDev-044]
 
-Memory that never decays becomes noise. Just as the one-way ratchet bloats static context, uncurated memory accumulates stale associations, outdated preferences, and resolved issues. A robust memory system needs ingestion, encoding, storage, retrieval, and - critically - forgetting.
+Memory that never decays becomes noise. Just as the one-way ratchet bloats static context, uncurated memory accumulates stale associations, outdated preferences, and resolved issues. A robust memory system needs ingestion, encoding, storage, retrieval, and forgetting.
 
 Where does this leave us practically? For mid-2026, most teams will manage primarily with static context (rules, skills, knowledge) and limited session-level memory. But the teams that build the infrastructure for persistent, curated agent memory now will have a compounding advantage. The agent that remembers that last Tuesday's database migration broke the payments module - and knows to check for that pattern in future migrations - is vastly more valuable than one that starts from zero every session.
 
@@ -186,7 +184,7 @@ But the inverse is equally important. Not every piece of context helps. The Tess
 >
 > Tessl's evaluation team ran task evals on two browser-related agent skills. Agent Browser, from Vercel, took agent success rates from 28% to 71% - a dramatic improvement. The skill was clearly filling a knowledge gap the model could not bridge on its own.
 >
-> A conceptually similar skill called Browser Use, however, told a different story. The baseline success rate without the skill was already 85%. Adding the skill dropped performance to about 82%. The skill was essentially re-teaching the model things it already knew, and the added context was consuming attention that would have been better spent on the actual task.
+> A conceptually similar skill called Browser Use, however, told a different story. The baseline success rate without the skill was already 85%. Adding the skill dropped performance to about 82%. The skill was re-teaching the model things it already knew, and the added context consumed attention that would have been better spent on the actual task.
 >
 > The lesson is not that skills are unreliable. The lesson is that unmeasured skills are unreliable. Without evals, you have no idea whether your carefully crafted context is the difference between 28% and 71% success or an active drag on performance. The only way to know is to test.
 
@@ -244,7 +242,7 @@ The right answer for most organizations at scale is a hybrid: centralized global
 
 ### Front-Loaded vs. Just-in-Time Injection
 
-This is one of the most consequential architectural decisions in context engineering.
+Front-loaded versus just-in-time injection is one of the most consequential architectural decisions in context engineering.
 
 **Front-loaded:** Pack everything the agent might need into the initial context. Simple to implement. Runs headlong into the saturation problem.
 
@@ -266,7 +264,7 @@ This is the direction the industry is heading. The constraint is not how much co
 
 ## The CDLC as a Continuous Loop
 
-Putting it all together, the context development lifecycle is not a one-time setup. It is a continuous loop with five phases:
+The context development lifecycle is not a one-time setup. It is a continuous loop with five phases:
 
 **1. Define.** Figure out what correct behavior looks like. This is harder than it sounds. As Podjarny notes, "knowing what you want is actually hard."[ANDev-037] Start with your most painful failure modes: what are agents getting wrong most often? Those failures point to missing context.
 
@@ -284,9 +282,7 @@ This loop never stops. Models change. Your codebase evolves. Your team learns ne
 
 There is a common objection to investing heavily in context engineering: "Won't the models just get better and make this unnecessary?"
 
-The models will get better. They are already dramatically better than they were a year ago. And context engineering will only become more important, not less.
-
-Here is why. Better models can do more with less context, true. But better models also enable more ambitious tasks. As you move from asking agents to write a function to asking them to build a feature to asking them to operate an entire development pipeline, the amount of organizational context they need increases, not decreases. A model smart enough to architect a microservice is a model that needs to understand your service mesh, your team's API conventions, your deployment topology, your data residency requirements, and your on-call rotation.
+The models will get better - they are already dramatically better than they were a year ago - and context engineering will only become more important, not less. Better models can do more with less context, true. But better models also enable more ambitious tasks. As you move from asking agents to write a function to asking them to build a feature to asking them to operate an entire development pipeline, the amount of organizational context they need increases, not decreases. A model smart enough to architect a microservice is a model that needs to understand your service mesh, your team's API conventions, your deployment topology, your data residency requirements, and your on-call rotation.
 
 Intelligence without knowledge is dangerous. The smarter the model, the more confidently it will make decisions based on incomplete information. The more capable the model, the more critical it is that the information it operates on is correct, current, and complete.
 
@@ -300,7 +296,7 @@ If you are reading this chapter and feeling overwhelmed, here is where to start.
 
 **Week 1: Audit.** What context do your agents currently have? Read your CLAUDE.md or equivalent. Count the words. Check whether it has grown monotonically since it was created. Ask your team: what are the three things agents get wrong most often?
 
-**Week 2: Prune and categorize.** Take your existing context file and sort every instruction into one of three buckets: rule (always needed), skill (needed for specific task types), or knowledge (reference information). Cut anything that does not clearly fit in one bucket. Your rules file should get dramatically shorter.
+**Week 2: Prune and categorize.** Take your existing context file and sort every instruction into one of three buckets: rule (always needed), skill (needed for specific task types), or knowledge (reference information). Cut anything that does not clearly fit in one bucket. Your rules file should get much shorter.
 
 **Week 3: Measure.** Pick the three most common agent tasks your team performs. Run each task five times with your current context, five times with your pruned context. Compare success rates. You will likely find that less is more.
 

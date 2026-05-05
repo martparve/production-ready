@@ -1,8 +1,6 @@
 # Chapter 10: Agent Orchestration: Running the Machine
 
-The sandbox is ready. The spec is approved. The branch is provisioned. Now what?
-
-This chapter is about the machine that turns an approved spec into a working pull request without a developer sitting at the controls. Orchestration is the decision layer: which agent runs, in what order, with what context, using what execution pattern, and what happens when it fails. Get this right and the factory hums along producing merge requests overnight. Get it wrong and you have a very expensive token bill and a repository full of half-finished branches.
+The sandbox is ready, the spec is approved, the branch is provisioned. This chapter is about the machine that turns that approved spec into a working pull request without a developer sitting at the controls. Orchestration is the decision layer: which agent runs, in what order, with what context, using what execution pattern, and what happens when it fails. Get this right and the factory hums along producing merge requests overnight. Get it wrong and you have a very expensive token bill and a repository full of half-finished branches.
 
 Orchestration in headless mode is fully autonomous. An approved spec enters the pipeline, triggers an agent run, and the orchestrator manages every downstream decision: decomposing the work, dispatching agents, feeding back build results, detecting when an agent is stuck, and escalating when recovery is impossible. No developer is involved until the pull request appears for review.
 
@@ -24,7 +22,7 @@ In practice, most factories blend these patterns. A supervisor decomposes the sp
 
 ## Routing Work to the Right Engine
 
-Not every change should go through an LLM. This is one of the most important orchestration decisions, and getting it wrong wastes tokens on work that a deterministic tool could handle faster and more reliably.
+Not every change should go through an LLM - getting this wrong wastes tokens on work that a deterministic tool could handle faster and more reliably.
 
 Jonathan Schneider's experience at Moderne with OpenRewrite[OpenRewrite] illustrates the principle. OpenRewrite is a deterministic refactoring engine: you define a recipe (a program that makes a specific code change), and it applies that recipe identically across thousands of repositories. For something like migrating Spring Boot 3 to 4, there are nearly 3,400 recipes in the catalog.[ANDev-012] Each one produces the same output every time. No hallucinations. No attention drift. No probabilistic variation.
 
@@ -40,7 +38,7 @@ A well-designed orchestrator maintains a registry of available engines (LLM agen
 
 ## Task Decomposition
 
-The orchestrator's first job after receiving an approved spec is to break it into implementable chunks. This is not trivial. Decompose too aggressively and you create a coordination nightmare where every chunk depends on three others. Decompose too conservatively and each chunk is too large for a single agent to handle cleanly.
+The orchestrator's first job after receiving an approved spec is to break it into implementable chunks. Decompose too aggressively and you create a coordination nightmare where every chunk depends on three others; too conservatively and each chunk is too large for a single agent to handle cleanly.
 
 BMAD's approach to this problem, as Cian Clarke describes it, is document sharding: the framework splits requirements by epic and architecture documents by component (frontend, backend), then feeds only the relevant shards into each agent's context window.[ANDev-034] This keeps each agent focused on a manageable subset of the problem while preserving the broader context through the spec hierarchy.
 
@@ -75,7 +73,7 @@ Once tasks are decomposed, the orchestrator must decide how each task is execute
 
 ## Deterministic Test Compilation
 
-There is a radical alternative to having the LLM write tests at all: compile tests deterministically from the spec and never let the LLM touch them.
+A radical alternative to having the LLM write tests: compile them deterministically from the spec and never let the LLM touch them.
 
 Baruch Sadogursky[ANDev-009] describes this as the "intent integrity chain." The core argument: LLMs are non-deterministic by nature. You cannot trust them to faithfully translate spec requirements into tests because they will introduce subtle variations, hallucinate edge cases, or miss critical assertions. Since you are also not going to manually review every test (because nobody does), the gap between intent and validation becomes invisible.
 
@@ -105,7 +103,7 @@ LaPopolo's approach to this at OpenAI is aggressive: minimize upfront context, i
 
 ## The Feedback Loop
 
-The core loop of agent execution is simple: write code, run the build, run the tests, read the output, adjust. The orchestrator's job is to manage this loop, detecting when the agent is making progress and when it is stuck.
+The core loop of agent execution is: write code, run the build, run the tests, read the output, adjust. The orchestrator's job is to manage this loop, detecting when the agent is making progress and when it is stuck.
 
 A healthy feedback loop looks like a converging spiral. The agent writes code. The build fails with three errors. The agent fixes two of them. The build fails with one error. The agent fixes the last one. Tests pass. Done. Each iteration brings the agent closer to a working solution. David Stein of ServiceTitan describes building exactly this loop for a legacy reporting migration: "As long as you have that kind of self-healing loop where you're able to empower the agent to check its work and then try to make corrections if it didn't pass validation, that's the key."[ANDev-036] His team migrated 247 metrics from a legacy C# ORM stack to a data lake architecture. The first 20-30 metrics took one to two months as they tuned the agent's context and validation tools. Once the flywheel was running, the remaining metrics took just a few weeks. Work that would have taken quarters of engineer time was compressed into weeks.
 
@@ -113,7 +111,7 @@ An unhealthy feedback loop looks like oscillation. The agent fixes error A but i
 
 David Cramer of Sentry quantifies the problem from his eight-week experiment of agent-only development: "Sub 10% of the time was I able to get like a one-shot fix in, without like serious refinement. And even sub 10% where like one or two prompts got it correct. It was usually like 20 prompts to get something even remotely good." His insight about when agents struggle is not about task size: "It's not about the size of the task. It's about the complexity in the task based on the commonality of the task."[ANDev-015] If the agent is doing something that matches common patterns in its training data, it works well. If the task requires novel combinations, it flounders. Cramer calls this the complexity cliff: the agent does not degrade gracefully. It works well up to some threshold of novelty, then falls off abruptly into confused loops.
 
-The implication for orchestration: the quality of the feedback matters as much as the existence of the feedback. A raw compiler error dump is less useful than a curated error message with the relevant source context attached. A test failure that says "assertion failed" is less useful than one that says "expected endpoint /api/users to return 200, got 404, because the route was not registered in server.ts." The orchestrator should transform build output into agent-digestible prompts, stripping noise and highlighting the information the agent needs to make progress.
+The quality of the feedback matters as much as its existence. A raw compiler error dump is less useful than a curated error message with the relevant source context attached. A test failure that says "assertion failed" is less useful than one that says "expected endpoint /api/users to return 200, got 404, because the route was not registered in server.ts." The orchestrator should transform build output into agent-digestible prompts, stripping noise and highlighting the information the agent needs to make progress.
 
 The orchestrator needs diminishing returns detection: a mechanism that notices when an agent is in an unproductive loop and intervenes. Simple heuristics work surprisingly well:
 
@@ -152,7 +150,7 @@ For most factories in 2026, the practical recommendation is to start with single
 
 ## Tooling for Orchestration
 
-The orchestrator itself is a piece of software that needs to be built or assembled. As of mid-2026, there is no dominant open-source orchestration framework for AI code factories. Teams are building custom orchestrators from general-purpose components. The three most widely used agent frameworks each reflect a different philosophy: CrewAI organizes agents into role-based crews with delegated tasks; LangGraph models workflows as directed graphs with state checkpointing; and AutoGen (now merging with Semantic Kernel into Microsoft's unified Agent Framework) uses event-driven group chats for multi-agent coordination.[DataCamp-agents] None of these were designed specifically for code factories, but their primitives - task routing, agent lifecycle, state persistence - map onto factory orchestration needs.
+The orchestrator is a piece of software that needs to be built or assembled. As of mid-2026, there is no dominant open-source orchestration framework for AI code factories. Teams are building custom orchestrators from general-purpose components. The three most widely used agent frameworks each reflect a different philosophy: CrewAI organizes agents into role-based crews with delegated tasks; LangGraph models workflows as directed graphs with state checkpointing; and AutoGen (now merging with Semantic Kernel into Microsoft's unified Agent Framework) uses event-driven group chats for multi-agent coordination.[DataCamp-agents] None of these were designed specifically for code factories, but their primitives - task routing, agent lifecycle, state persistence - map onto factory orchestration needs.
 
 The minimum viable orchestrator needs:
 

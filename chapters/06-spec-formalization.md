@@ -1,8 +1,6 @@
 # Chapter 6: Spec Formalization: The Machine Translates Intent
 
-This is the chapter where the factory starts producing.
-
-Everything before this was preparation: building context, selecting tools, designing the pipeline. Now a human has an idea for a feature. Something needs to happen to that idea before agents can act on it safely. That something is spec formalization - the process of translating raw business intent into structured, testable, executable specifications that agents can implement without drifting into hallucinated requirements or shadow decisions.
+Everything before this was preparation: building context, selecting tools, designing the pipeline. Now a human has an idea for a feature, and something needs to happen to that idea before agents can act on it safely. That something is spec formalization - the process of translating raw business intent into structured, testable, executable specifications that agents can implement without drifting into hallucinated requirements or shadow decisions.
 
 Spec formalization is the first point in the pipeline where AI does real work. A human walks in with a sentence - "add the ability to favorite items" - and a machine walks out with behavioral contracts, acceptance criteria, interface definitions, data model changes, edge cases, and error handling strategies. The quality of that translation determines whether the rest of the pipeline produces working software or expensive garbage.
 
@@ -32,7 +30,7 @@ The bridge between behavioral contracts and testable acceptance criteria has a n
 
 **Non-functional requirements** are the hardest category to formalize, and the one most likely to be forgotten entirely. Sadogursky is blunt about the challenge: "Cross non-functional concerns are hard to express as behavior. Security constraints, performance requirements - it's impossible to express in given-when-then. Because the whole idea of behavioral driven development is to express behavior."[ANDev-009]
 
-But "hard to express" is not the same as "impossible to test." A performance requirement like "the favorites endpoint responds in under 200ms at the 95th percentile under 1,000 concurrent users" is perfectly testable - you just need a load testing framework rather than a unit test runner. A security requirement like "only authenticated users can modify favorites lists" is testable through authorization checks. A compliance requirement like "user favorites data must be deletable within 30 days of a GDPR erasure request" is testable through an end-to-end data lifecycle verification.
+But hard to express is not the same as impossible to test. A performance requirement like "the favorites endpoint responds in under 200ms at the 95th percentile under 1,000 concurrent users" is perfectly testable - you just need a load testing framework rather than a unit test runner. A security requirement like "only authenticated users can modify favorites lists" is testable through authorization checks. A compliance requirement like "user favorites data must be deletable within 30 days of a GDPR erasure request" is testable through an end-to-end data lifecycle verification.
 
 The trick is encoding these requirements in a format that connects to automated verification. Rene Brandel, the inventor of Kiro[Kiro] and now founder of the security testing company Casco, recommends a pragmatic approach: "Have a little access-control.md file as part of your stack somewhere. Just say, here are the different roles that exist, this is what these roles are supposed to do. Something very simple as that immediately adds so much semantic context into the code that gets generated."[ANDev-029] Non-functional requirements do not need the same format as behavioral specs. They need to be captured, testable, and discoverable by agents - even if they live in separate context files rather than inline with the behavioral spec.
 
@@ -159,7 +157,7 @@ Spec-as-source is the most radical position: the spec is the only source of trut
 
 This is the destination that Chad Fowler's Phoenix Architecture points toward. Fowler, a VC at Blue Yard Capital with a deep technical background including CTO stints at Wunderlist and Microsoft, has been writing about regenerative software for years. His thesis is simple: "Any software in the system you should think about like it's a build artifact. The top level asset is some sort of specification for the system. The code you should think about is just an implementation detail."[ANDev-047]
 
-Spec-as-source is not mainstream practice today. It requires a level of spec completeness and a modular architecture that most existing systems lack. But for greenfield projects with well-bounded scope, it is already working. Fowler himself practices it: "On my IRC system, I will go through runs where I have it just look for all the possible edge cases we might not have thought of for a certain class of bugs. And I get multiple models, multiple times to do this. Then I review it and I have it create tests that discover bugs. And then I have it work until the tests run all the time."[ANDev-047]
+Spec-as-source is not mainstream practice today, requiring a level of spec completeness and modular architecture that most existing systems lack. For greenfield projects with well-bounded scope, it is already working. Fowler himself practices it: "On my IRC system, I will go through runs where I have it just look for all the possible edge cases we might not have thought of for a certain class of bugs. And I get multiple models, multiple times to do this. Then I review it and I have it create tests that discover bugs. And then I have it work until the tests run all the time."[ANDev-047]
 
 The three levels are not a maturity model where everyone should aspire to spec-as-source. They are a trade-off spectrum. Spec-first optimizes for predictability. Spec-anchored optimizes for iteration speed. Spec-as-source optimizes for replaceability. Your choice depends on what you are building, who is building it, and how much you trust your spec to capture the full intent.
 
@@ -205,7 +203,7 @@ Fowler's Phoenix Architecture addresses shadow specs through regeneration - sinc
 
 Until such tooling matures, the practical defense is straightforward: constrain the surface area where agents make autonomous decisions. Use steering files to specify library choices. Use architectural decision records to lock patterns. Use locked tests to enforce invariants. The more explicit you make the decisions that would otherwise be shadows, the less hidden debt you accumulate.
 
-Qodo's 2025 State of AI Code Quality report provides empirical support for this approach: developers cite context gaps more often than hallucinations as the primary cause of poor AI-generated code quality.[Qodo-2025] This finding reframes the problem. The popular narrative treats hallucination as the core risk of AI code generation - the agent inventing APIs that do not exist or libraries that were never imported. But the more common failure is the agent making reasonable decisions based on incomplete information. It does not hallucinate; it fills gaps with plausible defaults that happen to be wrong for your system. Better specs - more complete context about architectural choices, library preferences, and design constraints - are the primary intervention against shadow specs. The spec is not just telling the agent what to build. It is telling the agent what decisions have already been made so it does not make them again, differently.
+Qodo's 2025 State of AI Code Quality report provides empirical support for this approach: developers cite context gaps more often than hallucinations as the primary cause of poor AI-generated code quality.[Qodo-2025] This finding reframes the problem. The popular narrative treats hallucination as the core risk of AI code generation - the agent inventing APIs that do not exist or libraries that were never imported. But the more common failure is the agent making reasonable decisions based on incomplete information. It does not hallucinate; it fills gaps with plausible defaults that happen to be wrong for your system. Better specs - more complete context about architectural choices, library preferences, and design constraints - are the primary intervention against shadow specs. The spec tells the agent both what to build and what decisions have already been made - so it does not make them again, differently.
 
 ## Spec Formats and Trade-offs
 
@@ -241,7 +239,7 @@ V6 also introduced project scale selection, letting teams right-size the spec ov
 
 ### Tessl's Context-Engineering-First Approach
 
-Tessl takes a fundamentally different position. Rather than prescribing a spec format, Tessl focuses on building, testing, and distributing the context that makes agents effective - treating the agent's instructions as the primary artifact rather than the system's specification.
+Tessl takes a different position. Rather than prescribing a spec format, Tessl focuses on building, testing, and distributing the context that makes agents effective - treating the agent's instructions as the primary artifact rather than the system's specification.
 
 Podjarny articulates the distinction: instead of speccing the program, you are speccing the programmer.[ANDev-030] The same spec given to different models produces different results because Opus is creative but sometimes ignores instructions, while smaller models follow instructions more literally but lack judgment. The implication is that the spec alone is insufficient - you also need evaluations that verify the agent's decision-making behavior, not just the system's functional behavior.
 
@@ -285,7 +283,7 @@ The mechanics of spec formalization follow a pattern that varies in implementati
 
 This step is where spec formalization diverges most sharply from vibe coding. In vibe coding, the LLM says "yes, you're absolutely right" and builds whatever you asked for. In spec formalization, the LLM asks hard questions because the spec is the wrong place to be agreeable. Brandel puts it directly: "The people that only agree with you are not going to be the most productive to the ultimate outcome you're trying to drive. You actually want to be asked the hard questions."[ANDev-029]
 
-**Step 5: Human review and approval.** The human reads the spec and either approves it, modifies it, or sends it back for another pass. This is the critical control point. Sadogursky argues that spec review is fundamentally different from code review because specs are readable by everyone at the table - product managers, business stakeholders, engineers, even customers. "Coming back to the biggest benefit of the spec - because it is readable, we can actually review it. Spec is different because it's readable, in your language."[ANDev-009]
+**Step 5: Human review and approval.** The human reads the spec and either approves it, modifies it, or sends it back for another pass. Sadogursky argues that spec review differs from code review because specs are readable by everyone at the table - product managers, business stakeholders, engineers, even customers. "Coming back to the biggest benefit of the spec - because it is readable, we can actually review it. Spec is different because it's readable, in your language."[ANDev-009]
 
 ## Spec-to-Test Traceability: An Honest Assessment
 
@@ -333,7 +331,7 @@ Brandel's multiplication effect makes this concrete: one good line of spec leads
 
 The practical landscape: **Kiro** for integrated, opinionated spec workflows with native EARS; **BMAD** for open-source flexibility with document sharding and role modules; **SpecKit** for familiar three-document structure with minimal overhead; **Tessl** for context engineering across teams and harnesses; and **custom prompt chains** for organizations with strong opinions and engineering capacity.
 
-Most mature teams will combine elements. The framework wars matter far less than the practice. Any structured approach to capturing intent before code generation is dramatically better than none. The spec does not have to be perfect. It has to exist.
+Most mature teams will combine elements. The framework wars matter far less than the practice. Any structured approach to capturing intent before code generation is far better than none. The spec does not have to be perfect. It has to exist.
 
 ## What Comes Next
 
@@ -341,8 +339,8 @@ Spec formalization is stage one of the factory's production work. The spec exist
 
 The next stage is harder: taking that spec and producing code that actually satisfies it - reliably, at scale, without requiring a human to verify every line. That is the code generation problem, and it is where the factory either proves its value or reveals its limitations.
 
-But notice what spec formalization has already accomplished. The human wrote a sentence: "add favorites." The machine produced behavioral contracts, acceptance criteria, interface definitions, data models, edge cases, and error handling strategies. It asked clarifying questions. It checked for contradictions. It grounded the design in the existing codebase. And it produced all of this in a format that both humans and machines can read, review, and verify.
+Spec formalization has already accomplished something significant. The human wrote a sentence: "add favorites." The machine produced behavioral contracts, acceptance criteria, interface definitions, data models, edge cases, and error handling strategies. It asked clarifying questions, checked for contradictions, and grounded the design in the existing codebase - all in a format that both humans and machines can read, review, and verify.
 
-The monkey is ready to start typing. But now the monkey has a spec, and the spec has teeth.
+The monkey is ready to start typing, and now the monkey has a spec with teeth.
 
 ---

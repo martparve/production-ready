@@ -6,7 +6,7 @@ This chapter covers what the factory costs to run, what it costs not to run, whe
 
 ## The Cost Structure of a Headless Factory
 
-The economics of a headless factory differ fundamentally from interactive AI-assisted development. When a developer uses Cursor or Claude Code at their desk, the cost equation is: developer salary + tool subscription + tokens consumed. The developer's time dominates. Whether the model costs $0.50 or $5.00 per conversation, the developer sitting there for an hour costs $75-150 in loaded salary. The token cost is a rounding error.
+The economics of a headless factory differ from interactive AI-assisted development in a structural way. When a developer uses Cursor or Claude Code at their desk, the cost equation is: developer salary + tool subscription + tokens consumed. The developer's time dominates. Whether the model costs $0.50 or $5.00 per conversation, the developer sitting there for an hour costs $75-150 in loaded salary. The token cost is a rounding error.
 
 In headless mode, the developer is gone during execution. The cost equation flips: cloud compute + tokens consumed + review time. No one is sitting at a terminal watching the agent work. The human cost is limited to writing the spec (minutes), reviewing the output (minutes to an hour), and handling any escalations. For routine features that the factory handles well, human involvement might total 30 minutes of senior engineer time for a feature that would have taken a full day to build by hand.
 
@@ -167,8 +167,8 @@ When two of three factors point to factory, route to factory. When two of three 
 
 ## The Real Math
 
-Here is the bottom line. A headless factory does not save money by replacing developers. It saves money by reallocating developer time from routine implementation to work that actually requires human judgment. The factory handles the commodity code - the CRUD endpoints, the standard integrations, the boilerplate that developers can write but do not enjoy writing. The developers handle the hard stuff: system design, performance optimization, debugging novel failures, and the architectural decisions that determine whether the codebase will still be maintainable in two years.
+A headless factory does not save money by replacing developers. It saves money by reallocating developer time from routine implementation to work that actually requires human judgment. The factory handles the commodity code - the CRUD endpoints, the standard integrations, the boilerplate that developers can write but do not enjoy writing. The developers handle the hard stuff: system design, performance optimization, debugging novel failures, and the architectural decisions that determine whether the codebase will still be maintainable in two years.
 
 The cost trajectory points in one direction. Models get cheaper. Context windows get larger. Caching gets more effective. Subscription plans get more generous. The factory's operating cost per feature will continue to drop. Meanwhile, developer salaries show no signs of decreasing. The gap between "cost of a human doing routine work" and "cost of the factory doing routine work" widens every quarter.
 
-The teams that figure out the routing - which work goes to the factory, which stays with humans, and how to make that decision quickly and accurately - will outperform teams that either ignore the factory or try to force everything through it. The economics are clear. The execution is where it gets hard.
+The teams that figure out the routing - which work goes to the factory, which stays with humans, and how to make that decision quickly and accurately - will outperform teams that either ignore the factory or try to force everything through it. The economics are clear. The execution is where it gets difficult.

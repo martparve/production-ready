@@ -1,12 +1,8 @@
 # Chapter 22: The Evolving Factory
 
-The factory you built in Chapters 1 through 19 is already out of date.
+The factory you built in Chapters 1 through 19 is already out of date - not broken, not wrong, but the model you tuned your context for last month has been superseded, the tool that anchored your agent orchestration layer just shipped a major version with different defaults, and the patterns you encoded in your instruction files reflect capabilities from three months ago. The defining characteristic of AI-native development in 2026 is that the factory is never finished. Unlike a CI/CD pipeline that you set up once and update quarterly, the AI code factory requires continuous evolution because its core component - the model - changes faster than any other piece of infrastructure you have ever operated.
 
-Not broken. Not wrong. But the model you tuned your context for last month has been superseded. The tool that anchored your agent orchestration layer just shipped a major version with different defaults. The patterns you encoded in your instruction files reflect capabilities from three months ago, and the frontier has moved.
-
-This is the defining characteristic of AI-native development in 2026: the factory is never finished. Unlike a CI/CD pipeline that you set up once and update quarterly, the AI code factory requires continuous evolution because its core component - the model - changes faster than any other piece of infrastructure you have ever operated.
-
-This chapter is about building the factory to evolve. Not as an aspiration, but as an engineering discipline with concrete practices, measurable signals, and a clear maturity trajectory.
+This chapter is about building the factory to evolve - as an engineering discipline with concrete practices, measurable signals, and a clear maturity trajectory, not as an aspiration.
 
 ## The Six-Month Rule
 
@@ -14,13 +10,13 @@ Patrick Debois, one of the founders of the DevOps movement, described this dynam
 
 This is not the normal cadence of technology change. When cloud computing arrived, you migrated once and then optimized. When containers arrived, you containerized your workloads and then stabilized. The underlying infrastructure changed slowly enough that your processes could settle into steady state.
 
-AI-native development does not work that way. The underlying models change every few months. Each change is not incremental - it is qualitative. A model that required elaborate context engineering to handle multi-file changes six months ago now handles them with minimal guidance. A model that hallucinated test assertions last quarter now generates structurally valid test suites. The techniques you painstakingly developed to work around model limitations become unnecessary overhead when those limitations disappear.
+AI-native development does not work that way. The underlying models change every few months, and each change is not incremental but qualitative. A model that required elaborate context engineering to handle multi-file changes six months ago now handles them with minimal guidance. A model that hallucinated test assertions last quarter now generates structurally valid test suites. The techniques you painstakingly developed to work around model limitations become unnecessary overhead when those limitations disappear.
 
 The implication for the factory is direct: if you are running the same agent configuration you ran six months ago, you are leaving performance on the table. Not because the old configuration stopped working, but because it is working around problems that no longer exist.
 
 ## Model-Factory Co-Evolution
 
-When a new model drops, the instinct is to swap it in and see if things improve. This is the wrong first move. The right first move is evaluation.
+When a new model drops, the instinct is to swap it in and see if things improve - but the right first move is evaluation, not substitution.
 
 **The eval protocol.** Take a representative set of specs from your recent production work - ten to twenty, spanning different complexity levels and domains. Run them through the current model with the current context configuration. Record the outputs: code quality, test coverage, number of validation failures, time to completion, token consumption. Then run the same specs through the new model with the same context. Compare.
 
@@ -44,7 +40,7 @@ Shadow-running catches the edge cases that synthetic evals miss. That one team t
 
 The two human gates - spec review (Chapter 7) and code review (Chapter 12) - are the factory's starting position. They are conservative by design. When you are first learning to trust the factory, you want humans reviewing everything.
 
-But "review everything" is not the destination. It is the point of departure.
+But "review everything" is the point of departure, not the destination.
 
 As the factory matures, as your validation suite grows more comprehensive, as your context engineering gets tighter, and as your team builds confidence in the system's output, the review burden should decrease. Not because you value quality less, but because you have moved quality enforcement from human judgment into automated systems.
 
@@ -56,7 +52,7 @@ The trajectory looks like this:
 
 **High-risk and novel changes: full human review.** Architectural changes. Security-sensitive code. New integrations. Anything touching payment flows, authentication, or data models. These retain both human gates indefinitely. The cost of a mistake is too high, and the model's ability to reason about novel architectural decisions is not reliable enough to remove the human.
 
-The destination is not zero human review. It is review proportional to risk and novelty. An experienced engineering organization already applies this principle informally - senior engineers skim simple PRs and scrutinize complex ones. The factory formalizes that intuition into a measurable policy.
+The destination is review proportional to risk and novelty, not zero human review. An experienced engineering organization already applies this principle informally - senior engineers skim simple PRs and scrutinize complex ones. The factory formalizes that intuition into a measurable policy.
 
 This trajectory has a well-documented hazard that predates software by decades. In 1983, Lisanne Bainbridge published "Ironies of Automation" - a paper now cited over 4,700 times - identifying a paradox that applies directly to the mature factory.[Bainbridge-ironies] The better the automation, the worse humans perform when they need to intervene, because their skills atrophy from disuse. An engineer who reviews factory output all day but rarely writes code is not maintaining the implementation skills needed to catch subtle errors in the code they review. The automation leaves the human operator with the tasks the machine could not handle - by definition the hardest, most ambiguous, highest-stakes decisions - while simultaneously degrading the skills the operator needs to handle them. Bainbridge's insight is not that automation is bad. It is that the human role in a highly automated system must be deliberately designed, not treated as a residual category of "whatever the machine cannot do." For the factory, this means that engineers assigned to review roles must also maintain active coding practice - whether through the complex features the factory cannot handle, through rotation into hands-on implementation work, or through deliberate skill-maintenance exercises. A review-only role will produce reviewers who miss exactly the kinds of errors that matter most.
 
@@ -70,7 +66,7 @@ The Context Development Lifecycle from Chapter 3 is not a one-time exercise. Con
 
 Instruction files reference architecture patterns that were replaced two sprints ago. Rules prohibit practices that the new model handles correctly. Knowledge documents describe API endpoints that have been deprecated. Conventions documented in the context files drift from the conventions actually followed in the codebase.
 
-Context rot is insidious because the factory does not crash when context is stale. It just performs worse. The agent follows an outdated instruction and produces code that works but does not match current conventions. The reviewer catches it, corrects it, and moves on. Neither the reviewer nor anyone else updates the instruction file. The rot accumulates.
+Context rot is insidious because the factory does not crash when context is stale - it just performs worse. The agent follows an outdated instruction and produces code that works but does not match current conventions. The reviewer catches it, corrects it, and moves on. Neither the reviewer nor anyone else updates the instruction file. The rot accumulates.
 
 **Automated freshness checks.** Build a periodic job that scans your context files for references to files, functions, and endpoints that no longer exist in the codebase. If an instruction file says "follow the pattern in src/utils/auth.ts" and that file has been deleted, flag it. This is a simple static analysis task that can run weekly in CI.
 
@@ -98,7 +94,7 @@ Every failure mode in the factory is an opportunity to make the factory better. 
 >
 > The principle is simple: every human intervention in the factory's workflow represents a gap in the factory's context or validation. If you close the gap, that category of human intervention never happens again. The factory gets better because it fails.
 
-The teams that improve fastest are the ones that treat every manual intervention as a defect in the factory. Not a defect in the code - a defect in the system that produced the code. This mindset shift is the difference between a factory that runs and a factory that learns.
+The teams that improve fastest treat every manual intervention as a defect in the factory - not a defect in the code, but a defect in the system that produced the code. That mindset shift is the difference between a factory that runs and a factory that learns.
 
 ## The Maturity Curve
 
@@ -136,17 +132,17 @@ The pipeline from Chapter 2 is a starting architecture, not a final one. As the 
 
 ## What Is Coming Next
 
-Predictions in AI are a losing game. The last three years have produced more incorrect predictions than any other period in the history of technology forecasting. With that caveat, here is what the trajectory suggests as of mid-2026.
+Predictions in AI are a losing game - the last three years have produced more incorrect forecasts than any comparable period in technology history. With that caveat, here is what the trajectory suggests as of mid-2026.
 
 **Safe bets for the next 6-12 months.** Context windows will continue to grow, and models will get better at using long context effectively. This matters for the factory because longer effective context means richer codebase onboarding, fewer context-window-overflow failures, and the ability to handle larger specs in a single pass. Multi-agent coordination will improve - the current generation of multi-agent systems requires careful orchestration to avoid agents interfering with each other's work. Better coordination primitives will make it practical to run multiple agents on the same codebase simultaneously. Models will get better at understanding and generating formal specifications, reducing the gap between natural-language intent and machine-executable spec.
 
 **Worth watching but not worth betting on.** Fully autonomous operation without any human review. The trajectory toward gate reduction is clear, but the last 10% of human review - the novel, the ambiguous, the security-critical - will take longer to automate than the first 90%. Voice as a development interface is gaining traction in prototyping and debugging, but the spec-driven workflow fundamentally requires written precision that voice does not yet deliver reliably. Agents that autonomously discover and fix production issues are compelling in demos but carry deployment risk that most organizations are not ready to accept.
 
-**Invest now regardless.** Context engineering. This is the one bet that gets more valuable no matter which direction the technology goes. Better models do not reduce the importance of context - they increase it. A more capable model with great context produces dramatically better results than the same model with mediocre context. Logan Kilpatrick's observation that prompt engineering was a bug but context engineering is the enduring skill tracks with everything we have seen in production.[ANDev-051] The organizations that invest in context engineering now - building the CDLC discipline, maintaining living context documents, training engineers in context thinking - will have a durable advantage regardless of which model or tool becomes dominant.
+**Invest now regardless.** Context engineering is the one bet that gets more valuable no matter which direction the technology goes. Better models do not reduce the importance of context - they increase it. A more capable model with great context produces dramatically better results than the same model with mediocre context. Logan Kilpatrick's observation that prompt engineering was a bug but context engineering is the enduring skill tracks with everything we have seen in production.[ANDev-051] The organizations that invest in context engineering now - building the CDLC discipline, maintaining living context documents, training engineers in context thinking - will have a durable advantage regardless of which model or tool becomes dominant.
 
 ## A Mid-2026 Snapshot
 
-This book is a snapshot, and it knows it is a snapshot.
+This book is a snapshot.
 
 Some of the specific tools named in these chapters will not exist in two years. Some of the limitations described have already been partially solved between the time of writing and the time of reading. Some of the recommendations will look conservative in hindsight. Others will look aggressive.
 
@@ -156,11 +152,11 @@ The architecture - intent, spec, implement, validate, review, deploy, monitor - 
 
 The factory also changes our relationship with code itself. Martin Fowler wrote about "Sacrificial Architecture" - the practice of accepting that you will throw away what you are building, and designing for replacement rather than permanence.[Martin] In a pre-factory world, sacrificial architecture was a hard sell. Code was expensive to produce, so throwing it away felt wasteful. In a factory world, sacrificial architecture becomes the default operating mode. If the factory can regenerate a service from its spec in thirty minutes, the cost of replacement approaches zero. The code is not precious. The spec is precious. This inverts a long-standing assumption in software engineering. As the "Code is a Liability" argument articulates, every line of code carries maintenance cost - it must be read, understood, tested, debugged, and updated.[CodeLiability] If code can be regenerated from specifications on demand, then the specification becomes the source of truth and the generated code becomes a build artifact, no different in principle from compiled binaries or bundled assets. You would not hand-edit a compiled binary. In a mature factory, you should not hand-edit generated code either. Fix the spec, regenerate the implementation, and validate the output. The code is disposable. The spec, the context, and the validation suite are the durable assets.
 
-Context engineering grows more important as models get more capable, not less. This is counterintuitive. You might expect that smarter models need less context. But in practice, smarter models are capable of doing more with context, which means the marginal value of good context increases with model capability. A weak model with great context can only do so much. A strong model with great context can do dramatically more. The gap between well-contextualized and poorly-contextualized agents widens with every model generation.
+Counterintuitively, context engineering grows more important as models get more capable, not less. Smarter models are capable of doing more with context, which means the marginal value of good context increases with model capability. A weak model with great context can only do so much. A strong model with great context can do dramatically more. The gap between well-contextualized and poorly-contextualized agents widens with every model generation.
 
-The factory is not a product you buy. It is a system you build, operate, and evolve. The models are commodities - interchangeable, improving on a schedule you do not control, priced on a curve that trends downward. The context, the validation suite, the pipeline configuration, the review policies, the feedback loops - those are yours. They encode your organization's knowledge, standards, and engineering judgment. They are the durable competitive advantage.
+The factory is not a product you buy but a system you build, operate, and evolve. The models are commodities - interchangeable, improving on a schedule you do not control, priced on a curve that trends downward. The context, the validation suite, the pipeline configuration, the review policies, the feedback loops - those are yours. They encode your organization's knowledge, standards, and engineering judgment, and they are the durable competitive advantage.
 
-Logan Kilpatrick put it precisely: "AGI is not going to be a model. It's going to be a product that somebody creates."[ANDev-051] The factory is the product. Not the model that powers it. Not the tool that orchestrates it. The system - the full pipeline from intent to production, with all its gates and feedback loops and context engineering and human judgment at the critical points.
+Logan Kilpatrick put it precisely: "AGI is not going to be a model. It's going to be a product that somebody creates."[ANDev-051] The factory is the product - not the model that powers it, not the tool that orchestrates it, but the full pipeline from intent to production, with all its gates and feedback loops and context engineering and human judgment at the critical points.
 
 Build the factory. Operate the factory. Evolve the factory. The models will keep getting better. The tools will keep changing. But the discipline of turning human intent into verified, deployed software through a governed pipeline - that discipline is what separates organizations that ship from organizations that experiment.
 

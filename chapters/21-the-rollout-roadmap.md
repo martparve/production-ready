@@ -1,18 +1,16 @@
 # Chapter 21: The Rollout Roadmap: From First Agent to Full Factory
 
-You have the blueprint. Eighteen chapters of architecture, validation, context engineering, security, governance, and cost management. You know what the factory looks like when it runs.
-
-Now you need to build it. And the order in which you build it matters as much as what you build. Organizations that try to stand up the full headless pipeline in a single quarter learn an expensive lesson: the factory is not a product you install. It is a capability you grow. The interactive phase - engineers working alongside agents in IDEs and CLI tools - is not a detour on the way to headless operation. It is the training ground where your teams develop the judgment, the context, and the process discipline that headless operation demands.
+After eighteen chapters of architecture, validation, context engineering, security, governance, and cost management, you know what the factory looks like when it runs. Now you need to build it - and the order matters as much as what you build. Organizations that try to stand up the full headless pipeline in a single quarter learn an expensive lesson: the factory is not a product you install. It is a capability you grow. The interactive phase - engineers working alongside agents in IDEs and CLI tools - is not a detour on the way to headless operation. It is the training ground where your teams develop the judgment, the context, and the process discipline that headless operation demands.
 
 This chapter traces the full path from "we have no factory" to "headless factory running autonomously with humans as overseers." It covers the prerequisites that must be in place before you start, the team structures that sustain the effort, the build sequence for technical capabilities, the adoption phases for rolling it across the org, the evolution of the human role, and the enablement work that makes all of it stick.
 
 ## Maturity Prerequisites: Fix the Foundation Before You Accelerate
 
-The most dangerous assumption in AI-native development is that AI will fix your broken process. It will not. It will make it worse, faster.
+The most dangerous assumption in AI-native development is that AI will fix your broken process - it will not. It will make it worse, faster.
 
 The 2025 DORA report[DORA-2025] quantified what many practitioners already suspected. Daniel Jones, speaking on the AI Native Dev podcast (Ep 045), put it plainly: "Teams with high levels of development maturity went faster when they introduced agentic coding. Teams with low levels of maturity went slower."[ANDev-045] He framed this through the theory of constraints: speed up one part of a system without addressing the bottlenecks on either side, and you create pile-ups. If agents can churn out commits every few minutes but your lead time to production is three days, you end up with a mountain of merge conflicts and a branch that has diverged so far from main that CI becomes meaningless.
 
-This is not a minor inconvenience. It is a structural failure mode. Every weakness in your engineering practice - poor test coverage, manual deployment gates, undocumented conventions, inconsistent code review - becomes a multiplier of dysfunction when agents enter the picture.
+This is a structural failure mode, not a minor inconvenience. Every weakness in your engineering practice - poor test coverage, manual deployment gates, undocumented conventions, inconsistent code review - becomes a multiplier of dysfunction when agents enter the picture.
 
 > **Case Study: AI Amplifies Indiscriminately**
 >
@@ -46,7 +44,7 @@ The same dynamic applies here. Your engineers need to learn context engineering,
 
 The factory is infrastructure. Like CI/CD pipelines, like cloud platforms, like observability stacks - someone has to build it, someone has to run it, and someone has to use it. The organizational question is how you divide those responsibilities.
 
-Three models emerge from organizations that have deployed AI code factories at scale. Each reflects a different trade-off between consistency and autonomy.
+Three models emerge from organizations that have deployed AI code factories at scale, each reflecting a different trade-off between consistency and autonomy.
 
 ### Model A: Platform Team Builds, Everyone Uses
 
@@ -100,11 +98,11 @@ Start with 3-5 people. At maturity, expect 5-8, depending on the number of teams
 
 ## The Capability Build Sequence
 
-Order matters. Each layer depends on the one below it, and building out of sequence creates capabilities you cannot use because their prerequisites are missing. The layers below represent a recommended sequence, not a rigid prescription. Adjust the timing to your organization's pace, but do not skip layers.
+Each layer depends on the one below it, and building out of sequence creates capabilities you cannot use because their prerequisites are missing. The layers below represent a recommended sequence, not a rigid prescription. Adjust the timing to your organization's pace, but do not skip layers.
 
 ### Layer 0: Minimal Viable Factory (Weeks 1-2)
 
-This is learning to drive before building the highway.
+Think of this as learning to drive before building the highway.
 
 Pick a harness. Claude Code, Codex CLI, Cursor with agent mode - it does not matter which. What matters is that one or two engineers start using it on real (small) tasks. Write a basic instruction file for your repo. Try the agent on a bug fix, a test addition, a small feature. See what it gets right and what it gets wrong. Document what you learn.
 
@@ -162,7 +160,7 @@ The output of Layer 1 is a working loop: an agent picks up a task, operates in a
 
 ### Layer 2: Spec Pipeline + Review (Weeks 7-12)
 
-This is the inflection point. Before Layer 2, agents are sophisticated code-completion tools. After Layer 2, they are factory workers that receive formal work orders and produce traceable output.
+This is the inflection point: before Layer 2, agents are sophisticated code-completion tools; after Layer 2, they are factory workers that receive formal work orders and produce traceable output.
 
 **Spec formalization.** Implement the spec structure from Chapter 6 - inputs, outputs, edge cases, constraints, acceptance criteria. Not every task needs a full spec. Start with new features and significant changes. Bug fixes and minor updates can run with lighter specifications.
 
@@ -185,7 +183,7 @@ This is the inflection point. Before Layer 2, agents are sophisticated code-comp
 
 **Spec review workflow.** Keep it simple: spec is a markdown file, author opens a PR, reviewer approves before implementation begins. The agent reads the approved spec file as input. No special tooling needed - your existing PR review process works. Add a GitHub Actions check or CI step that verifies the spec file exists and contains required sections (inputs, outputs, acceptance criteria) before the implementation agent can run.
 
-Why Layer 2 is the inflection point: it is where the factory begins producing output that is measurably different from ad-hoc agent usage. Teams with spec pipelines report lower rework rates, fewer "what was this supposed to do?" conversations in code review, and higher confidence in agent output. The spec is the forcing function that turns ambiguous intent into precise instructions, and precision is what agents need to produce correct code on the first pass.
+Layer 2 is the inflection point because it is where the factory begins producing output that is measurably different from ad-hoc agent usage. Teams with spec pipelines report lower rework rates, fewer "what was this supposed to do?" conversations in code review, and higher confidence in agent output. The spec is the forcing function that turns ambiguous intent into precise instructions, and precision is what agents need to produce correct code on the first pass.
 
 ### Layer 3: Validation Depth + Governance (Weeks 13-18)
 
@@ -370,7 +368,7 @@ This is the early factory state, corresponding to Layers 0-2 of the capability b
 
 The human role: write specs, review specs, review code, approve merges, debug failures. The AI role: implement specs, write tests, produce documentation, fix validation failures.
 
-This stage feels slower than Stage 1 for some tasks, because the overhead of writing a spec and reviewing agent output can exceed the time to just write the code yourself. That is expected and correct. The investment is not in individual task speed - it is in building the judgment, the infrastructure, and the validation that make later stages possible.
+This stage feels slower than Stage 1 for some tasks, because the overhead of writing a spec and reviewing agent output can exceed the time to just write the code yourself. That is expected and correct: the investment is not in individual task speed but in building the judgment, the infrastructure, and the validation that make later stages possible.
 
 ### Stage 3: AI Writes Code, Humans Review Selectively
 
@@ -392,7 +390,7 @@ This stage requires confidence in validation depth, governance enforcement, and 
 
 This is the destination - the factory running as infrastructure with human oversight focused on strategy, architecture, and exception handling. Routine software development is an automated process, like payroll processing or inventory management. Humans design the system, set the constraints, and handle the edge cases that the system cannot.
 
-Stage 5 is an asymptote that organizations approach but may never fully reach, because "routine" is a moving target - as the factory handles more task categories, the remaining ones are by definition the harder ones that require human judgment.
+Stage 5 is an asymptote: as the factory handles more task categories, the remaining ones are by definition the harder ones requiring human judgment, so "routine" is a moving target that the factory chases without ever fully catching it.
 
 ### Timeline Expectations
 
@@ -400,7 +398,7 @@ Stage 1 to Stage 4 is achievable in 6-9 months for an organization that starts w
 
 Stage 5 is a multi-year trajectory. The factory will continue to expand the set of tasks it handles autonomously, but the asymptote means the last 10-20% of tasks - the novel, the ambiguous, the cross-cutting - will require human involvement for years to come.
 
-Do not set the expectation that your engineering team will be "fully autonomous" by Q4. Set the expectation that routine implementation work will be handled by the factory, and human attention will be freed for higher-value work. The former is achievable. The latter is the actual business value.
+Do not set the expectation that your engineering team will be "fully autonomous" by Q4. Set the expectation that routine implementation work will be handled by the factory and human attention freed for higher-value work - that is the actual business value, and it is achievable.
 
 > **Case Study: Crawl, Walk, Run**
 >
@@ -418,7 +416,7 @@ You can build the best factory in the world and it will sit idle if your enginee
 
 ### The Adoption Paradox
 
-Before discussing enablement tactics, it is worth understanding the broader adoption landscape your rollout enters. Stack Overflow's Developer Surveys show AI tool usage climbing from 76% in 2024 to 84% in 2025 - adoption is approaching universality. Yet trust is moving in the opposite direction: developer confidence in AI-generated code hit an all-time low in the same period.[SO-survey] This is a paradox your rollout strategy must account for. Engineers are using AI tools because they feel they have to - peer pressure, management expectation, competitive anxiety - not because they trust the output. The implication for rollout is that high adoption numbers in your organization do not signal success. Adoption without trust produces a specific failure mode: engineers use the tools superficially, accept low-quality output to save time on tasks they consider unimportant, and quietly rewrite agent output for anything that matters. Your enablement investment must target trust, not just usage.
+The broader adoption landscape your rollout enters deserves attention. Stack Overflow's Developer Surveys show AI tool usage climbing from 76% in 2024 to 84% in 2025 - adoption is approaching universality. Yet trust is moving in the opposite direction: developer confidence in AI-generated code hit an all-time low in the same period.[SO-survey] This is a paradox your rollout strategy must account for. Engineers are using AI tools because they feel they have to - peer pressure, management expectation, competitive anxiety - not because they trust the output. The implication for rollout is that high adoption numbers in your organization do not signal success. Adoption without trust produces a specific failure mode: engineers use the tools superficially, accept low-quality output to save time on tasks they consider unimportant, and quietly rewrite agent output for anything that matters. Your enablement investment must target trust, not just usage.
 
 The DX/Atlassian State of Developer Experience report reinforces this with harder numbers: 62% of developers say AI tools have little or no measurable impact on their productivity, even as management surveys report the opposite. Meanwhile, 97% of developers report losing an entire day or more per week to inefficiencies in their development workflow - inefficiencies that AI tools were supposed to address but largely have not.[DX-2024] Dismissing this skepticism as resistance to change is a mistake. The 62% who report no impact are telling you something about how the tools are being deployed, configured, and supported. Enablement is the bridge between adoption and impact.
 
@@ -497,4 +495,4 @@ In practice, very few teams exercise the escape valve permanently. Most teams th
 | When to reduce human review | After 50+ consistent successes per task category | Earned trust through observed reliability |
 | Stage 4 target | 6-9 months for routine work categories | Realistic, not aspirational |
 
-The factory does not arrive in a single deployment. It grows through layers of capability, each one expanding what agents can do and contracting what humans must do. The organizations that succeed are the ones that treat it as infrastructure, invest in enablement as seriously as they invest in tooling, and measure outcomes rather than activity. Start with the foundation, build the pilot, expand with data, and let the factory earn its autonomy one validated PR at a time.
+The factory grows through layers of capability, each one expanding what agents can do and contracting what humans must do. The organizations that succeed treat it as infrastructure, invest in enablement as seriously as they invest in tooling, and measure outcomes rather than activity. Start with the foundation, build the pilot, expand with data, and let the factory earn its autonomy one validated PR at a time.

@@ -14,7 +14,7 @@ This is how Stripe operates - roughly 1,300 agent-generated PRs per week flowing
 
 The shift is not about typing faster. Auto-complete was about typing faster. Copilot was about typing faster. What happened between 2024 and 2026 is something different: engineers stopped being the ones who write the code.
 
-That sounds dramatic, so let me be precise. Engineers still design systems. They still make architectural decisions. They still debug the weird ones. They still own the quality of what ships. But the act of translating intent into syntax - the part where your fingers produce `if` statements and `for` loops and database queries - that part is increasingly done by a machine.
+Engineers still design systems. They still make architectural decisions. They still debug the weird ones. They still own the quality of what ships. But the act of translating intent into syntax - the part where your fingers produce `if` statements and `for` loops and database queries - that part is increasingly done by a machine.
 
 Guy Podjarny, founder of Tessl and former CEO of Snyk, put it this way on the AI Native Dev podcast: "The human analogy is really a manager. And if you're, at the moment we're like the frontline manager with a player coach, you're giving the tasks, you're monitoring and you're getting things done. And increasingly, if you want to increase your scale and have more employees, in this case, AI employees or AI labor that is getting things done, then you need to become a second line manager and a third line manager."[ANDev-030]
 
@@ -28,9 +28,9 @@ Guy Podjarny draws the analogy explicitly: "When we were in Waterfall era, a lot
 
 The same pattern is playing out now, faster. If all you do is remove the human from the coding step and let AI output flow unchecked, you will end up with a system that is more broken. But if you build the factory right - with validation gates, automated review, context engineering, and human oversight at the right points - you end up somewhere qualitatively different. Kent Beck draws this line sharply, distinguishing "augmented coding" (AI amplifying existing expertise) from "vibe coding" (prompting without professional judgment). As he puts it, AI amplifies existing expertise rather than replacing it - the engineering discipline still has to be there for AI to make it better.[Beck-augmented]
 
-## The Numbers That Changed My Mind
+## Is it Different This Time? 
 
-I was skeptical too, about eighteen months ago. Then I started paying attention to what was actually shipping, not what was being demo'd on Twitter.
+There has been plenty scepticism, most of it entirely justified. However, we have reached a point by now where it is undeniable that real teams are getting real results, trusting their development to the Factory. 
 
 > **Case Study: Stripe's Minions - 1,300 PRs Per Week**[ANDev-052]
 >
@@ -58,7 +58,7 @@ And then there is OpenAI itself, practicing what it preaches.
 >
 > His team uses five or six skills total. All engineers contribute to those skills. The philosophy: a fixed number of entry points into the model, then creative ways to inject prompts into context at the right moment. "Error messages from tests are prompts. Review feedback, which comes mostly from agents, also prompts."
 
-These are not incremental improvements to an existing workflow. Stripe is not "doing development 30% faster." They are operating in a fundamentally different mode where thousands of changes flow through automated systems every week and human engineers act as reviewers, context providers, and quality gates.
+These are not incremental improvements to an existing workflow. Stripe is not "doing development 30% faster." They are operating in a different mode where thousands of changes flow through automated systems every week and human engineers act as reviewers, context providers, and quality gates.
 
 ## The Vocabulary of the New World
 
@@ -66,7 +66,7 @@ Every paradigm shift comes with new jargon. Most of it is noise. But some terms 
 
 ### Context Engineering
 
-This is the big one. Context engineering is the discipline of building and maintaining structured information - instructions, architecture docs, coding conventions, guardrails, skills, examples - that AI agents need to do their jobs well.
+Context engineering is the discipline of building and maintaining structured information - instructions, architecture docs, coding conventions, guardrails, skills, examples - that AI agents need to do their jobs well.
 
 Think of it this way. The models already have intelligence. They can reason, plan, write code, debug. What they do not have is knowledge of your specific system, your conventions, your business rules, your architectural decisions. Your job is providing that knowledge.
 
@@ -108,6 +108,16 @@ This is the overarching concept that ties everything together. The AI code facto
 
 It is called a factory deliberately. Not because software is a commodity (it is not), but because the production process has enough regularity, enough repeatability, and enough scale that industrial thinking applies. You need workflow design, quality control, feedback loops, capacity planning, and continuous improvement - the same disciplines that manufacturing has refined for a century.
 
+When a faulty iPhone is caught in QA at Foxconn, the response is not to fix that phone - screw in the missing camera, re-solder the loose connector, and ship it. The response is to fix the production line. Find the root cause, adjust the tooling, recalibrate the machine. The faulty phone is disposable, just like a bad PR is disposable in the code factory.
+
+When a code reviewer catches a defect in agent-generated output, the high-leverage response is not to fix that PR and move on. It is to fix the factory configuration that produced the defect - update the context file, add a validation rule, refine the skill definition - so the factory stops producing that class of defect. One context update that prevents a category of errors is worth more than a hundred individual PR fixes.
+
+This reframing changes what code review is for. In a traditional dev team, review is a gate: inspect every unit of output, pass or reject. In a factory, review is a calibration instrument: sample the output, measure the defect rate, and tune the production process. You still catch individual defects, but the point is to learn from them, not just to catch them. The engineer who reviews fifty PRs to understand the factory's failure modes and then adjusts the factory to eliminate those failures has done more quality work than the engineer who reviewed five hundred PRs one at a time and fixed each individually.
+
+This also defines what software engineering becomes: the engineer builds and tunes the factory, not the widgets the factory produces. The craft shifts from writing code to designing the system that writes code - its context, its constraints, its validation, its feedback loops. Chapter 12 explores this in depth.
+
+Is the factory reliable enough today that you can stop inspecting every widget? Not entirely. Current AI review tools catch roughly two-thirds of the defects a human reviewer would find - which compares better than it seems, because human reviewers do not catch 100% of defects either - we have lived with human error rates in code review for decades and built entire deployment strategies (staged rollouts, feature flags, automated rollbacks) around the assumption that some defects will escape review. The trajectory is clear: every model generation and every process improvement pushes the automated defect rate lower. At some point - and that point is approaching fast - the fault rate becomes small enough that 100% human inspection is no longer economical. The factory model is a bet on the same curve that manufacturing followed: continuous process improvement until the production line is reliable enough that sampling replaces inspection - not a bet on perfection.
+
 The destination architecture - what this book calls the **headless factory** - takes the metaphor literally. The factory runs in the cloud. Tasks enter as events (issue assigned, Slack reaction, monitoring alert). Sandboxes are provisioned automatically. Agents run without a developer at the controls. The output is a merge request in an engineer's review queue. Nobody opens an IDE to make it happen. Interactive development - an engineer running an agent from their terminal or editor - is the learning phase, the stepping stone that teams use to build context, tune validation, and develop trust. The headless factory is the operating phase.
 
 The rest of this book is about how to build and operate this factory, from interactive first steps to headless production.
@@ -132,8 +142,6 @@ Kilpatrick also pointed to the rate of change itself as a challenge. "The way to
 
 ## The Honest Assessment
 
-Here is where I lose some readers and gain credibility with the ones who stay.
-
 The AI code factory is real and transformative. It is also not magic, not 10x for everyone, and not ready to run unsupervised.
 
 Justin Reock, VP of Developer Relations at DX (a company built on the research of Nicole Forsgren of DORA fame), has been measuring the actual productivity impact of AI coding tools across enterprise organizations. His findings: "More realistically looking at numbers like 20, 25, 30% increases in velocity. It's not the 100x improvements. I think that's a lot of information that's very good for creating YouTube subscribers and upvotes, but not necessarily increased productivity for organizations."[ANDev-014] The 2025 DORA AI report confirms this pattern at scale: individual developer output rose 21% and teams merged 98% more PRs, yet organizational delivery metrics - the ones that actually matter to the business - stayed flat.[DORA-2025]
@@ -148,7 +156,7 @@ Cramer's conclusion was not that agents are useless. It was that they are powerf
 
 The value is real. The "vibe coding YOLO" approach to production software is not.
 
-There is a pattern here worth making explicit. The organizations getting the most out of AI agents are not the ones with the best models or the most expensive subscriptions. They are the ones that have invested in the surrounding system - the context, the validation, the harness, the review process. The agent is the engine. Everything else is the car. An engine sitting on the floor of a garage does not take you anywhere. Kentaro Toyama formalized this as the "Law of Amplification": technology amplifies existing human and institutional forces but cannot substitute for capabilities that are not already present.[Toyama-amplifier]
+The organizations getting the most out of AI agents are not the ones with the best models or the most expensive subscriptions. They are the ones that have invested in the surrounding system - the context, the validation, the harness, the review process. The agent is the engine. Everything else is the car. An engine sitting on the floor of a garage does not take you anywhere. Kentaro Toyama formalized this as the "Law of Amplification": technology amplifies existing human and institutional forces but cannot substitute for capabilities that are not already present.[Toyama-amplifier]
 
 > **Case Study: The DORA Maturity Trap**
 >
@@ -168,7 +176,7 @@ This book asks you to let go of some deeply held beliefs about how software gets
 
 **Unlearn: the best code is code you wrote yourself.** The best code is code that works correctly, is maintainable, passes tests, and ships. Who or what typed it is irrelevant. Your ego is not a quality metric.
 
-**Unlearn: reviewing code means reading every line.** When agents produce hundreds or thousands of PRs per week, line-by-line review of everything is physically impossible. You need a new review model based on risk tiers, automated validation, and targeted human attention. Chapter 12 covers this in detail.
+**Unlearn: reviewing code means reading every line.** When agents produce hundreds or thousands of PRs per week, line-by-line review of everything is physically impossible and the wrong response. When the iPhone factory produces a defective unit, you fix the line, not hire more inspectors. Code review in a factory is a calibration instrument, not a 100% inspection gate - you sample, measure, and tune, the same way manufacturing has done it for decades. Chapter 12 covers this in detail.
 
 **Unlearn: faster is always better.** The DORA finding above is a warning. Speed without quality foundations creates compounding debt. The factory must be built on solid ground, or the increased output will bury you.
 
@@ -188,7 +196,7 @@ Part III addresses the cross-cutting concerns that determine whether your factor
 
 The book is opinionated. Where there are genuine trade-offs, I present them as decision matrices so you can choose based on your situation. Where there is a clear best practice backed by evidence, I say so. Where I am making a bet on where things are heading, I call it a bet.
 
-One last thing before we move on. The machine does write code. But the machine that writes good code, code that ships, code that serves users, code that survives contact with production - that machine is a system built by humans who understand their craft deeply enough to teach it. Production ready is not a state the AI reaches on its own. It is a property of the system you build around it.
+The machine does write code. But the machine that writes good code - code that ships, code that serves users, code that survives contact with production - is a system built by humans who understand their craft deeply enough to teach it. Production ready is not a state the AI reaches on its own. It is a property of the system you build around it.
 
 You are building that system. Let's get started.
 

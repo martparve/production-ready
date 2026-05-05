@@ -1,8 +1,6 @@
 # Chapter 13: Merge, Deploy, and Monitor: Closing the Loop
 
-The PR is approved. Validation passed. The reviewer signed off. Now the code needs to get into the mainline, ship to production, and prove it works under real traffic. In a conventional workflow, a developer clicks the merge button, watches the deploy, and checks the dashboard. In a headless factory, none of those steps should require a human.
-
-This is the final stretch of the pipeline, and it is where most teams lose their nerve. They built the spec automation, configured the agents, stood up the validation layers, implemented risk-tiered review - and then they merge by hand, deploy by hand, and monitor by staring at Grafana. All the automation upstream collapses into a manual last mile that cancels half the throughput gains.
+The PR is approved. Validation passed. The reviewer signed off. Now the code needs to get into the mainline, ship to production, and prove it works under real traffic. In a conventional workflow, a developer clicks the merge button, watches the deploy, and checks the dashboard. In a headless factory, none of those steps should require a human. Most teams lose their nerve here: they built the spec automation, configured the agents, stood up the validation layers, implemented risk-tiered review - and then merge by hand, deploy by hand, and monitor by staring at Grafana. All the upstream automation collapses into a manual last mile that cancels half the throughput gains.
 
 The headless factory closes the loop. Merge is triggered by approval. Deploy runs through existing CI/CD. Monitoring feeds back as new events that re-enter the pipeline. The factory is not a line - it is a circle.
 
@@ -24,7 +22,7 @@ Both strategies benefit from trunk-based development with short-lived branches. 
 
 **Automated merge on approval.** In a headless factory, the merge should happen when the last required reviewer approves - not when someone remembers to click the button. GitHub's auto-merge feature, Graphite's merge queue, and GitLab's merge when pipeline succeeds all support this. The configuration is trivial. The cultural shift is not. Many teams resist removing the manual merge button because it feels like giving up the last point of human control. But that control is an illusion. If you already approved the PR, what additional information does clicking the merge button give you? None. It is a ritual, not a gate.
 
-The real gate is the approval. Once a human (or an AI reviewer for low-risk tiers) approves the PR and all validation checks are green, the merge should be automatic. Any delay between approval and merge is time during which the mainline drifts further from the branch, increasing the probability of merge conflicts.
+Once a human (or an AI reviewer for low-risk tiers) approves the PR and all validation checks are green, the merge should be automatic. Any delay between approval and merge is time during which the mainline drifts further from the branch, increasing the probability of merge conflicts.
 
 **Merge queues** become essential at agent scale. When multiple agents are producing PRs against the same mainline, merge conflicts are inevitable. A merge queue serializes the merges, rebasing each PR against the latest mainline before merging. If the rebase introduces test failures, the PR is ejected from the queue and sent back for remediation - either to the original agent or to a conflict-resolution agent.
 
@@ -36,7 +34,7 @@ The DORA 2024 State of DevOps report delivered a finding that reframes the entir
 
 The CI/CD infrastructure you have today was built for humans. Humans submit two, maybe three diffs a week. Build times of 15 minutes are acceptable when you run 10 builds a day. Test suites that take 30 minutes are tolerable when a developer can context-switch to another task while waiting.
 
-Agents change every assumption.
+Agents change every assumption:
 
 > **Case Study: Madison Fortner on Why CI/CD Is Dead**
 >
@@ -62,23 +60,23 @@ Jez Humble and David Farley formalized this as the deployment pipeline pattern i
 
 ## Deployment: Shipping Machine-Generated Changes
 
-The code is merged. Now it needs to reach production. The deployment strategy for machine-generated code is not fundamentally different from the strategy for human-generated code, but two practices become non-negotiable at agent scale: feature flags and canary deployments.
+The code is merged. Now it needs to reach production. The deployment strategy for machine-generated code does not differ from the strategy for human-generated code, but two practices become non-negotiable at agent scale: feature flags and canary deployments.
 
-**Feature flags for every agent-generated feature.** When a human writes a feature, they have mental context about its blast radius. They know which customers will be affected, which edge cases they handled, and which ones they deferred. An agent has no such intuition. It implemented a spec. Whether that spec was complete, whether the validation caught every gap, whether the behavior is correct for all customer segments - those are open questions until real traffic answers them.
+**Feature flags for every agent-generated feature.** When a human writes a feature, they have mental context about its blast radius - which customers will be affected, which edge cases they handled, which they deferred. An agent has no such intuition. It implemented a spec. Whether that spec was complete, whether the validation caught every gap, whether the behavior is correct for all customer segments - those are open questions until real traffic answers them.
 
 Feature flags let you decouple deployment from release. The code ships to production behind a flag. You enable the flag for 1% of traffic. You watch the error rates, latency distributions, and business metrics. If nothing breaks, you ramp to 10%, then 50%, then 100%. If something breaks at 1%, you kill the flag. No rollback. No hotfix. No incident. Just a config change.
 
 Martin Fowler's taxonomy of feature toggles clarifies the design space.[Fowler-toggles] He identifies four categories: release toggles (ship incomplete code as latent paths), experiment toggles (A/B tests), ops toggles (runtime kill switches for performance-sensitive features), and permission toggles (feature access by user segment). For the headless factory, release toggles are the most important. They enable trunk-based development by allowing agents to merge incomplete features without exposing them to users. An agent implementing a multi-step feature can merge the data layer behind a release toggle on day one and the UI layer on day two. Each merge is independently safe. The toggle ensures that partial work never reaches users. This aligns directly with the short-lived branch discipline: you do not need a long-lived feature branch if the code ships dark.
 
-This is not new advice. It is advice that becomes mandatory when the volume of changes increases by an order of magnitude and the author of those changes has no intuition about their impact.
+This advice becomes mandatory when the volume of changes increases by an order of magnitude and the author has no intuition about impact.
 
 **Progressive delivery as the deployment model.** James Governor coined the term "progressive delivery" in 2018 to describe the broader practice that encompasses canary releases, dark launches, blue-green deployments, and A/B testing under a single operational philosophy: deploy to a small audience, observe, and expand incrementally.[Governor-PD] For factory-generated code, progressive delivery is the natural model. Every agent-produced change is, from the factory's perspective, an experiment. The factory implemented a spec. Whether the implementation is correct under all production conditions is an empirical question that progressive delivery answers with data rather than assumptions. The cadence is: dark launch to internal users, canary to 1% of traffic, observe for a defined window, expand to 10%, observe again, and promote to general availability. Each stage has automated gates. The factory does not need to get it right on the first try - it needs the infrastructure to detect when it got it wrong before most users are affected.
 
 **Canary deployments with automated rollback triggers.** A canary deployment sends the new version to a small subset of production instances while the rest of the fleet runs the old version. Traffic splits between them. Automated monitors compare the canary's error rate, latency, and key business metrics against the baseline.
 
-The automation part is critical. At human scale, a developer watches the canary dashboard and decides whether to proceed or roll back. At agent scale, that developer is reviewing the next ten PRs in their queue. The canary needs to make its own decision. If the error rate exceeds a threshold - say, a 2x increase over the baseline - the deployment rolls back automatically without human intervention.
+At human scale, a developer watches the canary dashboard and decides whether to proceed or roll back. At agent scale, that developer is reviewing the next ten PRs in their queue. The canary needs to make its own decision. If the error rate exceeds a threshold - say, a 2x increase over the baseline - the deployment rolls back automatically without human intervention.
 
-Define the rollback triggers precisely. Vague triggers ("if things look bad") do not automate. Precise triggers do:
+Define rollback triggers precisely. Vague triggers ("if things look bad") do not automate. Precise triggers do:
 
 - Error rate exceeds 2x the trailing 7-day average for more than 5 minutes
 - P99 latency exceeds 3x the baseline for more than 3 minutes
@@ -118,7 +116,7 @@ Three capabilities make a monitoring system agent-friendly.
 
 ## The Feedback Loop Back to the Factory
 
-Here is where the factory becomes a loop instead of a line.
+Here is where the factory becomes a loop.
 
 A production incident fires. The monitoring system detects an error rate spike on the checkout service. An agent queries the monitoring MCP server, correlates the spike with a deployment that happened 45 minutes ago, traces that deployment to PR #4721, and traces PR #4721 to spec FEAT-892.
 
@@ -152,17 +150,17 @@ The CDLC ensures this closure happens. It is not an optional post-mortem exercis
 
 ## Maintenance and Bug Fixes
 
-In a headless factory, bugs do not get hand-patched.
+In a headless factory, bugs do not get hand-patched. This is one of the hardest cultural shifts for teams adopting agentic development.
 
-This is one of the hardest cultural shifts for teams adopting agentic development. A developer sees a bug in production. Their instinct is to open the editor, fix the three lines of code, push the commit, and move on. They have the context. They understand the problem. The fix takes ten minutes. Going through the full pipeline - capturing intent, formalizing a spec, running the agent, validating, reviewing - takes an hour. Why would anyone do that?
+A developer sees a bug in production. Their instinct is to open the editor, fix the three lines, push the commit, and move on. They have the context, they understand the problem, the fix takes ten minutes. Going through the full pipeline - capturing intent, formalizing a spec, running the agent, validating, reviewing - takes an hour. Why would anyone do that?
 
-Because the fix is not the point. The pipeline is the point.
+Because the fix is not the point - the pipeline is the point.
 
-When a developer hand-patches a bug, they fix the symptom. When the same bug enters the pipeline as a new intent - "this behavior is wrong, the correct behavior is X" - the factory produces a fix, but it also updates its context. The spec captures the correct behavior. The test suite gains a regression test. The onboarding context records the pitfall. The next time an agent works on related code, it knows about this edge case.
+When a developer hand-patches a bug, they fix the symptom. When the same bug enters the pipeline as new intent - "this behavior is wrong, the correct behavior is X" - the factory produces a fix and also updates its context. The spec captures the correct behavior, the test suite gains a regression test, the onboarding context records the pitfall. The next time an agent works on related code, it knows about this edge case.
 
-Hand-patching is a leak in the feedback loop. It produces a fix that exists only in the code, with no spec, no test, and no context update. It is invisible to the factory. And because it is invisible, the factory will make the same mistake again.
+Hand-patching is a leak in the feedback loop: a fix that exists only in the code, with no spec, no test, no context update. The factory cannot see it, so the factory will make the same mistake again.
 
-The discipline is simple: every change enters through the pipeline. Bug reports become intent. Intent becomes spec. Spec becomes implementation. Implementation gets validated, reviewed, merged, deployed, and monitored. The loop closes.
+The discipline is simple: every change enters through the pipeline. Bug reports become intent. Intent becomes spec. Spec becomes implementation. The loop closes.
 
 This does not mean the process must be slow. A low-risk bug fix - a typo, a wrong constant, a missing null check - can fly through the pipeline in minutes if your risk tiers are calibrated correctly. The pipeline has a fast lane. What it does not have is a bypass.
 
@@ -194,18 +192,16 @@ The following matrix maps decisions across the merge-deploy-monitor stage to the
 
 ## The Circle Completes
 
-The ten stages of the pipeline from Chapter 2 are not a waterfall. They are a cycle.
+The ten stages of the pipeline from Chapter 2 are not a waterfall - they are a cycle.
 
 Intent enters the factory. It is formalized into a spec, reviewed by a human, handed to an agent with full codebase context, implemented in an isolated sandbox, validated by six layers of automated checks, reviewed by humans and AI, merged into the mainline, deployed behind feature flags, monitored by agent-queryable observability tools, and - when something goes wrong - the production signal re-enters the factory as new intent.
 
 The factory learns. Every production incident that traces back to a spec gap improves the spec template. Every validation failure that escapes to production improves the test generation prompts. Every onboarding miss that causes an agent to use a deprecated library improves the codebase context. The CDLC is the mechanism that captures these learnings and distributes them to every future agent run.
 
-This is the destination the book has been building toward. Not a tool. Not a framework. A way of organizing software production where the human job is designing and maintaining the factory - its context, its quality gates, its feedback loops - while the factory runs.
+This is the destination: not a tool, not a framework, but a way of organizing software production where the human job is designing and maintaining the factory - its context, its quality gates, its feedback loops - while the factory runs.
 
 Steve Kuliski at Stripe described the end state simply: an engineer sees a Jira ticket, clicks a single emoji in Slack, and an agent spins up an entire replica of Stripe, implements the change, runs CI, generates a PR, and waits for review.[ANDev-052] 1,300 PRs per week, with human intervention only at the review gate. But behind that simplicity is the entire pipeline: the context that teaches the agent how to build Stripe, the validation that catches failures before humans see them, the merge queue that serializes a thousand weekly PRs, the monitoring that feeds production signals back into the factory.
 
-The factory is not magic. It is engineering. It has stages, feedback loops, quality gates, and failure modes. You build it one stage at a time, instrument it, tune it, and gradually shift from manually operating each stage to designing the stages and letting the machines run.
-
-The machine writes the code. You build the machine.
+The factory is not magic - it is engineering. It has stages, feedback loops, quality gates, and failure modes. You build it one stage at a time, instrument it, tune it, and gradually shift from manually operating each stage to designing the stages and letting the machines run. The machine writes the code. You build the machine.
 
 ---

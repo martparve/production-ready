@@ -18,7 +18,7 @@ Agents do not have organizational context. They do not know Sarah. They do not k
 
 The bar for intent capture has shifted. It is not "write a document comprehensive enough that a developer can build the feature." It is "provide enough signal that a machine can ask the right clarifying questions." This is a lower bar in terms of initial effort and a higher bar in terms of precision. You do not need to write a perfect spec. You do need to be clear about what you want, what systems are affected, and what success looks like.
 
-There is a cost to this precision. Research on formal methods in requirements engineering shows that formalizing requirements can increase development cycle time by roughly 30%.[Lorch-formal] That is real overhead, and teams should not pretend otherwise. But the payback comes in clarity, correctness, and verifiability - properties that matter more, not less, when agents are the downstream consumers. A human developer encountering an ambiguous requirement will pause and ask a colleague. An agent encountering the same ambiguity will pick an interpretation and build confidently on top of it. The 30% upfront cost of formalization prevents the 300% rework cost of an agent that spent a day implementing the wrong interpretation at machine speed.
+Formalizing requirements increases development cycle time by roughly 30%.[Lorch-formal] That is real overhead, and teams should not pretend otherwise. But the payback comes in clarity, correctness, and verifiability - properties that matter more, not less, when agents are the downstream consumers. A human developer encountering an ambiguous requirement will pause and ask a colleague. An agent encountering the same ambiguity will pick an interpretation and build confidently on top of it. The 30% upfront cost of formalization prevents the 300% rework cost of an agent that spent a day implementing the wrong interpretation at machine speed.
 
 ## How It Works Technically
 
@@ -68,7 +68,7 @@ Direct prompt input is fine for solo exploration and prototyping. It is inadequa
 
 Jason Ganz, Head of Developer Experience at dbt Labs, captures the hardest problem in intent capture with a single observation about how organizations define business terms: five people will have multiple definitions, and the LLM will invent another one.[ANDev-008]
 
-This is not a theoretical concern. It is the single most common failure mode for data-referencing intents, and it increasingly matters for any intent that touches business logic.
+This is the single most common failure mode for data-referencing intents, and it increasingly matters for any intent that touches business logic.
 
 When a stakeholder writes "show me revenue by region," the word "revenue" could mean gross revenue, net revenue, revenue excluding refunds, revenue including pending charges, ARR, MRR, or some internal metric that maps to none of the standard definitions. The database has columns for several of these. The LLM, being eager to help and lacking the institutional knowledge to know which definition applies, will pick one and produce a confident, reasonable, and possibly wrong answer.
 
@@ -78,11 +78,11 @@ When a stakeholder writes "show me revenue by region," the word "revenue" could 
 >
 > dbt's solution is the semantic layer: a formal mapping between business concepts and their technical definitions. When an intent references "revenue," the system resolves it against the semantic layer rather than letting the LLM infer a definition from column names. Ganz reports that benchmarking shows "much, much more accurate" results when LLMs operate on semantic concepts rather than raw structured data. The semantic layer does not just improve accuracy - it improves consistency, ensuring that "revenue" means the same thing regardless of who asks or which agent answers.
 
-The semantic layer pattern generalizes beyond data engineering. Any organization with domain-specific terminology - which is every organization - has a vocabulary gap between business language and technical reality. "The billing page" might refer to three micro-frontends. "Enterprise customers" might mean customers on the Enterprise plan, or customers with over 500 seats, or customers assigned to the enterprise sales team. "Latency" might mean p50, p95, or p99 depending on who is talking.
+The semantic layer pattern generalizes beyond data engineering. Any organization has a vocabulary gap between business language and technical reality. "The billing page" might refer to three micro-frontends. "Enterprise customers" might mean customers on the Enterprise plan, or customers with over 500 seats, or customers assigned to the enterprise sales team. "Latency" might mean p50, p95, or p99 depending on who is talking.
 
 Intent capture should link business terms to their canonical definitions. This can be a formal business glossary, a semantic layer like dbt's, or even a curated section of your agent's context (a terminology file in CLAUDE.md or equivalent). The mechanism matters less than the discipline: when the factory encounters a business term in an intent, it should resolve it against an authoritative source rather than letting the agent guess.
 
-For teams just starting, the minimum viable approach is a markdown glossary of the twenty most commonly misunderstood terms in your domain, included in the agent's context. This is not elegant. It is effective. As Ganz notes, the abstractions built to solve these problems for humans are the same abstractions needed for AI systems - just with a more rigorous enforcement layer.[ANDev-008]
+For teams just starting, the minimum viable approach is a markdown glossary of the twenty most commonly misunderstood terms in your domain, included in the agent's context. Not elegant, but effective. As Ganz notes, the abstractions built to solve these problems for humans are the same abstractions needed for AI systems - just with a more rigorous enforcement layer.[ANDev-008]
 
 ## The Human Role
 

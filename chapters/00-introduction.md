@@ -22,7 +22,7 @@ I have always been the kind of business person who spends more time with enginee
 
 In early 2026, I watched a CEO I advise rebuild his SaaS product using Claude Code. He is a deeply technical person but not a software engineer. He learned disciplined specification-driven development in a couple of weeks, then built a new version of his product that already had several features the old one was missing - features that gave the product a serious competitive advantage in its market.
 
-Two takeaways. First: the velocity. Not just faster coding, but a compression of the entire path from intent to deployed product. Second: experience and domain knowledge trumped technical skills. There is almost no correlation between technical skill level and AI agent adoption success. Everyone I have seen achieve great results with agents fast is a conceptual thinker - someone who can decompose a problem, specify what they want, and evaluate the output critically. Metacognition, not syntax.
+Two things stood out. First, the velocity: not just faster coding, but a compression of the entire path from intent to deployed product. Second, experience and domain knowledge trumped technical skills. There is almost no correlation between technical skill level and AI agent adoption success. Everyone I have seen achieve great results with agents fast is a conceptual thinker - someone who can decompose a problem, specify what they want, and evaluate the output critically. Metacognition, not syntax.
 
 But I also saw the other side. Skilled engineers seeking out the first disappointment to get stuck at. Organizations deploying AI coding tools without any shared vocabulary, any common pipeline, any organizational strategy.
 
@@ -34,7 +34,7 @@ So I wrote one.
 
 This book was written with Claude Code, using a documentation-as-code workflow: structured specifications, iterative agent-driven generation, human review at every stage, version control, and continuous validation. In this sense it is a product of AI-native storytelling. The source material includes hundreds of podcast episodes, academic papers and industry reports, and through all that, the practical experience of engineering teams at Stripe, OpenAI, Google, Netlify, and dozens of other organizations. 
 
-A special shout out goes to the AI Native Dev podcast that makes such a good job bringing together a wide spectrum of industry experience and thought leadership. 
+A special shout out goes to the AI Native Dev podcast for bringing together a wide spectrum of industry experience.
 
 ## Who This Book Is For
 
@@ -52,7 +52,7 @@ This book gives you and your engineering leads a shared reference. Read it toget
 
 ## What This Book Is
 
-At its core, this is a systems engineering book. The system happens to include AI agents as workers, but the problems it tackles are familiar ones: workflow design, quality control, feedback loops, human-machine handoff points, and scaling a production system without it falling apart.
+At its core, this is a systems engineering book. The system happens to include AI agents as workers, but the problems it tackles are familiar ones: workflow design, quality control, feedback loops, human-machine handoff points, and scaling a production system without it falling apart. The mental model is closer to manufacturing than to traditional software development. When a factory produces a defective unit, you fix the production line, not the unit. The same principle applies here: the engineer's job is building and tuning the factory, not hand-finishing every piece of output.
 
 The book follows a unit of work through the entire pipeline - from a business request expressed in natural language, through specification, agent execution, automated validation, human review, and deployment. At each stage, it tries to lay out the architectural decisions, the tooling options, the trade-offs, and the failure modes. It then covers cross-cutting concerns that span the pipeline: security, cost, observability, governance, and organizational rollout.
 
@@ -78,7 +78,5 @@ A note on recurring themes: several architectural principles come up across mult
 
 This book is a mid-2026 snapshot, and it knows it. Some of the specific tools named here will not exist in two years. Some of the limitations described will be solved by the time you read this. Some of the recommendations will look conservative in hindsight, others aggressive.
 
-My hope is that the overall architecture - intent, spec, implement, validate, review, deploy, monitor - will prove more durable than the specific tools. The context engineering discipline at the center of it all seems likely to grow in importance as models get more capable. But predictions are hard, especially about the future.
-
-Where a recommendation is likely to age, I have tried to say so. Where I am making a bet, I have tried to call it a bet.
+My hope is that the overall architecture - intent, spec, implement, validate, review, deploy, monitor - will prove more durable than the specific tools. The context engineering discipline at the center of it all seems likely to grow in importance as models get more capable. But predictions are hard, especially about the future. 
 

@@ -2,13 +2,13 @@
 
 The PR lands in your queue at 9:14 AM. You were not there when it was written. You did not pair on it, did not watch the agent iterate, did not see the three false starts it took before the tests passed. You have a diff, a description, a link to the spec, and a validation report. That is the entirety of your context for deciding whether this change ships to production.
 
-This is code review in a headless factory. The author is a machine. The reviewer is you. And the dynamics are fundamentally different from anything the industry practiced for the last thirty years.
+This is code review in a headless factory. The author is a machine, the reviewer is you, and the dynamics differ from anything the industry practiced for the last thirty years.
 
 ## What Stays the Same
 
 The good news: most of what makes a strong code reviewer has not changed. Architectural judgment still matters. Business logic correctness still matters. Security still matters. Maintainability still matters. The reviewer's job is still to ask: does this change do what it should, is it safe, and will future engineers be able to understand it?
 
-These concerns are durable because they are properties of the system, not properties of the author. It does not matter whether a human or a machine wrote the code that introduces a SQL injection vulnerability. The vulnerability exists either way, and the reviewer's job is to catch it.
+These concerns are durable because they are properties of the system, not the author. A SQL injection vulnerability exists whether a human or a machine introduced it, and the reviewer's job is to catch it.
 
 The same applies to architectural fitness. A machine-generated PR that introduces a synchronous HTTP call inside an event-driven pipeline is making an architectural mistake regardless of its origin. A reviewer who understands the system's design principles will spot this whether the diff came from a junior engineer, a senior engineer, or Claude.
 
@@ -16,11 +16,11 @@ The same applies to architectural fitness. A machine-generated PR that introduce
 
 Three things are different when the author is a machine, and each one shifts how you should spend your review time.
 
-**There is no ego.** Human code review carries social weight. You phrase feedback carefully. You distinguish between "this is wrong" and "have you considered an alternative approach?" You calibrate directness based on the author's seniority and your relationship with them. None of that applies when reviewing machine-generated code. You can be blunt, specific, and demanding without worrying about morale. "This is wrong, regenerate it" is a perfectly reasonable review comment when the author cannot have its feelings hurt.
+**No ego.** Human code review carries social weight. You phrase feedback carefully. You distinguish between "this is wrong" and "have you considered an alternative approach?" You calibrate directness based on the author's seniority and your relationship with them. None of that applies when reviewing machine-generated code. You can be blunt, specific, and demanding without worrying about morale. "This is wrong, regenerate it" is a perfectly reasonable review comment when the author cannot have its feelings hurt.
 
-This sounds trivial. It is not. A surprising amount of review friction in human teams comes from the social overhead of delivering feedback. Removing that overhead changes the velocity of the review cycle and, more importantly, changes the reviewer's willingness to reject marginal work. When the cost of rejection is "the machine runs again for twenty minutes" instead of "a colleague spends another afternoon on this," reviewers hold a higher bar.
+A surprising amount of review friction in human teams comes from the social overhead of delivering feedback. Removing that overhead changes the velocity of the review cycle and, more importantly, the reviewer's willingness to reject marginal work. When the cost of rejection is "the machine runs again for twenty minutes" instead of "a colleague spends another afternoon on this," reviewers hold a higher bar.
 
-**Volume is dramatically higher.** Stripe processes roughly 1,300 agent-generated PRs per week.[ANDev-052] Even teams far smaller than Stripe are seeing 3-10x increases in PR volume when they adopt agentic workflows. This volume fundamentally changes what is feasible. You cannot review 1,300 PRs per week with the same line-by-line scrutiny you applied to 130. Something has to give.
+**Volume is far higher.** Stripe processes roughly 1,300 agent-generated PRs per week.[ANDev-052] Even teams far smaller than Stripe are seeing 3-10x increases in PR volume when they adopt agentic workflows. This volume changes what is feasible. You cannot review 1,300 PRs per week with the same line-by-line scrutiny you applied to 130. Something has to give.
 
 **The reviewer assesses spec match, not style preference.** In traditional code review, a significant portion of comments are about style, naming, and idiomatic patterns. These are valid concerns, but they are concerns about how the code was written, not what it does. When an agent writes code, style enforcement belongs in the linter and the context configuration, not in the review. The human reviewer's time is better spent on the question that automated tools cannot answer: does this implementation faithfully execute the spec?
 
@@ -40,7 +40,7 @@ The bottleneck manifests in predictable ways. Senior engineers - the ones best q
 
 But scale alone does not make review impossible. Sadowski et al. studied code review at Google across more than nine million reviewed changes and found that every single change to the codebase, without exception, goes through review.[Sadowski-2018] Google achieves this through rigorous tooling and process discipline: automated reviewer assignment, mandatory review before merge, and a culture where review is not optional overhead but a core engineering activity. The lesson for factory operators is that review can scale to enormous volumes if the tooling and process are deliberately designed for it. The problem is not that 1,300 PRs per week cannot be reviewed. The problem is that 1,300 PRs per week cannot be reviewed with the same ad hoc process that worked for 130.
 
-The temptation is to solve this by reviewing less carefully. That is the wrong response. The correct response is to review differently.
+The temptation is to review less carefully. The correct response is to review differently.
 
 ## Three Phases of Review Evolution
 
@@ -183,13 +183,13 @@ This progression only works if you are measuring outcomes. Track escaped defects
 
 ## The Changing Purpose of Code Review
 
-There is a subtlety about code review that gets lost in the volume discussion. Code review was never just about catching bugs.
+Something gets lost in the volume discussion: code review was never just about catching bugs.
 
 Merrill Lutsky made this point explicitly: "A lot of folks get stuck on the idea of code review being the only value of code review being this validation step. I think the other two pieces that are often missed: code review is super important in sharing knowledge across the team. It's also a great moment of teaching where you get feedback and you're able to improve the way you're approaching your projects."[ANDev-025]
 
 Bacchelli and Bird's landmark study at Microsoft confirmed this empirically: in a study of professional developers, the primary value of code review was knowledge transfer and shared code ownership, not defect detection.[Bacchelli-2013] Reviewers reported that understanding code written by others - building a mental model of what changed and why - was the outcome they valued most. Bug-finding, while important, ranked below knowledge dissemination, team awareness, and finding alternative solutions.
 
-This finding has a provocative implication for agent-generated code. If the primary purpose of human review is knowledge transfer, and the agent does not learn from review feedback (at least not yet - context updates are a manual step), then the traditional review loop is broken in one direction. The agent produces code, the human reviews it and learns about the system, but the agent does not absorb the reviewer's insights for next time. Review of agent code needs a different framing: it is less about improving the author and more about keeping the human team literate in their own system. The reviewer is not teaching - they are studying.
+If the primary purpose of human review is knowledge transfer, and the agent does not learn from review feedback (context updates are still a manual step), then the traditional review loop is broken in one direction. The agent produces code, the human reviews it and learns about the system, but the agent does not absorb the reviewer's insights for next time. Review of agent code needs a different framing: it is less about improving the author and more about keeping the human team literate in their own system. The reviewer is not teaching - they are studying.
 
 In a headless factory, the knowledge-sharing function of review becomes more important, not less. When an engineer reviews a machine-generated PR, they are learning what the agent built, how it interpreted the spec, and what patterns it chose. This is how the team maintains a mental model of its own system despite not having written much of the code. If review becomes purely a rubber-stamping exercise, the team loses situational awareness of its codebase.
 
@@ -211,7 +211,7 @@ Each of these elements reduces the reviewer's cognitive load. Without them, the 
 
 ## Where This Is Heading
 
-The trajectory is clear even if the timeline is not. Code review is transitioning from a manual, line-by-line inspection to a layered, risk-stratified, partially automated process.
+Code review is transitioning from manual, line-by-line inspection to a layered, risk-stratified, partially automated process.
 
 The end state is not "no human review." It is "human review concentrated where it matters." Humans reviewing architectural decisions, business logic correctness, and system-level impact. Machines handling style enforcement, common bug patterns, and spec-clause verification. Every PR carrying enough context that a reviewer who was never in the room can make a confident judgment in minutes rather than hours.
 

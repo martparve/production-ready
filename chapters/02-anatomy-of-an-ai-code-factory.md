@@ -53,7 +53,7 @@ The formalization step is where AI earns its keep. A developer writes "add the a
 
 A human reads the spec and says yes, this is what we want to build. Or no, it is not.
 
-This is the single highest-leverage decision point in the entire pipeline. Everything downstream depends on the spec being right. A bad spec that passes review will produce code that faithfully implements the wrong thing. The agent will do exactly what the spec says. It will do it well. And it will be wrong.
+This is the single highest-leverage decision point in the entire pipeline. Everything downstream depends on the spec being right. A bad spec that passes review will produce code that faithfully implements the wrong thing - the agent will do exactly what the spec says, do it well, and be wrong.
 
 Spec review is cheap. It takes minutes to read a spec. Code review takes hours - and by then, the wrong implementation already exists and someone has to explain why we are throwing it away.
 
@@ -71,13 +71,13 @@ Codebase onboarding is implemented through context artifacts: instruction files 
 
 Kiro's approach here is instructive. When you start with an existing project, the first thing the tool does is generate "steering docs" - it analyzes the codebase and produces a product overview, file organization map, and tech stack summary. As Nikhil Swaminathan describes it: "The steering docs get auto-generated and they give you a product overview. It looks at all the different files and builds an understanding of the project."[ANDev-016]
 
-This is not a one-time setup. The context artifacts evolve with the codebase. Every architectural decision, every new pattern, every deprecated approach should be reflected in the onboarding materials. The teams that maintain their context artifacts well get dramatically better output from their agents. The teams that do not wonder why the AI keeps making the same mistakes.
+This is not a one-time setup. The context artifacts evolve with the codebase. Every architectural decision, every new pattern, every deprecated approach should be reflected in the onboarding materials. The teams that maintain their context artifacts well get markedly better output from their agents. The teams that do not wonder why the AI keeps making the same mistakes.
 
 ## Stage 5: Branch Sandboxing
 
 The agent needs a place to work that cannot break anything. Branch sandboxing creates an isolated environment - a fresh branch, a clean working directory, sometimes a full ephemeral development environment - where the agent can implement the spec without affecting mainline code or other agents' work.
 
-This sounds trivial until you have five agents working on five features simultaneously, isolation becomes a real engineering problem. Merge conflicts are inevitable. Shared resources (databases, APIs, test environments) become bottlenecks. And if an agent goes off the rails - generating thousands of files, entering infinite loops, consuming unbounded tokens - you need to be able to kill it without collateral damage.
+With five agents working on five features simultaneously, isolation becomes a real engineering problem. Merge conflicts are inevitable. Shared resources (databases, APIs, test environments) become bottlenecks. And if an agent goes off the rails - generating thousands of files, entering infinite loops, consuming unbounded tokens - you need to be able to kill it without collateral damage.
 
 Branch sandboxing is borrowed directly from CI/CD infrastructure. The same principles apply: ephemeral environments, clean state, resource limits, and automatic cleanup. The main difference is volume. Human developers might create a few branches a week. An AI code factory might spin up dozens per day.
 
@@ -137,7 +137,7 @@ This is where the pipeline stops being a line and becomes a loop. A production i
 
 The feedback loop is also where the factory learns. If agents consistently produce code that fails a particular class of validation, the codebase onboarding materials need to be updated. If a certain type of spec leads to implementation problems, the spec formalization step needs better templates. If production monitoring catches issues that validation missed, the validation suite needs new tests.
 
-The factory is only as good as its feedback loops - without monitoring you are flying blind, and with monitoring but no mechanism to act on it you are just watching yourself fail in high definition. An IT Revolution analysis of the 2025 DORA data puts it starkly: AI amplifies organizational friction 10-100x faster than human-paced development does, making foundational DevOps practices - CI/CD, trunk-based development, monitoring - not optional but the backbone that determines whether AI acceleration helps or hurts.[DORA-2025]
+The factory is only as good as its feedback loops: without monitoring you are flying blind, and monitoring without a mechanism to act on it means watching yourself fail in high definition. An IT Revolution analysis of the 2025 DORA data puts it starkly: AI amplifies organizational friction 10-100x faster than human-paced development does, making foundational DevOps practices - CI/CD, trunk-based development, monitoring - not optional but the backbone that determines whether AI acceleration helps or hurts.[DORA-2025]
 
 ## Two Architectural Concepts
 
@@ -189,13 +189,13 @@ As the factory matures, even these gates evolve. Low-risk changes - dependency u
 
 > **Case Study: Progressive Gate Relaxation - Merrill Lutsky, Graphite**[ANDev-025]
 >
-> Lutsky describes how leading Graphite customers are already differentiating their review process by risk level. AI handles the first pass - catching bugs, style violations, security issues, and adherence to custom rules. "By the time you loop in a human colleague, they're able to look for higher order problems and not have to spend as much time nitpicking and reading every single line of code." The human gate does not disappear. It gets smarter about what it pays attention to. And critically, the rules that drive the AI review are configurable: "You can define custom rules, either in English or regex, around helping it to focus on particular types of issues." Teams evolve their review gates by accumulating institutional knowledge into the automated reviewer, progressively freeing humans to focus on architectural and strategic concerns.
+> Lutsky describes how leading Graphite customers are already differentiating their review process by risk level. AI handles the first pass - catching bugs, style violations, security issues, and adherence to custom rules. "By the time you loop in a human colleague, they're able to look for higher order problems and not have to spend as much time nitpicking and reading every single line of code." The human gate does not disappear. It gets smarter about what it pays attention to. The rules that drive the AI review are also configurable: "You can define custom rules, either in English or regex, around helping it to focus on particular types of issues." Teams evolve their review gates by accumulating institutional knowledge into the automated reviewer, progressively freeing humans to focus on architectural and strategic concerns.
 
 The trajectory is clear: human gates move toward higher-level judgment over time. But they do not disappear. Even in Lutsky's Phase 3 future, someone is reviewing the finished product. The nature of the review changes. The necessity of it does not.
 
 ## The Loop, Not a Line
 
-I have presented the pipeline as a numbered list. That is misleading. The pipeline is a loop.
+The numbered list above is misleading: the pipeline is a loop.
 
 Deployed code updates the context for the next feature. Production incidents become new specs. User feedback drives new intent. The monitoring output from Stage 10 feeds directly into the intent capture of Stage 1.
 
@@ -218,7 +218,7 @@ The difference between the two is whether you treat the feedback loop as a core 
 >
 > "The code that we have is a liability and the system is the asset that we're building," Fowler says. He practiced this at Wunderlist, where services were kept so small that they could be rewritten in an afternoon. When a Haskell service's build toolchain rotted because it changed so infrequently, someone just rewrote it in Go and deployed it. After a major release, the team replaced 70% of the codebase with different languages, cutting hosting costs to 25% of what they were at launch. All because the services were tiny, had consistent calling conventions, and were designed to be replaced.
 >
-> In the Phoenix Architecture, you never patch - you regenerate from spec. The pipeline is not a loop. It is a regeneration cycle. "If change is hard, then just build it into the system so you have no choice but to constantly change." At the extreme end, the factory does not maintain code at all. It maintains specs, context, and evaluations. The code is disposable. This sounds radical until you remember that we already treat infrastructure this way - immutable containers, blue-green deployments, kill-and-replace instead of patch-in-place. Fowler is applying the same principle one layer up.
+> In the Phoenix Architecture, you never patch - you regenerate from spec. The pipeline is not a loop. It is a regeneration cycle. "If change is hard, then just build it into the system so you have no choice but to constantly change." At the extreme end, the factory does not maintain code at all. It maintains specs, context, and evaluations. The code is disposable. We already treat infrastructure this way - immutable containers, blue-green deployments, kill-and-replace instead of patch-in-place. Fowler is applying the same principle one layer up.
 >
 > Few organizations are ready for this today. But the architecture of the factory should not prevent it. If your pipeline assumes code is precious and permanent, you have baked in a constraint that will fight you as models get more capable.
 
@@ -270,7 +270,7 @@ The circular specification problem is not a bug in the pipeline. It is a feature
 
 ## Putting It Together: A Headless Run
 
-Let me be concrete about what the headless factory looks like in practice.
+Here is what the headless factory looks like in practice.
 
 A product manager writes a feature request in Jira: "Let users export their dashboard as a PDF." She assigns it to the factory's service account. That assignment is the trigger - Stage 1 is complete.
 

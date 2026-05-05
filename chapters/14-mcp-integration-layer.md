@@ -4,7 +4,7 @@ An agent that can write code but cannot read a Jira ticket, query a database, or
 
 The Model Context Protocol[MCP-spec] is a standard published by Anthropic in late November 2024 that lets agents interact with external systems through structured tool definitions. Created by David Soria Parra and Justin Spahr-Summers at Anthropic, MCP uses a JSON-RPC client-server architecture with a deliberately minimal primitive model.[Anthropic-MCP] The server side exposes three primitives: Prompts (templated interaction patterns), Resources (structured data the agent can read), and Tools (functions the agent can invoke with typed arguments). The client side provides two primitives: Roots (filesystem or project scopes that anchor the agent's context) and Sampling (the ability for a server to request LLM completions back through the client). This asymmetry is intentional. Servers expose capabilities; clients provide the intelligence and the security boundary. The design echoes Microsoft's Language Server Protocol (LSP), which standardized how editors interact with language-specific tooling - a parallel that multiple observers have noted and that explains why adoption was so rapid among developers who remembered the pre-LSP era of per-editor, per-language plugins.[Orosz-MCP]
 
-MCP succeeded not because it was technically sophisticated but because it was simple enough that people actually built servers for it. Michael Hunger[ANDev-010] of Neo4j built his first MCP server within two weeks of the protocol's publication. Within months, registries listed thousands of servers. By early 2026, every major agent - Claude Code, Cursor, Codex, Gemini CLI - supported MCP as the default integration layer.
+MCP succeeded because it was simple enough that people actually built servers for it. Michael Hunger[ANDev-010] of Neo4j built his first MCP server within two weeks of the protocol's publication. Within months, registries listed thousands of servers. By early 2026, every major agent - Claude Code, Cursor, Codex, Gemini CLI - supported MCP as the default integration layer.
 
 The ecosystem momentum confirmed MCP as a de facto standard rather than a single-vendor experiment. OpenAI adopted MCP support in March 2025. Google DeepMind followed in April 2025. Server downloads grew from roughly 100,000 to over 8 million in the first five months after launch, and by the protocol's first anniversary the SDKs were averaging 97 million monthly downloads.[Anthropic-MCP] In May 2025, Anthropic donated MCP to the newly established Agentic AI Foundation under the Linux Foundation, with Block, OpenAI, Google DeepMind, and Microsoft as co-founders.[AAIF] The governance move matters for factory builders: MCP is no longer a protocol you adopt at the discretion of one company. It is an open standard with multi-vendor governance, which reduces the risk of building your integration layer on it.
 
@@ -26,13 +26,13 @@ The factory pipeline from Chapter 2 has seven stages. MCP servers participate in
 
 ## The Federation Layer
 
-Something interesting happens when you connect a dozen MCP servers to a single agent. The agent becomes a federation layer across systems that were never designed to work together.
+When you connect a dozen MCP servers to a single agent, it becomes a federation layer across systems that were never designed to work together.
 
 Michael Hunger articulates this clearly: "In your assistant, basically all the things come together as tools. And then the assistant actually creates this almost like a federation layer across them. It takes the context of your code and your project into account plus the instructions and the conversations. So it can cross systems without you having to copy over stuff."[ANDev-010]
 
 Consider what this means in practice. An agent can take a failing test from the CI/CD system, correlate it with a production error from Sentry, find the relevant ticket in Linear, pull the associated documentation, and propose a fix - all in a single agentic loop. Before MCP, each of those steps required a developer to open a different tool, copy information between systems, and synthesize the result mentally. The agent does the same thing, but through tool calls, and it does it at 3 AM on a Saturday when nobody is watching.
 
-This federation capability is the real power of MCP in the factory. Individual tool calls are useful. The ability to chain tool calls across systems in service of a higher-level goal is transformative. It is also what makes MCP security so important, but we will get to that.
+This federation capability is the real power of MCP in the factory. Individual tool calls are useful; the ability to chain them across systems in service of a higher-level goal is transformative. It is also what makes MCP security so important.
 
 > **Case Study: Sentry's MCP Server and Embedded Agents**[ANDev-015]
 >
@@ -42,7 +42,7 @@ This federation capability is the real power of MCP in the factory. Individual t
 
 ## Agents Inside Tools: Nested Non-Determinism
 
-Cramer's embedded agents pattern deserves deeper examination because it represents a design choice that every factory builder will face. The question is: should an MCP tool be a thin wrapper around a deterministic API call, or should it contain intelligence of its own?
+Cramer's embedded agents pattern represents a design choice every factory builder will face: should an MCP tool be a thin wrapper around a deterministic API call, or should it contain intelligence of its own?
 
 The thin wrapper approach is predictable. The MCP tool receives structured input, makes one or more API calls, and returns structured output. The logic is deterministic. The calling agent provides the intelligence; the tool provides the execution. This works for 80% of integrations.
 
@@ -54,7 +54,7 @@ The pragmatic approach: start with thin wrappers. Introduce embedded agents only
 
 ## Agent-to-Agent Communication: ACP
 
-MCP connects agents to tools. But what connects agents to other agents?
+MCP connects agents to tools, but what connects agents to other agents?
 
 The Agent Communication Protocol[ACP], created by Zed and announced in early 2026, addresses this gap. Cameron McLaughlin of Zed describes the motivation through an analogy: "We all remember the world before LSP and how every editor had to make their own extension for every language. LSP was pretty revolutionary in allowing lots of editors to speak the same language. It's obvious to us that we need a similar protocol for agents."[Zed-ACP]
 
@@ -66,7 +66,7 @@ For the factory, ACP complements MCP rather than replacing it. MCP is agent-to-s
 
 ## MCP Gateway Patterns for Enterprise
 
-Connecting agents to everything sounds powerful until you are the security team responsible for what those agents can access. Enterprise deployment of MCP requires a control layer between agents and the MCP servers they call.
+Connecting agents to everything sounds powerful until you are the security team responsible for what they can access. Enterprise deployment of MCP requires a control layer between agents and the MCP servers they call.
 
 Michael Hunger proposes the concept of proxy MCP servers: "One MCP server that proxies another one and actually does filtering of the content that goes through. You basically add a layer of security on the ingoing and outgoing data where you can validate certain things."[ANDev-010]
 
@@ -98,7 +98,7 @@ The limitation is that WebMCP currently works only in visible browsers, not head
 
 ## MCP Security: One in Seven Can Hack Your Machine
 
-Here is the uncomfortable reality. Every MCP server you connect to your factory is an attack surface.
+Every MCP server you connect to your factory is an attack surface.
 
 Gergely Orosz's analysis in *The Pragmatic Engineer* described MCP's security model as "woefully fragile."[Orosz-MCP] His concern is specific: MCP servers typically run with the same permissions as the user's development environment, which often means SSH key access, cloud credentials, and write access to production repositories. An attacker who compromises an MCP server - or publishes a malicious one - inherits those permissions. Orosz notes that the LSP parallel cuts both ways. LSP made language tooling universal, but it also created a class of extensions that run with elevated privileges inside every developer's editor. MCP replicates that pattern at a higher stakes level because the agent calling the tools has autonomous decision-making capability that a language server never had.
 
@@ -114,7 +114,7 @@ The GitHub MCP server vulnerability that Hunger and Simon Maple[ANDev-010] discu
 
 Hunger identifies the core issue: "The data and control plane are merged. That's one of the big challenges that we need to solve in AI systems anyway. Currently data and instructions are not separate."[ANDev-010] Until models can reliably tag and differentiate between instruction tokens and data tokens, every MCP server that returns user-controlled content is a potential injection vector.
 
-For the factory, this means MCP security is not optional hardening. It is a prerequisite for headless operation. A factory running unattended at 3 AM cannot rely on a human to catch a suspicious tool call. The mitigations are layered:
+For the factory, MCP security is not optional hardening - it is a prerequisite for headless operation. A factory running unattended at 3 AM cannot rely on a human to catch a suspicious tool call. The mitigations are layered:
 
 1. **Version pinning.** Never run `npx something@latest` for an MCP server. Pin to a specific version and audit before upgrading. As Vermeer warns: "It was safe yesterday. Today it's not. And you're pulling that in. And you're none the wiser."[ANDev-046]
 
@@ -155,12 +155,10 @@ Everything else can be added incrementally as you identify bottlenecks where a d
 
 ## The Integration Tax
 
-MCP does not eliminate integration work. It standardizes it. You still need to choose which servers to run, configure authentication, manage versions, enforce security policies, and handle the inevitable cases where an MCP server returns unexpected data or goes down entirely.
-
-What MCP eliminates is the *per-agent* integration tax. Without MCP, every agent and every tool needs its own adapter for every system. With MCP, you build the integration once (as an MCP server) and every agent in your factory can use it. The N-by-M problem of agents times systems reduces to an N-plus-M problem of agents plus servers.
+MCP does not eliminate integration work - it standardizes it. You still need to choose which servers to run, configure authentication, manage versions, enforce security policies, and handle the inevitable cases where an MCP server returns unexpected data or goes down entirely. What MCP eliminates is the *per-agent* integration tax. Without MCP, every agent needs its own adapter for every system. With MCP, you build the integration once and every agent in your factory can use it. The N-by-M problem of agents times systems reduces to an N-plus-M problem of agents plus servers.
 
 Hunger draws the parallel to GraphQL's adoption in 2016: "It kind of feels a lot like in the spirit of when GraphQL came out. There's the spec, the working groups, everyone is jumping on it. There's lots of energy and enthusiasm. It's a grassroots movement."[ANDev-010] The comparison is apt. GraphQL succeeded because it solved a real problem (over-fetching and under-fetching in REST APIs) with a simple enough protocol that adoption was practical. MCP succeeds for the same reason: it solves a real problem (connecting agents to systems) with a protocol simple enough that a single developer can build a server in a weekend.
 
-The protocol will mature. The security story will improve. Server registries will consolidate. Gateway products will emerge. But the fundamental architecture - agents talking to external systems through structured tool definitions - is the settled answer to the integration question. Build your factory's integration layer on it.
+The protocol will mature, the security story will improve, server registries will consolidate, gateway products will emerge. The fundamental architecture - agents talking to external systems through structured tool definitions - is the settled answer to the integration question. Build your factory's integration layer on it.
 
 ---

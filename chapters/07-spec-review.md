@@ -8,7 +8,7 @@ The spec review is where this cascade gets cut. It is the highest-leverage revie
 
 ## Why Spec Review Is Different from Code Review
 
-Code review asks: "Is this implementation correct?" Spec review asks a harder question: "Are we building the right thing?"
+Code review asks: "Is this implementation correct?" Spec review asks: "Are we building the right thing?"
 
 The distinction matters because the two reviews require fundamentally different skills. Code review is pattern matching against known good practices: correct error handling, proper resource cleanup, adherence to the type system. An experienced engineer can review code in a language they have not written in years and still catch most defects. The review is grounded in implementation primitives that transfer across domains.
 
@@ -16,7 +16,7 @@ Spec review has no such primitives. It requires understanding the business domai
 
 Research on code review confirms something practitioners have long suspected: review's primary value is not bug-finding. Bacchelli and Bird's study of code review at Microsoft, presented at ICSE 2013, found that reviewers deliver more value through knowledge transfer, team awareness, and shared understanding than through defect detection.[Bacchelli-2013] If this is true for code review - where defect detection seems like the obvious goal - the implication for spec review is even stronger. Spec review's primary value is not catching errors in the specification, though it does that. Its primary value is building shared understanding of intent across the team. When a product manager, an architect, and a domain expert all review the same spec, they leave with a common mental model of what the system will do. That shared understanding prevents an entire class of integration failures, miscommunications, and "I thought you meant..." conversations downstream.
 
-This is precisely why spec review is more accessible than code review. You do not need to understand Python or React to evaluate whether a behavioral description matches business intent. A product manager, a designer, a domain expert - anyone who understands what the software is supposed to do can participate meaningfully in spec review. They cannot review code. They can absolutely review specs.
+Spec review is more accessible than code review for exactly this reason. You do not need to understand Python or React to evaluate whether a behavioral description matches business intent. A product manager, a designer, a domain expert - anyone who understands what the software is supposed to do can participate meaningfully in spec review, even if they cannot review code.
 
 Cian Clarke at NearForm puts it directly: "If you are writing outputs purely for the consumption of a model, you're probably not really reviewing what it is that's been generated. If you're generating a PRD off of a transcript and just blindly accepting it, you've probably missed the purpose of spec driven development in the first place."[ANDev-034] The review is the point. Skip it, and you have added process without adding value.
 
@@ -82,9 +82,7 @@ Specs are the meeting point between business intent and technical reality. Somet
 
 A stakeholder wants real-time collaborative editing. The architect knows the existing system is built on a request-response model with no WebSocket infrastructure, and the timeline is two weeks. A stakeholder wants favorites to sync across devices. The technical reviewer knows this requires user accounts, and the product currently has no authentication system.
 
-These conflicts must be resolved in the spec, not in the code. If negotiation is deferred to implementation, one of two things happens: the agent builds something that meets the spec but is architecturally unsound, or the implementing engineer quietly descopes the feature without the stakeholder's knowledge. Both outcomes are worse than a difficult conversation at spec review time.
-
-Spec review is the cheapest place to have that conversation. No code has been written. No agent tokens have been spent. No tests need to be thrown away. The only cost is human time in discussion, and that discussion would have happened eventually, just at a point where changing direction is far more expensive.
+These conflicts must be resolved in the spec, not in the code. If negotiation is deferred to implementation, one of two things happens: the agent builds something that meets the spec but is architecturally unsound, or the implementing engineer quietly descopes the feature without the stakeholder's knowledge. Both outcomes are worse than a difficult conversation at spec review time - and that conversation would have happened eventually, just at a point where changing direction is far more expensive.
 
 Clarke frames the cost curve starkly: "Ambiguity at a minimum becomes some sort of hallucinated feature that the model has made up and potentially becomes masses of rework and wasted tokens. And ultimately real code smell in the repository as well."[ANDev-034] Requirements debt, as he calls it, is the new technical debt: the cost of incomplete or incorrect specs that propagate through the pipeline and create defects that are harder to trace because they look like implementation bugs but are actually specification bugs.
 

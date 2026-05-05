@@ -2,13 +2,13 @@
 
 The agent needs a safe place to work. Not a sandbox in the "limited playground" sense, but a fully provisioned environment where it can clone code, install dependencies, run builds, execute tests, and produce a merge request without touching mainline or colliding with other agents doing the same thing in parallel.
 
-This is not a nice-to-have. Without isolation, your AI code factory is one bad agent run away from corrupting shared state. With a single developer on a laptop, the blast radius of a mistake is one working directory. With a factory producing dozens of branches per day, a rogue agent writing to the wrong directory, exhausting disk space, or corrupting a shared database can cascade into every concurrent task.
+Without isolation, your AI code factory is one bad agent run away from corrupting shared state. With a single developer on a laptop, the blast radius of a mistake is one working directory. With a factory producing dozens of branches per day, a rogue agent writing to the wrong directory, exhausting disk space, or corrupting a shared database can cascade into every concurrent task.
 
 Branch sandboxing solves this by giving each agent task its own isolated world: a branch, a working directory, a set of dependencies, and access to the services it needs. When the task is done - merged or abandoned - the world is torn down. Nothing lingers.
 
 ## Reproducibility as Foundation
 
-Before isolation, reproducibility. There is no point creating twenty isolated environments if each one behaves differently because of undeclared dependencies, version drift, or stale caches.
+Before isolation, reproducibility: there is no point creating twenty isolated environments if each one behaves differently because of undeclared dependencies, version drift, or stale caches.
 
 Ron Efroni, CEO of Flox[Flox] and president of the NixOS Foundation, puts the problem in sharp terms. AI, he argues, is "the great multiplier - including multiplying of probabilities."[ANDev-003] When a human developer builds code once a day, a 2% chance of environment inconsistency is a minor annoyance that surfaces maybe once a month. When a factory is spinning up fifty agent environments per day, that 2% rate produces one broken environment per day. Every day. And unlike a human who notices that something feels off, the agent will cheerfully build, test, and submit a merge request from a broken environment, producing code that works on its machine and nowhere else.
 
@@ -56,7 +56,7 @@ Headless mode is where sandboxing becomes a real systems problem, and also where
 
 The lifecycle is straightforward. A task enters the pipeline from whatever trigger source the factory uses: a ticket status change, a webhook, a scheduled run. The orchestrator provisions a sandbox from a template: a container image, a cloud dev environment definition, or a VM snapshot. The sandbox clones the repository, checks out the target branch, installs dependencies, and starts any required services. The agent runs, producing code changes. The validation suite runs against those changes. If validation passes, the sandbox opens a merge request and notifies the appropriate reviewers. Regardless of outcome, the sandbox is torn down after a configured retention period.
 
-This is cattle, not pets. No sandbox is special. No sandbox has state worth preserving beyond the Git branch it produced. If a sandbox fails mid-run, the correct response is to tear it down and start a new one, not to debug it in place. This disposability is a feature, not a limitation: it means you never accumulate environment cruft, never have a "works on sandbox #7 but not on sandbox #12" problem, and never waste time maintaining long-lived development environments.
+This is cattle, not pets. No sandbox is special. No sandbox has state worth preserving beyond the Git branch it produced. If a sandbox fails mid-run, tear it down and start a new one - disposability means you never accumulate environment cruft, never have a "works on sandbox #7 but not on sandbox #12" problem, and never waste time maintaining long-lived development environments.
 
 > **Case Study: Environment Reproducibility at Scale**[ANDev-003]
 >
@@ -84,7 +84,7 @@ In practice, most factories start with optimistic concurrency and add locking or
 
 ## Ephemeral Environments as Feedback
 
-Sandboxes are not just isolation mechanisms. They are feedback tools.
+Sandboxes are not just isolation mechanisms - they are feedback tools.
 
 > **Case Study: Preview Deployments as Agent Feedback**[ANDev-031]
 >
@@ -151,4 +151,4 @@ The mental model that makes this work is thinking of the entire sandbox as a fun
 
 This is not aspirational architecture. Teams running headless agent factories today have converged on this pattern because it is the only one that scales. You cannot debug sandbox #47 at 3 AM when you have fifty tasks queued behind it. You kill it and start fresh. You cannot hand-tune an environment for a specific agent task. You declare what the environment should contain and let automation build it. You cannot maintain long-lived staging environments for each agent. You provision on demand and tear down on completion.
 
-The question is not whether your factory will adopt this pattern. The question is whether you build it deliberately or arrive at it through a series of painful incidents. Build it deliberately. Your on-call engineer at 3 AM will thank you.
+Build this pattern deliberately or arrive at it through painful incidents. Your on-call engineer at 3 AM will thank you.

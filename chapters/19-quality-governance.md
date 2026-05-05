@@ -4,7 +4,7 @@ The factory runs across multiple teams. Three write TypeScript. Two write Python
 
 Now someone asks: "Do all our APIs validate input against injection attacks?" And nobody can answer confidently, because the question cuts across every team, every repo, every agent configuration, and every CI pipeline in the organization.
 
-This is the governance problem. Not whether individual teams produce good code - the validation gates from Chapter 11 handle that. The governance problem is whether the organization as a whole maintains consistent quality floors that no team can accidentally drop below. In a traditional org, governance relies on humans following documented standards. In a headless factory, that approach fails. Humans are not writing the code. They are not even present when the code is produced. If governance is not encoded in infrastructure, it does not exist.
+The governance problem is not whether individual teams produce good code - the validation gates from Chapter 11 handle that. The governance problem is whether the organization as a whole maintains consistent quality floors that no team can accidentally drop below. In a traditional org, governance relies on humans following documented standards. In a headless factory, that approach fails. Humans are not writing the code. They are not even present when the code is produced. If governance is not encoded in infrastructure, it does not exist.
 
 ## What Gets Governed at Org Level
 
@@ -30,7 +30,7 @@ Seven categories. Not seventy. The temptation to add "code style consistency" or
 
 ## How Standards Are Encoded
 
-A standard that exists only as a document in Confluence is not a standard. It is a suggestion. In the headless factory, standards must be machine-readable because the machines are doing the work.
+A standard that exists only as a document in Confluence is not a standard - it is a suggestion. In the headless factory, standards must be machine-readable because the machines are doing the work.
 
 Standards encode into two delivery mechanisms, mirroring the context hierarchy from Chapter 8.
 
@@ -194,8 +194,6 @@ In a headless factory, governance is infrastructure. The standards are code. The
 
 This is the power of the headless model for governance. In interactive development, governance is a tax on developer attention. Developers have to remember the rules, check their own compliance, and choose to follow the standards even when they are in a hurry. Some do. Some do not. The result is inconsistency.
 
-In headless mode, the agent has no choice. It receives the org-level instructions. It produces code. The pipeline validates the output against org-level gates. If the output fails, it does not merge. The agent does not get tired, does not cut corners on Friday afternoon, does not decide that this one PR is too urgent for the usual checks. Governance is not a request. It is a constraint of the execution environment.
-
-This is not a minor difference. It is the difference between a quality program and a quality system. Programs depend on human compliance. Systems enforce invariants mechanically. The headless factory makes mechanical enforcement the default, which means the quality floor is real - not aspirational, not documented-but-ignored, but actually, measurably real. Every commit, every repo, every team.
+In headless mode, the agent has no choice. It receives the org-level instructions, produces code, and the pipeline validates the output against org-level gates. If the output fails, it does not merge. The agent does not get tired, does not cut corners on Friday afternoon, does not decide that this one PR is too urgent for the usual checks. Governance is not a request - it is a constraint of the execution environment. That distinction is the difference between a quality program and a quality system. Programs depend on human compliance. Systems enforce invariants mechanically. The headless factory makes mechanical enforcement the default, which means the quality floor is real - not aspirational, not documented-but-ignored, but actually, measurably real. Every commit, every repo, every team.
 
 Build the floor into the infrastructure. Then stop worrying about whether people are following the rules.

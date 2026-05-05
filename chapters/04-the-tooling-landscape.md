@@ -2,11 +2,11 @@
 
 Nobody builds an AI code factory from scratch. Not because they cannot - Yaniv Aknin[ANDev-033] at Tessl proved you can get a working coding agent in under 100 lines of Python - but because the engineering required to go from "working demo" to "production-grade factory" is enormous. The tools you choose determine how much of that engineering you do yourself versus inherit from someone else.
 
-Aknin's nano-agent is instructive precisely because it works. A 250-byte system prompt ("you're a coding agent, do well"), an execute-command tool, read-file, write-file, and a simple while loop. Asked to build a to-do app, it produces something functional and decent-looking. On Terminal Bench[TerminalBench], a respected coding benchmark, an agent of similar minimalism - the mini SWE agent from Princeton[SWE-agent] - lands in 15th place, within a competitive cohort of much more sophisticated systems. So if a hundred lines gets you 80% of the way there, what do the other thousands of lines in flagship agents actually buy?
+Aknin's nano-agent is instructive because it works. A 250-byte system prompt ("you're a coding agent, do well"), an execute-command tool, read-file, write-file, and a simple while loop. Asked to build a to-do app, it produces something functional and decent-looking. On Terminal Bench[TerminalBench], a respected coding benchmark, an agent of similar minimalism - the mini SWE agent from Princeton[SWE-agent] - lands in 15th place, within a competitive cohort of much more sophisticated systems. So if a hundred lines gets you 80% of the way there, what do the other thousands of lines in flagship agents actually buy?
 
-The answer, as we will see throughout this chapter, is reliability, safety, team coordination, and the ability to handle the messy edge cases that benchmarks do not test.
+The answer is reliability, safety, team coordination, and the ability to handle the messy edge cases that benchmarks do not test.
 
-This is the fundamental composition decision every team faces. You understood the pipeline stages in Chapter 2. You know how to think about context engineering from Chapter 3. Now you need to pick the machinery. The question is not "which tool is best" - that framing leads to religious wars and regret. The question is: which combination of tools gives your team the most leverage at the least cost in flexibility?
+This is the fundamental composition decision every team faces. The question is not "which tool is best" - that framing leads to religious wars and regret. The question is: which combination of tools gives your team the most leverage at the least cost in flexibility?
 
 The landscape breaks into four categories. Most organizations end up assembling pieces from all four.
 
@@ -102,7 +102,7 @@ Not everything needs to be an agent. Some pipeline stages are better served by t
 
 The pattern across stage-specific tools is consistent: they trade flexibility for reliability. An agent harness can theoretically handle any stage of the pipeline. A stage-specific tool handles one stage but handles it with guarantees that a general-purpose agent cannot provide.
 
-This is not a small distinction. When you ask an LLM to review a pull request, you get a probabilistic assessment that may or may not catch the critical issue. When you run OpenRewrite's Spring Boot migration recipe, you get a deterministic transformation that either succeeds or fails cleanly. Both are valuable. They are not interchangeable. The AI code factory needs both probabilistic intelligence for novel problems and deterministic tooling for known patterns.
+When you ask an LLM to review a pull request, you get a probabilistic assessment that may or may not catch the critical issue. When you run OpenRewrite's Spring Boot migration recipe, you get a deterministic transformation that either succeeds or fails cleanly. Both are valuable and not interchangeable. The AI code factory needs both probabilistic intelligence for novel problems and deterministic tooling for known patterns.
 
 ## Infrastructure You Already Have
 
@@ -112,15 +112,15 @@ The fourth category is easy to overlook because it is already in your stack. You
 
 **Docker and container runtimes** provide the sandboxed execution environments where agents run safely. When an agent wants to execute code, test changes, or validate builds, it needs an isolated environment where a stray `rm -rf` does not destroy anything important. Cian Clarke at NearForm makes this point explicitly: "if it decides to rm -rf /*, that's okay by me because I have everything in git and it's in a container."[ANDev-034]
 
-**Your existing test suites** become dramatically more important, not less. In a traditional workflow, tests validate human-written code. In an AI-native workflow, tests are the primary mechanism through which agents verify their own work and through which humans build trust in agent output. Clarke frames the trust equation directly: "The more that models are able to actually test their outputs and prove that what they claim is working is in fact truth through a completely separate artifact - the more that we can trust that autonomy."[ANDev-034]
+**Your existing test suites** become more important, not less. In a traditional workflow, tests validate human-written code. In an AI-native workflow, tests are the primary mechanism through which agents verify their own work and through which humans build trust in agent output. Clarke frames the trust equation directly: "The more that models are able to actually test their outputs and prove that what they claim is working is in fact truth through a completely separate artifact - the more that we can trust that autonomy."[ANDev-034]
 
 **Your CI/CD pipeline** gains a new role. Beyond its traditional function of building, testing, and deploying code, it becomes the enforcement layer for the AI code factory. Hooks that run on every commit, gates that block merges when quality thresholds are not met, automated rollbacks when production metrics deviate - all of this existed before AI agents, but it matters more now because the volume of changes is higher and the human review bandwidth is lower.
 
-The point is not that you need new infrastructure. The point is that your existing infrastructure needs to be excellent. A team with spotty test coverage, a manual deployment process, and a CI pipeline that takes 45 minutes to run will have a miserable time adopting AI-native development. The factory amplifies whatever quality culture you already have - both the good parts and the bad.
+You do not need new infrastructure - you need your existing infrastructure to be excellent. A team with spotty test coverage, a manual deployment process, and a CI pipeline that takes 45 minutes to run will have a miserable time adopting AI-native development. The factory amplifies whatever quality culture you already have - both the good parts and the bad.
 
 ## Interactive Tools vs. Headless Infrastructure
 
-Before discussing composition, there is a more fundamental distinction to make. The four categories above mix two fundamentally different types of tooling: tools designed for a developer at the controls, and infrastructure designed to run without one.
+Before discussing composition, there is a key distinction to make. The four categories above mix two different types of tooling: tools designed for a developer at the controls, and infrastructure designed to run without one.
 
 **Interactive tools** - Claude Code, Cursor, Aider, Kiro - assume a human is driving the session. The developer starts the agent, provides guidance, reviews output in real time, and course-corrects when the agent drifts. These tools are the learning phase of factory adoption. They build intuition, help teams develop context engineering skills, and handle the complex or novel work where human judgment at every step still matters.
 
@@ -184,7 +184,7 @@ Goose's architecture is designed explicitly for this spectrum. Because it is pro
 
 ## Making the Choice
 
-There is no single correct answer to the tooling question. But there are questions that reliably lead teams to the right answer for their situation.
+There is no single correct answer to the tooling question, but there are questions that reliably lead teams to the right answer for their situation.
 
 **How much of the pipeline do you need today?** If you are starting from nothing and need to ship quickly, a full-pipeline platform removes months of integration engineering. If you already have a mature CI/CD pipeline, strong test coverage, and established review practices, an agent harness that plugs into your existing infrastructure may give you more leverage with less disruption.
 
