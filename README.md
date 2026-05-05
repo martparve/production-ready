@@ -17,6 +17,8 @@
 
 ---
 
+*Production Ready* draws on 190 sources across academic research, industry reports, practitioner blogs, and over 50 podcast episodes featuring engineers from Stripe, Shopify, Google, Anthropic, and dozens of other organizations building with AI agents in production.
+
 **[Download EPUB](production-ready.epub)** for Kindle and other e-readers.
 
 ## Reading
