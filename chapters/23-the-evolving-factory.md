@@ -1,4 +1,4 @@
-# Chapter 22: The Evolving Factory
+# Chapter 23: The Evolving Factory
 
 The factory you built in Chapters 1 through 19 is already out of date - not broken, not wrong, but the model you tuned your context for last month has been superseded, the tool that anchored your agent orchestration layer just shipped a major version with different defaults, and the patterns you encoded in your instruction files reflect capabilities from three months ago. The defining characteristic of AI-native development in 2026 is that the factory is never finished. Unlike a CI/CD pipeline that you set up once and update quarterly, the AI code factory requires continuous evolution because its core component - the model - changes faster than any other piece of infrastructure you have ever operated.
 

@@ -23,7 +23,7 @@ CITE_KEY = (
     r'|[A-Z][a-z]+[-]\d+'
     r'|BMAD|Goose|Kiro|Devin|Cursor|Aider|Factory|Graphite|CodeRabbit|Qodo'
     r'|Nix|Flox|Dash0|Tessl|SpecKit|BacklogMD|TerminalBench|Guardrails|WebMCP'
-    r'|AAIF|ACP|TBD|promptfoo'
+    r'|AAIF|ACP|TBD|promptfoo|METR'
 )
 CITE_RE = re.compile(r'\[(' + CITE_KEY + r')\]')
 

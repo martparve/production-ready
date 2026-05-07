@@ -18,7 +18,7 @@ Steve Kaliski, Stripe's head of AI platform, emphasized why this matters: "Not o
 
 **500+ internal tools.** Stripe built a centralized MCP server called Toolshed that consolidates over 500 tools spanning internal systems and third-party platforms: documentation, ticket details, build status, code intelligence via Sourcegraph, Slack, Google Drive, Git, and their internal data catalog.[ByteByteGo-Stripe]
 
-The lesson is direct. Stripe did not build infrastructure for agents and then discover that it also helped humans. They built infrastructure for humans over ten years and discovered that it was precisely what agents needed. Chapter 21's prerequisites section (automated testing, clean CI, version control discipline, documented conventions) describes the minimum viable version of what Stripe had already achieved at scale.
+The lesson is direct. Stripe did not build infrastructure for agents and then discover that it also helped humans. They built infrastructure for humans over ten years and discovered that it was precisely what agents needed. Chapter 22's prerequisites section (automated testing, clean CI, version control discipline, documented conventions) describes the minimum viable version of what Stripe had already achieved at scale.
 
 As one analyst put it: "The gap between 'AI demo' and 'AI in production' is mostly an infrastructure gap. The model is the easy part."[CodeRabbit]
 
@@ -154,13 +154,13 @@ During Stripe's internal Atlas Fix-It Week, Minions resolved 30% of all bugs aut
 
 Every Minion-generated PR goes through human code review before merging. Stripe is explicit that "human review isn't ceremonial but load-bearing."[CodeRabbit] The review catches the errors that the validation pipeline misses - logic mistakes, incorrect assumptions, architectural violations that tests do not cover.
 
-This is Stage 2 from Chapter 22's evolution model (AI writes code, humans review everything), with elements of Stage 3 (selective review) for well-understood task categories. The mandatory review is not a temporary training wheel - it is a permanent part of the architecture, at least for now.
+This is Stage 2 from Chapter 23's evolution model (AI writes code, humans review everything), with elements of Stage 3 (selective review) for well-understood task categories. The mandatory review is not a temporary training wheel - it is a permanent part of the architecture, at least for now.
 
 ## Organizational Adoption
 
 ### The Leverage Team
 
-The system was built by a dedicated team called Leverage, whose mission is building internal productivity infrastructure.[Stripe-Minions-1] This maps to Model A from Chapter 21's team topology: a platform team builds the factory, everyone else uses it.
+The system was built by a dedicated team called Leverage, whose mission is building internal productivity infrastructure.[Stripe-Minions-1] This maps to Model A from Chapter 22's team topology: a platform team builds the factory, everyone else uses it.
 
 The agent builder framework originated from Stripe's financial operations team, not from an AI lab. Engineers working on financial operations realized that better tooling would directly improve their domain and yield dividends across the company.[Collison-Retool] This bottom-up origin is significant - the impetus came from a team feeling the pain of repetitive work, not from a top-down AI strategy mandate.
 
@@ -287,6 +287,6 @@ The deepest lesson from Stripe's Minions is not about the agent architecture. It
 
 Collison's own words are instructive: "If you're just substitution-oriented, i.e., not improving the product, I think you will suffer at the hands of somebody who is using it to improve the product."[Collison-Retool] The factory is not a substitute for engineering discipline. It is a multiplier of engineering discipline that already exists.
 
-The Stripe case study offers both encouragement and caution. Encouragement: the architecture works at production scale for well-defined task categories. Caution: the prerequisites are real, and skipping them produces the dysfunction described in Chapter 21's maturity prerequisites section - AI amplifying existing problems faster.
+The Stripe case study offers both encouragement and caution. Encouragement: the architecture works at production scale for well-defined task categories. Caution: the prerequisites are real, and skipping them produces the dysfunction described in Chapter 22's maturity prerequisites section - AI amplifying existing problems faster.
 
 The unglamorous parts of the architecture - the deterministic nodes, the 2-round CI cap, the mandatory reviewer, the curated tool subset - are doing more work than the model is.[CodeRabbit] That insight should shape how you allocate your factory-building budget: invest more in the scaffolding and less in chasing the latest model.

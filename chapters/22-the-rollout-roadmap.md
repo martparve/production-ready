@@ -1,4 +1,4 @@
-# Chapter 21: The Rollout Roadmap: From First Agent to Full Factory
+# Chapter 22: The Rollout Roadmap: From First Agent to Full Factory
 
 After eighteen chapters of architecture, validation, context engineering, security, governance, and cost management, you know what the factory looks like when it runs. Now you need to build it - and the order matters as much as what you build. Organizations that try to stand up the full headless pipeline in a single quarter learn an expensive lesson: the factory is not a product you install. It is a capability you grow. The interactive phase - engineers working alongside agents in IDEs and CLI tools - is not a detour on the way to headless operation. It is the training ground where your teams develop the judgment, the context, and the process discipline that headless operation demands.
 

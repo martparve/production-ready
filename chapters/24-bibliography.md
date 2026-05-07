@@ -118,6 +118,8 @@ AI Native Dev Podcast by Tessl, hosted by Guy Podjarny and Simon Maple. [https:/
 
 **[AwesomeAgents-Stripe]** "Stripe Minions: Coding Agents Shipping 1,300+ PRs," Awesome Agents, 2026. [https://awesomeagents.ai/news/stripe-minions-coding-agents-1300-prs/](https://awesomeagents.ai/news/stripe-minions-coding-agents-1300-prs/)
 
+**[BCG-10-20-70]** Boston Consulting Group, "The 10-20-70 Rule: Why AI Deployment Is Mostly About People," BCG, 2024. 10% algorithm, 20% technology and infrastructure, 70% people and process changes.
+
 **[BMAD]** BMAD (Build More Architect Dream) is an open-source spec-driven development framework. [https://github.com/bmad-code-org/BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD)
 
 **[Bacchelli-2013]** Alberto Bacchelli and Christian Bird, "Expectations, Outcomes, and Challenges of Modern Code Review," ICSE 2013. [https://dl.acm.org/doi/10.5555/2486788.2486882](https://dl.acm.org/doi/10.5555/2486788.2486882)
@@ -201,6 +203,8 @@ AI Native Dev Podcast by Tessl, hosted by Guy Podjarny and Simon Maple. [https:/
 
 **[Goldratt]** Goldratt, *The Goal* and Theory of Constraints. [https://www.tocinstitute.org/theory-of-constraints.html](https://www.tocinstitute.org/theory-of-constraints.html)
 
+**[Google-AI-guidance]** Google, "Internal AI Coding Guidance," June 2025. Internal document authored by engineers with deep experience in Google's own AI coding tools, providing technical credibility for AI adoption practices.
+
 **[Google-AI-SWE]** Google Research, "AI in Software Engineering at Google: Progress and the Path Ahead," 2024. [https://research.google/blog/ai-in-software-engineering-at-google-progress-and-the-path-ahead/](https://research.google/blog/ai-in-software-engineering-at-google-progress-and-the-path-ahead/)
 
 **[Goose]** Block Goose - open-source, provider-agnostic agent harness. [https://github.com/block/goose](https://github.com/block/goose)
@@ -210,6 +214,8 @@ AI Native Dev Podcast by Tessl, hosted by Guy Podjarny and Simon Maple. [https:/
 **[Graphite]** Merrill Lutsky is the CEO of Graphite, a code review platform. [https://graphite.com](https://graphite.com)
 
 **[Guardrails]** Guardrails AI - runtime validation framework for LLM outputs. [https://www.guardrailsai.com](https://www.guardrailsai.com)
+
+**[HBR-BBVA]** Harvard Business Review, "BBVA: AI Adoption at Scale," 2025. Case study of 11,000 employees adopting AI tools and teams building 4,800 custom AI-powered tools internally through distributed experimentation.
 
 **[Guo-2402]** Guo et al., "Large Language Model based Multi-Agents: A Survey of Progress and Challenges," arXiv, 2024. [https://arxiv.org/abs/2402.01680](https://arxiv.org/abs/2402.01680)
 
@@ -232,6 +238,8 @@ AI Native Dev Podcast by Tessl, hosted by Guy Podjarny and Simon Maple. [https:/
 **[Jiang-2512]** Jiang et al., "Beyond the Prompt: An Empirical Study of Cursor Rules," arXiv:2512.18925, 2025. Analysis of 401 repositories: 28.7% duplicate content, 5.68 commits average lifetime. [https://arxiv.org/abs/2512.18925](https://arxiv.org/abs/2512.18925)
 
 **[Jimenez-2310]** Jimenez et al., "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?," ICLR 2024. [https://arxiv.org/abs/2310.06770](https://arxiv.org/abs/2310.06770)
+
+**[Jogi-Pipedrive]** Agur Jõgi (CTO, Pipedrive), interview with Mart Parve, 2026-05-07. Recorded conversation (Estonian) covering Pipedrive's bottom-up AI adoption strategy, the Scooby agent case study, cultural prerequisites for distributed experimentation, and the case against concentrated innovation teams.
 
 **[Jones-defects]** Capers Jones, "Software Defect Removal Efficiency," Capers Jones & Associates, 2021. Analysis of 12,000+ software projects. [https://www.ppi-int.com/wp-content/uploads/2021/01/Software-Defect-Removal-Efficiency.pdf](https://www.ppi-int.com/wp-content/uploads/2021/01/Software-Defect-Removal-Efficiency.pdf)
 
@@ -261,13 +269,19 @@ AI Native Dev Podcast by Tessl, hosted by Guy Podjarny and Simon Maple. [https:/
 
 **[Majors-ODD]** Charity Majors, "Observability-Driven Development," charity.wtf. [https://charity.wtf/category/observability/](https://charity.wtf/category/observability/)
 
+**[March-1991]** James March, "Exploration and Exploitation in Organizational Learning," Organization Science 2(1), 1991. Foundational paper on the tension between exploration (broad experimentation) and exploitation (refining known approaches).
+
 **[Martin]** Martin Fowler, "Sacrificial Architecture," martinfowler.com. [https://martinfowler.com/bliki/SacrificialArchitecture.html](https://martinfowler.com/bliki/SacrificialArchitecture.html)
 
 **[Masterman-2404]** Masterman et al., "The Landscape of Emerging AI Agent Architectures for Reasoning, Planning, and Tool Calling: A Survey," arXiv, 2024. [https://arxiv.org/abs/2404.11584](https://arxiv.org/abs/2404.11584)
 
 **[Mavin-EARS]** EARS (Easy Approach to Requirements Syntax) is a structured natural-language syntax for writing requirements. Alistair Mavin, "EARS: Easy Approach to Requirements Syntax." [https://alistairmavin.com/ears/](https://alistairmavin.com/ears/)
 
+**[McKinsey-AI-2024]** McKinsey & Company, "The State of AI in Early 2024," McKinsey Global Survey, 2024. Only 6% of organizations achieve "high performer" AI status; majority stall in pilot-to-scale transitions. [https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai](https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai)
+
 **[McKinsey-2023]** McKinsey & Company, "Unleashing Developer Productivity with Generative AI," 2023. [https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/unleashing-developer-productivity-with-generative-ai](https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/unleashing-developer-productivity-with-generative-ai)
+
+**[METR-2025]** METR, "Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity," 2025. Randomized controlled trial finding AI tools made experienced developers 19% slower while perceived 20% faster. [https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-productivity/](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-productivity/)
 
 **[Meyer-OOSC]** Bertrand Meyer, *Object-Oriented Software Construction*, 2nd edition, Prentice Hall, 1997. [https://en.wikipedia.org/wiki/Object-Oriented_Software_Construction](https://en.wikipedia.org/wiki/Object-Oriented_Software_Construction)
 
@@ -306,6 +320,8 @@ AI Native Dev Podcast by Tessl, hosted by Guy Podjarny and Simon Maple. [https:/
 **[PE-19]** Martin Fowler, "How AI Will Change Software Engineering," The Pragmatic Engineer Podcast, November 2025. [https://newsletter.pragmaticengineer.com/p/martin-fowler](https://newsletter.pragmaticengineer.com/p/martin-fowler)
 
 **[PE-20]** Johannes Dahse, "Code Security for Software Engineers," The Pragmatic Engineer Podcast, November 2025. [https://newsletter.pragmaticengineer.com/p/code-security](https://newsletter.pragmaticengineer.com/p/code-security)
+
+**[PE-25]** Laura Tacho, "Measuring the Impact of AI on Software Engineering," The Pragmatic Engineer Podcast, January 2026. DX data on AI adoption rates across industries; regulated industries often adopt AI better due to existing review discipline.
 
 **[PE-24]** Peter Steinberger, "The Creator of Clawd: I Ship Code I Don't Read," The Pragmatic Engineer Podcast, January 2026. [https://newsletter.pragmaticengineer.com/p/the-creator-of-clawd-i-ship-code](https://newsletter.pragmaticengineer.com/p/the-creator-of-clawd-i-ship-code)
 
@@ -368,6 +384,8 @@ AI Native Dev Podcast by Tessl, hosted by Guy Podjarny and Simon Maple. [https:/
 **[Valdez]** Valdez Ladd, "How Stripe Built Secure Unattended AI Agents," Medium, 2026. [https://medium.com/@oracle_43885/how-stripe-built-secure-unattended-ai-agents-merging-1-000-pull-requests-weekly-1ff42f3fe550](https://medium.com/@oracle_43885/how-stripe-built-secure-unattended-ai-agents-merging-1-000-pull-requests-weekly-1ff42f3fe550)
 
 **[Vijaykumar-2404]** Vijaykumar et al., "AI-Powered Code Review with LLMs: Early Results," arXiv, 2024. [https://arxiv.org/abs/2404.18496](https://arxiv.org/abs/2404.18496)
+
+**[VonHippel-1988]** Eric von Hippel, *The Sources of Innovation*, Oxford University Press, 1988. Research showing that breakthroughs most often come from "lead users" who experience needs ahead of the market, not from manufacturers or centralized R&D.
 
 **[Walker-Stripe]** Steve Kaliski on X, cited in Ry Walker Research, 2026. [https://rywalker.com/research/stripe-minions](https://rywalker.com/research/stripe-minions)
 

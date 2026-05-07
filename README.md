@@ -17,7 +17,7 @@
 
 ---
 
-*Production Ready* draws on 190 sources across academic research, industry reports, practitioner blogs, and over 50 podcast episodes featuring engineers from Stripe, Shopify, Google, Anthropic, and dozens of other organizations building with AI agents in production.
+*Production Ready* draws on 199 sources across academic research, industry reports, practitioner blogs, and over 50 podcast episodes featuring engineers from Stripe, Shopify, Google, Anthropic, and dozens of other organizations building with AI agents in production.
 
 **[Download EPUB](production-ready.epub)** for Kindle and other e-readers.
 
@@ -53,10 +53,11 @@ Start with the [Introduction](chapters/00-introduction.md), then follow the chap
 18. [Evaluations: Testing the Factory Itself](chapters/18-evaluations.md)
 19. [Quality Governance](chapters/19-quality-governance.md)
 20. [Case Study: Stripe's Minions](chapters/20-case-study-stripe-minions.md)
-21. [The Rollout Roadmap](chapters/21-the-rollout-roadmap.md)
-22. [The Evolving Factory](chapters/22-the-evolving-factory.md)
+21. [Adoption Strategy](chapters/21-adoption-strategy.md)
+22. [The Rollout Roadmap](chapters/22-the-rollout-roadmap.md)
+23. [The Evolving Factory](chapters/23-the-evolving-factory.md)
 
-[Bibliography](chapters/23-bibliography.md)
+[Bibliography](chapters/24-bibliography.md)
 
 ## License
 
